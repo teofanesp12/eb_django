@@ -1,0 +1,165 @@
+{% extends "base_A4.html" %}
+{% load static %}
+{% block title %}Plano de Sessão{% endblock title %}
+{% block style %}
+table, th, td {
+  border: 2px solid black;
+  border-collapse: collapse;
+}
+p {
+  tab-size: 4;
+  margin: 0px;
+}
+{% endblock style %}
+{% block content %}
+<section class="sheet padding-10mm">
+  <table style="width:100%;">
+    <tr>
+      <td width="30%"><img src="{% static 'img/eb_1.png' %}" alt="" height="150px" style="margin-left: 40px;"/></td>
+      <td style="text-align:center;"><img src="{% static 'img/eb_brasao.png' %}" alt="" height="50px" style="margin-left: 20px;"/><br/><strong>{{ OM.nome }}<br/>({{ OM.ref }})<br/>{{ OM.nome_historico }}</strong></td>
+      <td style="align-items:center;"><img src="{{ OM.logo.url }}" height="150px" style="margin-left: 40px;" /></td>
+    </tr>
+    <tr style="text-align: center; height:35px">
+      <td width="33,33%"><strong>OM: </strong>{{ OM.abr }} </td>
+      <td width="33,33%"><strong>PLANO DE SESSÃO Nr: </strong>1</td>
+      <td width="30%"><strong>GDH: </strong>{{ GDH }}</td>
+    </tr>
+  </table>
+  <table style="width:100%; border-top: 0px;">
+    <tr>
+      <td width="50%" style="border-top: 0px;padding:5px;"><strong>FASE: </strong>{{ fase }}<br/><strong>PERÍODO: </strong>{{ periodo }}</td>
+      <td width="50%" style="border-top: 0px;padding:5px;"><strong>TURMA: </strong>{{ turma }}</td>
+    </tr>
+    <tr>
+      <td colspan="2" style="padding:5px;"><strong>MATÉRIA: </strong>{{ materia }}<br/>
+        <strong>ASSUNTO(S): </strong><p>{% for assunto in assuntos %}
+        &emsp;&nbsp;{{ assunto.nome }}<br/>
+        {% endfor %}</p>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" style="padding:5px;"><strong>OBJETIVOS: </strong><br/>
+        <strong>a. da Sessão: </strong>{{ objetivo }}<br/>
+        <strong>b. intermediários: </strong>{{ intermediario|linebreaks }}
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" style="padding:5px;"><strong>LOCAL DA INSTRUÇÃO: </strong>{{ local }}
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" style="padding:5px;"><strong>TÉCNICA(S) DE INSTRUÇÃO: </strong>{{ tecnicas }}
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" style="padding:5px;"><strong>MEIOS AUXILIARES: </strong>{{ mai }}
+      </td>
+    </tr>
+  </table>
+  <table style="width:100%;border-top: 0px;">
+    <tr>
+      <td style="border-top: 0px;padding:5px;" width="33%"><strong>INSTRUTOR(ES): </strong>
+        {{ instrutores|linebreaks }}
+      </td>
+      <td style="border-top: 0px;padding:5px;" width="33%"><strong>MONITOR(ES): </strong>
+        {{ monitores|linebreaks }}
+      </td>
+      <td style="border-top: 0px;padding:5px;" width="33%"><strong>AUXILIAR(ES): </strong>
+        {{ auxiliares|linebreaks }}
+      </td>
+    </tr>
+    <tr>
+      <td colspan="3" style="border-top: 0px;padding:5px;"><strong>MEDIDAS ADMINISTRATIVAS: </strong>
+        {{ MAdm }}
+      </td>
+    </tr>
+    <tr>
+      <td colspan="3" style="border-top: 0px;padding:5px;"><strong>MEDIDAS DE SEGURANÇA: </strong>
+        {{ MSeg }}
+      </td>
+    </tr>
+    <tr>
+      <td colspan="3" style="border-top: 0px;padding:5px;"><strong>FONTES DE CONSULTA: </strong>
+        {{ FCons }}
+      </td>
+    </tr>
+    <tr>
+      <td style="padding:5px;text-align:top;" width="33%"><strong>INSTRUTOR: </strong>
+        <br/><br/><br/><br/>
+        <strong style="text-align:center;">{{ instrutor|linebreaks }}</strong>
+      </td>
+      <td style="padding:5px;" width="33%"><strong>VISTO (Cmt SU): </strong>
+        <br/><br/><br/><br/>
+        <strong style="text-align:center;">{{ CmtSU|linebreaks }}</strong>
+      </td>
+      <td style="padding:5px;" width="33%"><strong>VISTO (S3): </strong>
+        <br/><br/><br/><br/>
+        <strong style="text-align:center;">{{ S3|linebreaks }}</strong>
+      </td>
+    </tr>
+  </table>
+</section>
+
+<section class="sheet padding-10mm">
+  <table style="width:100%;">
+    <tr style="text-align:center">
+      <td width="10%">TEMPO</td>
+      <td>DISTRIBUIÇÃO DO ASSUNTO</td>
+      <td width="10%">MAI/OBS</td>
+    </tr>
+    <tr>
+      <td style="text-align:center">{{ tempo_introducao }}</td>
+      <td style="padding:5px;">
+        <strong>1. INTRODUÇÃO</strong>
+        {{ introducao|linebreaks }}
+        <strong>a. OBJETIVOS</strong>
+        {{ objetivos|linebreaks }}
+<strong>b. Para atingir esses objetivos, seguiremos o seguinte SUMÁRIO:</strong>
+{{ sumario|safe }}
+<strong>d. INCENTIVO</strong>
+{{ incentivos|linebreaks }}
+      </td>
+      <td style="text-align:center"><strong><br/>P<br/>R<br/>O<br/>J<br/>E<br/>T<br/>O<br/>R<br/></strong></td>
+    </tr>
+  </table>
+</section>
+
+{% for desenvolvimento in desenvolvimentos %}
+<section class="sheet padding-10mm">
+  <table style="width:100%;">
+    <tr style="text-align:center">
+      <td width="10%">TEMPO</td>
+      <td>DISTRIBUIÇÃO DO ASSUNTO</td>
+      <td width="10%">MAI/OBS</td>
+    </tr>
+    <tr>
+      <td style="text-align:center">{{ tempo_desenvolvimento }}</td>
+      <td style="padding:5px;">
+        <strong>2. DESENVOLVIMENTO</strong>
+{{ desenvolvimento|safe }}
+      </td>
+      <td style="text-align:center"><strong><br/>P<br/>R<br/>O<br/>J<br/>E<br/>T<br/>O<br/>R<br/></strong></td>
+    </tr>
+  </table>
+</section>
+{% endfor %}
+
+<section class="sheet padding-10mm">
+  <table style="width:100%;">
+    <tr style="text-align:center">
+      <td width="10%">TEMPO</td>
+      <td>DISTRIBUIÇÃO DO ASSUNTO</td>
+      <td width="10%">MAI/OBS</td>
+    </tr>
+    <tr>
+      <td style="text-align:center">{{ tempo_conclusao }}</td>
+      <td style="padding:5px;">
+        <strong>3. CONCLUSÃO</strong>
+        {{ conclusao|linebreaks }}
+        <p style="height:500px;"></p>
+      </td>
+      <td style="text-align:center"><strong><br/>P<br/>R<br/>O<br/>J<br/>E<br/>T<br/>O<br/>R<br/></strong></td>
+    </tr>
+  </table>
+</section>
+{% endblock content %}

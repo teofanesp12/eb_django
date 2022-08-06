@@ -1,0 +1,16 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h3>{{ txt }}</h3>
+
+
+
+{% for doc in documentos %}
+<div class="list-group">
+{% for pg in doc.paginas %}
+	<a href="{% url 'boletin:getPDF' %}?id={{ doc.doc_id }}&amp;page={{ pg }}&amp;limit={{ limit }}" target="_blank" rel="noopener noreferrer" type="button" class="list-group-item list-group-item-action">Arquivo - {{ doc.doc_id }} - Pg: {{ pg }}</a>
+{% endfor %}
+</div>
+{% endfor %}
+
+{% endblock %}

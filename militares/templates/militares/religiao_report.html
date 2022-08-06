@@ -1,0 +1,54 @@
+{% extends "base_generic.html" %}
+{% load static %}
+
+{% block content %}
+
+<div>
+  <canvas id="myChart"></canvas>
+</div>
+
+{% endblock content %}
+
+
+{% block style %}
+
+<script src="{% static 'js/chart.min.js' %}" charset="UTF-8"></script>
+<script>
+const labels = [
+    {% for rel in religiao %}
+    '{{ rel.nome }}',
+    {% endfor%}
+  ];
+  const data = {
+    labels: labels,
+    datasets: [
+{% for dt in datas %}
+    {
+      label: '{{ dt.label }}',
+      backgroundColor: 'rgb({{ dt.red }}, {{ dt.green }}, {{ dt.blue }})',
+      borderColor: 'rgb(255, 99, 132)',
+      data: {{ dt.datas }},
+    },
+{% endfor %}
+    ]
+  };
+  const config = {
+  type: 'bar',
+  data: data,
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'top',
+        },
+        title: {
+          display: true,
+          text: 'Religiao'
+        }
+      }
+    },
+  };
+
+</script>
+{% endblock style %}
+{% block script %}<script type="text/javascript">const myChart = new Chart(document.getElementById('myChart'), config);</script>{% endblock script %}

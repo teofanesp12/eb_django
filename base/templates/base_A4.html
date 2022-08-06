@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>{% block title %}{% endblock title %}</title>
+  <!-- Normalize or reset CSS with your favorite library -->
+  <link rel="stylesheet" href="{% static 'css/normalize.min.css' %}">
+
+  <!-- Load paper.css for happy printing -->
+  <link rel="stylesheet" href="{% static 'css/paper.css' %}">
+
+  <!-- Set page size here: A5, A4 or A3 -->
+  <!-- Set also "landscape" if you need -->
+	<style>
+  @page {
+    size: A4
+  }
+
+  ul {
+      padding: 0;
+      margin: 0;
+    }
+
+    li {
+      border: 1px solid #000000;
+      list-style-type: none;
+      padding: 2px;
+    }
+
+    pre, table, td {
+font-size: 12pt;
+font-family: Calibri;
+margin: 0px;
+padding: 0px;
+    }
+{% block style %}{% endblock style %}
+</style>
+</head>
+<body class="A4">
+{% block content %}
+<section class="sheet padding-10mm">
+  
+</section>
+{% endblock content %}
+</body>
+</html>

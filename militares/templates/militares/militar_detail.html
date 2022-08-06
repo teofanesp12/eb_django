@@ -1,0 +1,219 @@
+{% extends "base_generic_main.html" %}
+{% load static %}
+{% block title %}Militares - {{ object.nome }}{% endblock %}
+
+{% block style %}
+
+<link href="{% static 'datepicker/css/bootstrap-datepicker3.min.css' %}" rel="stylesheet"/>
+<script src="{% static 'js/jquery-3.6.0.min.js' %}" ></script>
+<script src="{% static 'datepicker/js/bootstrap-datepicker.min.js' %}" charset="UTF-8"></script>
+
+<meta name="theme-color" content="#712cf9">
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+      .b-example-divider {
+        height: 3rem;
+        background-color: rgba(0, 0, 0, .1);
+        border: solid rgba(0, 0, 0, .15);
+        border-width: 1px 0;
+        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+      }
+
+      .b-example-vr {
+        flex-shrink: 0;
+        width: 1.5rem;
+        height: 100vh;
+      }
+
+      .bi {
+        vertical-align: -.125em;
+        fill: currentColor;
+      }
+
+      .nav-scroller {
+        position: relative;
+        z-index: 2;
+        height: 2.75rem;
+        overflow-y: hidden;
+      }
+
+      .nav-scroller .nav {
+        display: flex;
+        flex-wrap: nowrap;
+        padding-bottom: 1rem;
+        margin-top: -1px;
+        overflow-x: auto;
+        text-align: center;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+      }
+    </style>
+{% endblock style %}
+
+{% block content %}
+  <h1 class="visually-hidden">Heroes examples</h1>
+
+  <div class="px-4 py-5 my-5 text-center">
+    {% if object.photo %}
+    <img class="d-block mx-auto mb-4" src="{{ object.photo.url }}" alt="" width="172" height="157">
+    {% endif %}
+    <h1 class="display-5 fw-bold">{{ object.nome }}</h1>
+    <div class="container">
+      <div class="row "> 
+        {% if object.aptidao %}
+        <div class="col-lg-4">Aptidão especifica: <strong>{{ object.aptidao }}</strong></div>
+        {% endif %}
+      </div>
+      <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+        <a type="button" class="btn btn-primary btn-lg px-4 gap-3" href="{% url 'militar:militar-assentamentos-reportview' object.pk %}">Gerar Alterações</a>
+        <button type="button" data-bs-toggle="modal" data-bs-target="#searchBIsModal" class="btn btn-outline-secondary btn-lg px-4 ">Abrir BIs</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="b-example-divider"></div>
+
+  <div class="px-4 pt-5 my-5 text-center border-bottom">
+    <h1 class="display-4 fw-bold">Identificação</h1>
+    <div class="container-fluid text-start">
+      <div class="row justify-content-start"> 
+        <div class="col-lg-2 text-md-end">Nome de Guerra:</div>
+        <div class="col-lg-2"><strong>{{ object.nome_guerra }}</strong></div>
+        <div class="col-lg-2 text-md-end">Qualificação Militar:</div>
+        <div class="col-lg-2"><strong>{{ object.qm }}</strong></div>
+        <div class="col-lg-2 text-md-end">Número:</div>
+        <div class="col-lg-2"><strong>{{ object.numero }}</strong></div>
+        <div class="col-lg-2 text-md-end">Graduação: </div>
+        <div class="col-lg-2"><strong>{{ object.graduacao }}</strong></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="b-example-divider"></div>
+
+  <div class="px-4 pt-5 my-5 text-center border-bottom">
+    <h1 class="display-4 fw-bold">Endereço &amp; Contato</h1>
+    <div class="container-fluid text-start">
+      <div class="row justify-content-start border-bottom"> 
+        <div class="col-lg-2 text-md-end">Logradouro:</div>
+        <div class="col-lg-2"><strong>{{ object.logradouro }}</strong></div>
+        <div class="col-lg-2 text-md-end">N°:</div>
+        <div class="col-lg-2"><strong>{{ object.numero_endereco|default:"--" }}</strong></div>
+        <div class="col-lg-2 text-md-end">Bairro:</div>
+        <div class="col-lg-2"><strong>{{ object.bairro_endereco }}</strong></div>
+        <div class="col-lg-2 text-md-end">Complemento: </div>
+        <div class="col-lg-2"><strong>{{ object.complemento_endereco|default:"--" }}</strong></div>
+        <div class="col-lg-2 text-md-end">CEP: </div>
+        <div class="col-lg-2"><strong>{{ object.cep_endereco|default:"--" }}</strong></div>
+        <div class="col-lg-2 text-md-end">Cidade: </div>
+        <div class="col-lg-2"><strong>{{ object.cidade_endereco }}</strong></div>
+      </div>
+      <div class="row justify-content-start"> 
+        <div class="col-lg-2 text-md-end">Celular:</div>
+        <div class="col-lg-2"><strong>{{ object.celular|default:"--" }}</strong></div>
+        <div class="col-lg-2 text-md-end">Telefone:</div>
+        <div class="col-lg-2"><strong>{{ object.telefone|default:"--" }}</strong></div>
+        <div class="col-lg-2 text-md-end">E-mail:</div>
+        <div class="col-lg-2"><strong>{{ object.email|default:"--" }}</strong></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="b-example-divider"></div>
+
+  <div class="px-4 pt-5 my-5 text-center border-bottom">
+    <h1 class="display-4 fw-bold">Detalhes</h1>
+    <div class="container-fluid text-start">
+      <div class="row justify-content-start"> 
+        <div class="col-lg-2 text-md-end">Escolaridade:</div>
+        <div class="col-lg-2"><strong>{{ object.escolaridade }}</strong></div>
+        <div class="col-lg-2 text-md-end">Religião:</div>
+        <div class="col-lg-2"><strong>{{ object.religiao }}</strong></div>
+        <div class="col-lg-2 text-md-end">Tipagem Sanguinea:</div>
+        <div class="col-lg-2"><strong>{{ object.tipagem }}</strong></div>
+        <div class="col-lg-2 text-md-end">Naturalidade: </div>
+        <div class="col-lg-2"><strong>{{ object.naturalidade }}</strong></div>
+        <div class="col-lg-2 text-md-end">Pai: </div>
+        <div class="col-lg-2"><strong>{{ object.pai|default:"--" }}</strong></div>
+        <div class="col-lg-2 text-md-end">Mãe: </div>
+        <div class="col-lg-2"><strong>{{ object.mae|default:"--" }}</strong></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="b-example-divider"></div>
+
+
+<div class="modal fade" id="searchBIsModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form action="{% url 'boletin:search_militar' %}" method="POST">{% csrf_token %}
+      <div class="modal-header">
+        <h5 class="modal-title" id="searchModalLabel">Pesquisar BIs</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Data Inicio:</label>
+            <input type="text" class="form-control datepicker" id="dt_inicial" name="dt_inicial" data-provide="datepicker"/>
+          </div>
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">Data Final:</label>
+            <input class="form-control datepicker" id="dt_final" name="dt_final" data-provide="datepicker"/>
+          </div>
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">Limite Folhas:</label>
+            <input class="form-control" id="limit" name="limit"/>
+            <input class="form-control" id="txt" type="hidden" value="{{  object.nome }}" name="txt" />
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+        <button type="submit" class="btn btn-primary">Pesquisar</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+    <script type="text/javascript">
+
+$.fn.datepicker.dates['pt-BR'] = {
+    days: ["Domingo", "Segunda-Feira", "Terça-Feira", "Quarta-Feira", "Quinta-Feira", "Sexta-Feira", "Sábado"],
+    daysShort: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab"],
+    daysMin: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab"],
+    months: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
+    monthsShort: ["Jan", "Fev", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    today: "Hoje",
+    clear: "Limpar",
+    format: "dd/mm/yyyy",
+    titleFormat: "MM yyyy", /* Leverages same syntax as 'format' */
+    weekStart: 0
+};
+
+$(".datepicker").datepicker({
+        format: 'dd/mm/yyyy',
+        language: 'pt-BR',
+        autoclose: true,
+        todayHighlight: true,
+        calendarWeeks: true
+      });
+    </script>
+
+{% endblock %}

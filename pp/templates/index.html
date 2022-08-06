@@ -1,0 +1,30 @@
+{% extends "base_generic.html" %}
+
+{% block title %}Programa Padrão{% endblock %}
+{% block content %}
+
+<div class="row">
+{% for turma in turmas %}
+  <div class="col-sm-4">
+
+<div class="card" style="margin: 10px;">
+  <div class="card-header">
+    <h5 class="card-title">{{ turma.nome }} - {{ turma.codigo }}</h5>
+  </div>
+  {% if turma.capa %}
+  <img src="{{ turma.capa.url }}" class="card-img-top" alt="...">
+  {% else %}
+  <img src="..." class="card-img-top" alt="...">
+  {% endif %}
+  <div class="card-body">
+    <p class="card-text">{{ turma.descricao }}</p>
+  </div>
+  <div class="card-footer bg-transparent border-primary">
+    <a href="{% url 'pp:turma' turma.pk %}" class="btn btn-primary">Abrir</a>
+  </div>
+</div>
+
+  </div>
+{% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends "base_generic_main.html" %}
+{% load static %}
+{% block title %}Programa Padrão - {{ turma.codigo }}{% endblock %}
+{% block content %}
+
+  <h1 class="visually-hidden">{{ turma.nome }}</h1>
+
+  <div class="px-4 text-center">
+    {% if turma.capa %}
+    <img src="{{ turma.capa.url }}" class="d-block mx-auto mb-4 img-fluid" alt="...">
+    {% else %}
+    <img class="d-block mx-auto mb-4 img-fluid" src="{% static 'img/img_default.jpg' %}" alt="">
+    {% endif %}
+    <h1 class="display-5 fw-bold">{{ turma.nome }}</h1>
+    <div class="col-lg-6 mx-auto">
+      <p class="lead mb-4">{{ turma.descricao }}</p>
+      <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+        <button type="button" class="btn btn-primary btn-lg px-4 gap-3">Abrir</button>
+        <button type="button" class="btn btn-outline-secondary btn-lg px-4">Selecionar</button>
+      </div>
+    </div>
+  </div>
+
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Nome</th>
+      <th scope="col">Carga Horaria Diurna</th>
+      <th scope="col">Noturna</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for materia in materias %}
+    <tr>
+    <td><a href="{% url 'pp:materia' materia.pk %}">{{ materia.nome }}</a></td>
+    <td>{{ materia.tempo_diurno }}</td>
+    <td>{{ materia.tempo_noturno }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

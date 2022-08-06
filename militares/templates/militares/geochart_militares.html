@@ -1,0 +1,62 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-core.min.js" type="text/javascript"></script>
+  <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-map.min.js" type="text/javascript"></script>
+
+  <script src="https://cdn.anychart.com/geodata/2.1.1/countries/brazil/brazil.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.3.15/proj4.js" data-export="true"></script>
+</head>
+<body>
+  <div id="container" style="width: 1500px; height: 900px;"></div>
+  <script>
+    anychart.onDocumentReady(function () {
+    var data = [
+      {'id': 'BR.RO', 'value': 300},
+      {'id': 'BR.MT', 'value': 230}, 
+    ];
+
+    //
+    var map = anychart.map();
+    map.geoData(anychart.maps.brazil);
+
+    // set the series
+    var series = map.choropleth(data);
+  
+    // disable labels
+    series.labels(false);
+
+    // Creates the marker series
+    var data1 = [
+{lat: -15.60, long: -56.07, name: "Cuiabá", value: 321},
+{lat: -12.75, long: -60.16, name: "Vilhena", value: 293},
+    ];
+    var series_acme = map.marker(data1);
+    // configure tooltips
+    series_acme.tooltip().titleFormat("Cidade: {%name}");
+    series_acme.tooltip().format("Quantidade: {%value}");
+
+    // configure labels
+    series_acme.labels().format("{%name}");
+    series_acme.labels().fontSize(14);
+    series_acme.labels().fontColor("#000");
+    series_acme.labels().fontFamily("Georgia");
+
+
+    series_acme.listen("pointClick", function(e) {
+    var name = e.point.get("name");
+    alert(name);
+    if (name == "Cuiabá") {
+      
+    }
+    });
+
+    // set the container
+    map.container('container');
+    map.draw();
+  });
+  </script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+from django.contrib import admin
+
+# Register your models here.
+
+
+from .models import Militar
+from .models import Graduacao, QualificacaoMilitar, Unidade
+
+
+admin.site.register(Unidade)
+admin.site.register(Graduacao)
+admin.site.register(QualificacaoMilitar)
+
+
+from .models import VisitaMedica
+class VisitaMedicaAdminInline(admin.TabularInline):
+    model = VisitaMedica
+    extra = 0
+class VisitaMedicaAdmin(admin.ModelAdmin):
+    list_display = ("motivo", "data")
+    save_on_top = True
+    fieldsets = (
+        ("Identificação", {
+            'fields': ('militar',)
+        }),
+        ('Detalhes', {
+            'fields': ('motivo', 'data', 'medico', 'detalhes')
+        }),
+        ('Dispensado?', {
+            'classes': ('collapse','extrapretty'),
+            'fields': ('dipensado_formatura', 'dipensado_uniforme', 'dipensado_campo', 'dipensado_tfm', 'dispensado_detalhes')
+        }),
+    )
+admin.site.register(VisitaMedica, VisitaMedicaAdmin)
+
+#
+# Elogio e Punicao
+#
+from .models import Punicao, Elogio
+class PunicaoAdminInline(admin.TabularInline):
+    model = Punicao
+    extra = 0
+class ElogioAdminInline(admin.TabularInline):
+    model = Elogio
+    extra = 0
+class PunicaoAdmin(admin.ModelAdmin):
+    list_display = ("motivo", "data", "bi")
+admin.site.register(Punicao, PunicaoAdmin)
+class ElogioAdmin(admin.ModelAdmin):
+    list_display = ("motivo", "data", "bi")
+admin.site.register(Elogio, ElogioAdmin)
+
+
+from .models import FatoObservado
+class FatoObservadoAdmin(admin.ModelAdmin):
+    list_display = ("militar", "motivo", "tipo", "data")
+    radio_fields = {"tipo": admin.VERTICAL}
+class FatoObservadoAdminInline(admin.TabularInline):
+    model = FatoObservado
+    extra = 0
+admin.site.register(FatoObservado, FatoObservadoAdmin)
+
+
+class MilitarAdmin(admin.ModelAdmin):
+    list_display = ("graduacao", "numero", "nome")
+    search_fields = ['nome']
+    save_on_top = True
+    fieldsets = (
+        ("Identificação", {
+            'fields': ('nome', 'nome_guerra', 'numero', 'graduacao', 'qm', 'photo')
+        }),
+        ('Detalhes', {
+            'fields': ('aptidao', 'escolaridade', 'religiao', 'tipagem', 'naturalidade', 'pai', 'mae')
+        }),
+        ('Endereço & Contato', {
+            'fields': ('logradouro', 'numero_endereco', 'bairro_endereco', 'complemento_endereco', 'cep_endereco', 'cidade_endereco', 'celular', 'telefone', 'email')
+        }),
+    )
+    inlines = (VisitaMedicaAdminInline, PunicaoAdminInline, ElogioAdminInline, FatoObservadoAdminInline)
+admin.site.register(Militar, MilitarAdmin)

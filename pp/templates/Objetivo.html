@@ -1,0 +1,301 @@
+{% extends "base_generic_main.html" %}
+{% load static %}
+{% block title %}Programa Padrão - {{ objetivo.codigo }}{% endblock %}
+{% block content %}
+
+  <h1 class="visually-hidden">{{ objetivo.nome }}</h1>
+
+  <div class="px-4 text-center">
+    {% if objetivo.capa %}
+    <img src="{{ objetivo.capa.url }}" class="d-block mx-auto mb-4 img-fluid" alt="...">
+    {% else %}
+    <img class="d-block mx-auto mb-4 img-fluid" src="{% static 'img/img_default.jpg' %}" alt="">
+    {% endif %}
+    <h1 class="display-5 fw-bold">{{ objetivo.nome }}</h1>
+    <div class="col-lg-6 mx-auto">
+      <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+        <button type="button" class="btn btn-primary btn-lg px-4 gap-3" data-bs-toggle="modal" data-bs-target="#FormSessao">Gerar Plano de Sessão</button>
+        <button type="button" class="btn btn-danger btn-lg px-4 gap-3">Gerar Gerenciamento de Risco</button>
+        <button type="button" class="btn btn-outline-secondary btn-lg px-4">Baixar Instrução</button>
+      </div>
+      <ul class="list-group list-group-flush" style="align-items: baseline;">
+  {% for assunto in assuntos %}
+  <li class="list-group-item">{{ assunto.nome }}
+  {% if assunto.subassunto %}
+  <ul class="list-group list-group-flush list-group-numbered" style="align-items: baseline;margin-left: 20px;">
+    {% for sub in assunto.subassunto %}
+    <li class="list-group-item">{{ sub.nome }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+  </li>
+  {% endfor %}
+</ul>
+    </div>
+  </div>
+
+<div class="accordion accordion-flush mb-4" id="accordionFlushExample">
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="flush-headingOne">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+        CONDIÇÃO
+      </button>
+    </h2>
+    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+      <div class="accordion-body">{{ objetivo.condicao|linebreaks }}</div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="flush-headingTwo">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+        PADRÃO MÍNIMO
+      </button>
+    </h2>
+    <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+      <div class="accordion-body">{{ objetivo.minimo|linebreaks }}</div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="flush-headingThree">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+        SUGESTÕES PARA OBJETIVOS INTERMEDIÁRIOS
+      </button>
+    </h2>
+    <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+      <div class="accordion-body">{{ objetivo.intermediario|linebreaks }}</div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="flush-headingFor">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFor" aria-expanded="false" aria-controls="flush-collapseFor">
+        ARQUIVOS &amp; INSTRUÇÕES
+      </button>
+    </h2>
+    <div id="flush-collapseFor" class="accordion-collapse collapse" aria-labelledby="flush-headingFor" data-bs-parent="#accordionFlushExample">
+      <div class="accordion-body">
+        <li class="list-group list-group-flush">
+          {% for arq in arquivos %}
+          <ul class="list-group-item"><a href="{{ arq.arquivo.url }}">{{ arq.nome }}</a></ul>
+          {% endfor %}
+        </li>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="modal modal-xl fade" id="FormSessao" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <form action="{% url 'pp:gerar_plano_session' objetivo.pk %}" method="POST">{% csrf_token %}
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Gerar Plano de Sessão</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Plano</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="intro-tab" data-bs-toggle="tab" data-bs-target="#intro-tab-pane" type="button" role="tab" aria-controls="intro-tab-pane" aria-selected="false">Introdução</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="dev-tab" data-bs-toggle="tab" data-bs-target="#dev-tab-pane" type="button" role="tab" aria-controls="dev-tab-pane" aria-selected="false">Desenvolvimento</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="end-tab" data-bs-toggle="tab" data-bs-target="#end-tab-pane" type="button" role="tab" aria-controls="end-tab-pane" aria-selected="false">Conclusão</button>
+          </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+          <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+            <div class="row">
+              <div class="col-md-6">
+                <label for="inputFase" class="form-label">Fase</label>
+                <input type="text" class="form-control" id="inputFase" name="fase" placeholder="Instrução Individual">
+              </div>
+              <div class="col-md-6">
+                <label for="inputTurma" class="form-label">Turma</label>
+                <input type="text" class="form-control" id="inputTurma" name="turma" placeholder="Grupamento de Recrutas">
+              </div>
+              <div class="col-md-6">
+                <label for="inputOM" class="form-label">OM</label>
+                <select id="inputOM" class="form-select" name="OM">
+                  <option selected>Selecione...</option>
+                  {% for u in batalhoes %}
+                  <option value="{{ u.pk }}">{{ u.abr }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label for="inputGDH" class="form-label">GDH</label>
+                <input type="text" class="form-control" id="inputGDH" name="GDH" placeholder="Conforme QTS.">
+              </div>
+              <div class="col-md-12 text-success"><hr></div>
+              <div class="col-md-12">
+                <label for="inputMateria" class="form-label">Materia</label>
+                <input type="text" class="form-control" id="inputMateria" name="materia" value="{{ objetivo.materia.nome }}" disabled>
+              </div>
+              {% for assunto in assuntos %}
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="{{ assunto.pk }}" id="flexCheck{{ assunto.pk }}"name="assunto[]">
+                <label class="form-check-label" for="flexCheck{{ assunto.pk }}">{{ assunto.nome }}</label>
+              </div>
+              {% endfor %}
+              <div class="col-md-12 text-success"><hr></div>
+              <div class="col-md-12">
+                <label for="inputDaSessao" class="form-label">Da Sessão</label>
+                <input type="text" class="form-control" id="inputDaSessao" name="objetivo" value="{{ objetivo.nome }}"/>
+              </div>
+              <div class="col-md-12">
+                <label for="inputIntermediario" class="form-label">Intermediários</label>
+                <textarea class="form-control" id="inputDaSessao" name="intermediario">{{ objetivo.intermediario }}</textarea>
+              </div>
+              <div class="col-md-12 text-success"><hr></div>
+              <div class="col-md-6">
+                <label for="inputLocal" class="form-label">Local da Instrução</label>
+                <input type="text" class="form-control" id="inputLocal" name="local" value=""/>
+              </div>
+              <div class="col-md-6">
+                <label for="inputMAI" class="form-label">Meios Auxiliares</label>
+                <input type="text" class="form-control" id="inputMAI" name="mai" value=""/>
+              </div>
+              <div class="col-md-12 text-success"><hr></div>
+              <div class="col-md-12">
+                <p>TÉCNICA(S) DE INSTRUÇÃO:</p>
+              </div>
+              <div class="col-md-4">
+              {% for tecnica in tecnicas %}
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="{{ forloop.counter0 }}" id="tecnica_{{ forloop.counter0 }}" name="tecnica[]">
+                  <label class="form-check-label" for="tecnica_{{ forloop.counter0 }}">{{ tecnica }}</label>
+                </div>
+                {% if forloop.counter0 == 3 %}
+                </div>
+                <div class="col-md-4">
+                {% elif forloop.counter0 == 7 %}
+                </div>
+                <div class="col-md-4">
+                {% endif %}
+              {% endfor %}
+              </div>
+              
+              <div class="col-md-12 text-success"><hr></div>
+              <div class="col-md-6">
+                <label for="inputMAdm" class="form-label">Medidas Administrativas</label>
+                <textarea class="form-control" id="inputMAdm" name="MAdm">Verificar as condições do local de instrução, providenciar limpeza e arrumação do local.</textarea>
+              </div>
+              <div class="col-md-6">
+                <label for="inputMSeg" class="form-label">Medidas Segurança</label>
+                <textarea class="form-control" id="inputMSeg" name="MSeg">A instrução não oferece risco, porém caso algum militar precise de apoio médico, o mesmo será encaminhado a SSSU da OM.</textarea>
+              </div>
+              <div class="col-md-12">
+                <label for="inputFCons" class="form-label">Fontes de Consulta</label>
+                <textarea class="form-control" id="inputFCons" name="FCons"></textarea>
+              </div>
+              <div class="col-md-12 text-success"><hr></div>
+              <div class="col-md-4">
+                <label for="inputInstrutores" class="form-label">Instrutor(es).</label>
+                <textarea class="form-control" id="inputInstrutores" name="Instrutores">- </textarea>
+              </div>
+              <div class="col-md-4">
+                <label for="inputMonitores" class="form-label">Monitor(es).</label>
+                <textarea class="form-control" id="inputMonitores" name="Monitores">- </textarea>
+              </div>
+              <div class="col-md-4">
+                <label for="inputAuxiliares" class="form-label">Auxiliar(es).</label>
+                <textarea class="form-control" id="inputAuxiliares" name="Auxiliares">- </textarea>
+              </div>
+              <div class="col-md-12 text-success"><hr></div>
+              <div class="col-md-6">
+                <label for="inputCmtSU" class="form-label">Cmt SU</label>
+                <input type="text" class="form-control" id="inputCmtSU" name="CmtSU" value=""/>
+              </div>
+              <div class="col-md-6">
+                <label for="inputS3" class="form-label">S3</label>
+                <input type="text" class="form-control" id="inputS3" name="S3" value=""/>
+              </div>
+
+              <!--div class="form-floating mb-3">
+                <input type="text" class="form-control" id="recipient-name" placeholder="">
+                <label for="recipient-name" >Recipient:</label>
+              </div-->
+            </div>
+          </div>
+          <div class="tab-pane fade" id="intro-tab-pane" role="tabpanel" aria-labelledby="intro-tab" tabindex="0">
+            <div class="row">
+              <div class="col-md-4">
+                <label for="inputTempoIntroducao" class="form-label">Tempo:</label>
+                <input type="text" class="form-control" id="inputTempoIntroducao" name="tempo_introducao" value="15min"/>
+              </div>
+              <div class="col-md-12">
+                <label for="inputintroducao" class="form-label">Introdução: </label>
+                <textarea class="form-control" id="inputintroducao" name="introducao"></textarea>
+              </div>
+              <div class="col-md-6">
+                <label for="inputobjetivos" class="form-label">a. OBJETIVOS: </label>
+                <textarea class="form-control" id="inputobjetivos" name="objetivos"></textarea>
+              </div>
+              <div class="col-md-6">
+                <label for="inputincentivos" class="form-label">d. INCENTIVOS: </label>
+                <textarea class="form-control" id="inputincentivos" name="incentivos"></textarea>
+              </div>
+              <div class="col-md-12">
+                <label for="inputsumario" class="form-label">SUMARIO: </label>
+                <textarea class="form-control" id="inputsumario" name="sumario"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="dev-tab-pane" role="tabpanel" aria-labelledby="dev-tab" tabindex="0">
+            <div class="row">
+              <div class="col-md-4">
+                <label for="inputTempoDev" class="form-label">Tempo:</label>
+                <input type="text" class="form-control" id="inputTempoDev" name="tempo_desenvolvimento" value="2h 15min"/>
+              </div>
+              <div class="col-md-12">
+                <label for="inputdesenvolvimento" class="form-label">DESENVOLVIMENTO: <span class="text-muted">adicione {nova_pagina}</span> </label>
+                <textarea class="form-control" id="inputdesenvolvimento" name="desenvolvimento"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="end-tab-pane" role="tabpanel" aria-labelledby="end-tab" tabindex="0">
+            <div class="row">
+              <div class="col-md-4">
+                <label for="inputTempoConclusao" class="form-label">Tempo:</label>
+                <input type="text" class="form-control" id="inputTempoConclusao" name="tempo_conclusao" value="15min"/>
+              </div>
+              <div class="col-md-12">
+                <label for="inputconclusao" class="form-label">CONCLUSÃO: </label>
+                <textarea class="form-control" id="inputconclusao" name="conclusao" rows="14">
+    a) Será verificado se alguém precisa de atendimento médico.
+    b) Retirada de dúvidas.
+    c) Fazer uma retificação do conteúdo abordado, por meio de perguntas aos intruendos.
+    d) Se todos atingiram os padrões necessários e não haver mais nenhuma dúvida do conteúdo será feito uma síntese de todo o assunto para finalizar a instrução.
+                </textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+        <button type="submit" class="btn btn-primary">Gerar</button>
+      </div>
+    </div>
+    </form>
+  </div>
+</div>
+
+
+{% endblock %}
+
+
+{% block script %}
+<script src="{% static 'ckeditor/ckeditor.js' %}"></script>
+<script>
+CKEDITOR.replace( 'sumario' );
+CKEDITOR.replace( 'desenvolvimento' );
+</script>
+{% endblock script %}

@@ -1,0 +1,69 @@
+{% extends "base_A4.html" %}
+
+{% block title %}Alterações{% endblock title %}
+
+{% block content %}
+<section class="sheet padding-10mm">
+  <ul>
+  <li>
+    <table style="width:100%">
+      <tr>
+        <td style="width:70%">MINISTÉRIO DA DEFESA</td><td>FOLHA DE ALTERAÇÕES</td>
+      </tr>
+      <tr>
+        <td>EXÉRCITO BRASILEIRO</td><td>GUARNIÇÃO DE CUIABÁ - MT</td>
+      </tr>
+      <tr>
+        <td>CMO - 9ª RM</td><td>FOLHA Nº 01</td>
+      </tr>
+      <tr>
+        <td>44º BIMTZ- 009126</td><td></td>
+      </tr>
+      <tr>
+        <td>NOME: {{ militar.nome }}</td><td></td>
+      </tr>
+      <tr>
+        <td>POSTO/GRADUAÇÃO: {{ militar.graduacao.nome }} {{ militar.numero }}</td><td></td>
+      </tr>
+      <tr>
+        <td>ARMA/SERVIÇO/QUALIFICAÇÃO: {{ militar.qm|upper }}</td><td>1º e 2º Semestre de 2015</td>
+      </tr>
+      <tr>
+        <td>RA: 30033386437-3</td><td>PERÍODO: de 1º JAN a 31 DEZ</td>
+      </tr>
+    </table>
+
+  </li>
+  <li>
+    <pre>
+      
+    </pre>
+  </li>
+</ul>
+</section>
+
+<section class="sheet padding-10mm">
+  <ul>
+  <li>
+    <table style="width:100%">
+      <tr>
+        <td style="width:70%">44º BIMTZ</td><td>FOLHA N° 02</td>
+      </tr>
+      <tr>
+        <td>Continuação das folhas de alteração</td><td></td>
+      </tr>
+      <tr><td></td><td>1º e 2º Semestre de 2015</td></tr>
+      <tr>
+        <td>Do {{ militar.graduacao.nome }} {{ militar.nome }}</td><td>PERÍODO: de 1º JAN a 31 DEZ</td>
+      </tr>
+    </table>
+
+  </li>
+  <li>
+    <pre>
+      
+    </pre>
+  </li>
+</ul>
+</section>
+{% endblock content %}
