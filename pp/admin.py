@@ -1,5 +1,6 @@
 from django.contrib import admin
 
+from import_export.admin import ImportExportModelAdmin
 # Register your models here.
 
 from .models import Materia, Objetivo, ObjetivoParcial, Assunto, SubAssunto, FileDoc
@@ -9,7 +10,7 @@ from .models import TipoTurma
 class ObjetivoAdminInline(admin.StackedInline):
     model = Objetivo
     extra = 0
-class MateriaAdmin(admin.ModelAdmin):
+class MateriaAdmin(ImportExportModelAdmin):
     inlines = (ObjetivoAdminInline, )
     # autocomplete_fields = ['tipo_turma']
 
@@ -19,18 +20,20 @@ class AssuntoAdminInline(admin.StackedInline):
 class SubAssuntoAdminInline(admin.StackedInline):
     model = SubAssunto
     extra = 0
-class AssuntoAdmin(admin.ModelAdmin):
+class AssuntoAdmin(ImportExportModelAdmin):
     inlines = (SubAssuntoAdminInline, )
     autocomplete_fields = ['objetivo']
     search_fields = ['nome']
+    list_filter = ('objetivo__materia', )
 class SubAssuntoAdmin(admin.ModelAdmin):
     autocomplete_fields = ['assunto']
 
 class FileDocAdminInline(admin.StackedInline):
     model = FileDoc
     extra = 0
-class ObjetivoAdmin(admin.ModelAdmin):
+class ObjetivoAdmin(ImportExportModelAdmin):
     search_fields = ['nome', 'codigo']
+    list_filter = ('materia', )
     inlines = (AssuntoAdminInline, FileDocAdminInline, )
 
 class ObjetivoParcialAdmin(admin.ModelAdmin):

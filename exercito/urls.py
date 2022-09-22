@@ -23,6 +23,7 @@ urlpatterns = [
     path('', include('base.urls')),
     path('admin/', admin.site.urls),
     path('pp/', include('pp.urls')),
+    path('ndaca/', include('ndaca.urls')),
     path('interno/', include('militares.urls')),
     path('documentos/', include('boletin.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,12 +1,18 @@
 from django.shortcuts import render
 from django.views import generic
+from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
 
 from .models import Militar, Graduacao
 from base.models import Escolaridade, Religiao
+from boletin.models import BoletinDocumento
 
-class MilitarDetailView(generic.DetailView):
+class MilitarDetailView(LoginRequiredMixin, generic.DetailView):
     model = Militar
+    def get_context_data(self, **kwargs):
+        context = super(MilitarDetailView, self).get_context_data(**kwargs)
+        context['boletins'] = BoletinDocumento.objects.all()
+        return context
 
 def gerate_assentamentos(request, pk):
     context = {}

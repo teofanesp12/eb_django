@@ -15,17 +15,20 @@
     <div class="col-lg-6 mx-auto">
       <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
         <button type="button" class="btn btn-primary btn-lg px-4 gap-3" data-bs-toggle="modal" data-bs-target="#FormSessao">Gerar Plano de Sessão</button>
+        <button type="button" class="btn btn-success btn-lg px-4 gap-3">Gerar Plano de Segurança</button>
         <button type="button" class="btn btn-danger btn-lg px-4 gap-3">Gerar Gerenciamento de Risco</button>
         <button type="button" class="btn btn-outline-secondary btn-lg px-4">Baixar Instrução</button>
       </div>
       <ul class="list-group list-group-flush" style="align-items: baseline;">
   {% for assunto in assuntos %}
-  <li class="list-group-item">{{ assunto.nome }}
+  <li class="list-group-item" style="text-align: initial;">{{ assunto.nome }}
   {% if assunto.subassunto %}
-  <ul class="list-group list-group-flush list-group-numbered" style="align-items: baseline;margin-left: 20px;">
+  <ul class="list-group list-group-flush" style="align-items: baseline;margin-left: 20px;"><!--list-group-numbered-->
     {% for sub in assunto.subassunto %}
-    <li class="list-group-item">{{ sub.nome }}</li>
+    {% cycle 'a' 'b' 'c' 'd' 'e' 'f' 'g' 'h' 'i' 'j' 'k' 'l' 'm' 'n' 'o' 'p' 'q' as alphas silent %}
+    <li class="list-group-item">{{ alphas }}. {{ sub.nome }}</li>
     {% endfor %}
+    {% resetcycle %}
   </ul>
   {% endif %}
   </li>

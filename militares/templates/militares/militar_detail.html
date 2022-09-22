@@ -78,7 +78,7 @@
         {% endif %}
       </div>
       <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-        <a type="button" class="btn btn-primary btn-lg px-4 gap-3" href="{% url 'militar:militar-assentamentos-reportview' object.pk %}">Gerar Alterações</a>
+        <a type="button" class="btn btn-primary btn-lg px-4 gap-3" href="{% url 'militar:militar-assentamentos-reportview' object.pk %}">Gerar Alterações</a><a type="button" class="btn btn-secondary btn-lg px-4 gap-3" href="">Lançar FO</a>
         <button type="button" data-bs-toggle="modal" data-bs-target="#searchBIsModal" class="btn btn-outline-secondary btn-lg px-4 ">Abrir BIs</button>
       </div>
     </div>
@@ -167,13 +167,26 @@
       </div>
       <div class="modal-body">
         <div class="container-fluid">
-          <div class="mb-3">
+          <!--div class="mb-3">
             <label for="recipient-name" class="col-form-label">Data Inicio:</label>
             <input type="text" class="form-control datepicker" id="dt_inicial" name="dt_inicial" data-provide="datepicker"/>
           </div>
           <div class="mb-3">
             <label for="message-text" class="col-form-label">Data Final:</label>
             <input class="form-control datepicker" id="dt_final" name="dt_final" data-provide="datepicker"/>
+          </div-->
+          <div class="row">
+          <div class="col-md-12">
+            <p>SELECIONE OS DOCUMENTOS:</p>
+          </div>
+          {% for bol in boletins %}
+          <div class="col-md-6">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="{{ bol.pk }}" id="bol_{{ bol.pk }}" name="bol[]">
+              <label class="form-check-label" for="bol_{{ bol.pk }}">{{ bol.nome }}</label>
+            </div>
+          </div>
+          {% endfor %}
           </div>
           <div class="mb-3">
             <label for="message-text" class="col-form-label">Limite Folhas:</label>
@@ -192,7 +205,7 @@
 </div>
 
 
-    <script type="text/javascript">
+    <!--script type="text/javascript">
 
 $.fn.datepicker.dates['pt-BR'] = {
     days: ["Domingo", "Segunda-Feira", "Terça-Feira", "Quarta-Feira", "Quinta-Feira", "Sexta-Feira", "Sábado"],
@@ -214,6 +227,6 @@ $(".datepicker").datepicker({
         todayHighlight: true,
         calendarWeeks: true
       });
-    </script>
+    </script-->
 
 {% endblock %}

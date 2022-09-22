@@ -1,0 +1,44 @@
+{% extends "base_generic_main.html" %}
+{% load static %}
+{% block title %}NDACA - Detalhes{% endblock %}
+
+{% block content %}
+<h1 style="text-align:center;">Normas para Desenvolvimento e Avaliação dos Conteudos Atitudinais</h1>
+
+<div class="accordion" id="accordionPanelsStayOpenExample">
+
+{% for categoria in categorias %}
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="panelsStayOpen-heading{{ forloop.counter0 }}">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse{{ forloop.counter0 }}" aria-expanded="true" aria-controls="panelsStayOpen-collapse{{ forloop.counter0 }}">
+            {{ categoria.nome }}
+          </button>
+        </h2>
+        <div id="panelsStayOpen-collapse{{ forloop.counter0 }}" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-heading{{ forloop.counter0 }}">
+          <div class="accordion-body">
+            <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Detalhes</th>
+                    <th scope="col">Exemplos</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for conteudo in conteudos %}{% if conteudo.categoria == categoria %}
+                  <tr>
+                    <th scope="row">{{ conteudo.nome }}</th>
+                    <td>{{ conteudo.detalhes }}</td>
+                    <td>{{ conteudo.exemplos }}</td>
+                  </tr>
+                  {% endif %}{% endfor %}
+                </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+{% endfor %}
+
+
+</div>
+{% endblock content %}

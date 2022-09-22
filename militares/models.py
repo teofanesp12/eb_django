@@ -44,9 +44,12 @@ def user_directory_path(instance, filename):
     return 'militar_{0}/{1}'.format(instance.numero, filename)
 
 class Militar(models.Model):
-    nome      = models.CharField(max_length=250)
+    nome        = models.CharField(max_length=250)
     nome_guerra = models.CharField(max_length=250)
-    numero    = models.IntegerField(null=True, blank=True)
+    numero      = models.IntegerField(null=True, blank=True)
+    identidade  = models.CharField(max_length=25, null=True, blank=True)
+    preccp      = models.CharField(max_length=25, null=True, blank=True)
+    ra          = models.CharField(max_length=30, null=True, blank=True)
     graduacao = models.ForeignKey(Graduacao, on_delete=models.CASCADE)
     qm = models.ForeignKey(QualificacaoMilitar, on_delete=models.CASCADE)
     escolaridade = models.ForeignKey(Escolaridade, on_delete=models.CASCADE)
@@ -101,12 +104,14 @@ class VisitaMedica(models.Model):
 
     def __str__(self):
         return self.motivo or ""
+from ndaca.models import ConteudoAtitudinal
 #
 # gerar punição a partir do FO
 #
 class FatoObservado(models.Model):
     militar  = models.ForeignKey(Militar, on_delete=models.CASCADE, null=True)
     motivo   = models.CharField(max_length=250)
+    conteudo_atitudinal = models.ForeignKey(ConteudoAtitudinal, on_delete=models.SET_NULL, null=True)
     tipo     = models.CharField(max_length=250, choices=[("fo+","Positivo"), ("fo-","Negativo"), ("fo","Neutro")], default="fo")
     detalhes = models.TextField(blank=True, null=True)
     data     = models.DateField(blank=True, null=True)

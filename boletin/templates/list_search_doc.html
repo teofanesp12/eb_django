@@ -3,14 +3,21 @@
 {% block content %}
 <h3>{{ txt }}</h3>
 
-
-
+<div class="row">
 {% for doc in documentos %}
-<div class="list-group">
-{% for pg in doc.paginas %}
-	<a href="{% url 'boletin:getPDF' %}?id={{ doc.doc_id }}&amp;page={{ pg }}&amp;limit={{ limit }}" target="_blank" rel="noopener noreferrer" type="button" class="list-group-item list-group-item-action">Arquivo - {{ doc.doc_id }} - Pg: {{ pg }}</a>
-{% endfor %}
+<div class="col-md-10 offset-md-1">
+<div class="card" style="margin: 5px;">
+	<div class="card-header">
+	  {{ doc.nome }}
+	</div>
+	<div class="list-group list-group-flush">
+	{% for pg in doc.paginas %}
+		<a href="{% url 'boletin:getPDF' %}?id={{ doc.doc_id }}&amp;page={{ pg }}&amp;limit={{ limit }}" target="_blank" rel="noopener noreferrer" type="button" class="list-group-item list-group-item-action">Arquivo - {{ doc.nome }} - Pg: {{ pg }}</a>
+	{% endfor %}
+	</div>
+</div>
 </div>
 {% endfor %}
 
+</div>
 {% endblock %}
