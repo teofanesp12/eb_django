@@ -3,13 +3,13 @@
 
 INSTALAÇÃO
 ----------
-  DEP:
+    DEP:
 
-  tablib, django, diff_match_patch
+        tablib, django, diff_match_patch
 
-  PYTHON:
-
-  pip install -r requirements.txt
+    PYTHON:
+        
+	pip install -r requirements.txt
 
 INICIAR O BANCO DE DADOS
 ------------------------
