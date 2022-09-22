@@ -3,10 +3,11 @@
 
 INSTALAÇÃO
 ----------
+.
     DEP:
 
         tablib, django, diff_match_patch
-
+.
     PYTHON:
         
 	pip install -r requirements.txt
