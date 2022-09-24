@@ -52,6 +52,9 @@ class Objetivo(models.Model):
         # print(reverse('militar-detail-view', current_app="militar", kwargs={'militar_id' : self.pk}))
         return reverse('pp:objetivo', kwargs={'objetivo_id' : self.pk})
 
+    class Meta:
+        ordering = ['materia', 'codigo']
+
 class ObjetivoParcial(models.Model):
     nome   = models.CharField(max_length=500)
     codigo = models.CharField(max_length=5)# Remove null
@@ -67,6 +70,9 @@ class Assunto(models.Model):
 
     def __str__(self):
         return self.nome or ""
+
+    class Meta:
+        ordering = ['objetivo', ]
 class SubAssunto(models.Model):
     nome = models.CharField(max_length=300)
     assunto = models.ForeignKey(Assunto, on_delete=models.CASCADE)

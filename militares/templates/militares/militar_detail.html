@@ -66,9 +66,10 @@
 {% block content %}
   <h1 class="visually-hidden">Heroes examples</h1>
 
-  <div class="px-4 py-5 my-5 text-center">
+  <div class="my-5 text-center">
     {% if object.photo %}
-    <img class="d-block mx-auto mb-4" src="{{ object.photo.url }}" alt="" width="172" height="157">
+    <img class="d-block mx-auto mb-4" src="{{ object.photo.url }}" alt="" style="max-width: 200px;
+border-radius: 100px;">
     {% endif %}
     <h1 class="display-5 fw-bold">{{ object.nome }}</h1>
     <div class="container">

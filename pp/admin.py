@@ -21,10 +21,15 @@ class SubAssuntoAdminInline(admin.StackedInline):
     model = SubAssunto
     extra = 0
 class AssuntoAdmin(ImportExportModelAdmin):
+    list_display = ("objetivo_codigo", "nome")
     inlines = (SubAssuntoAdminInline, )
     autocomplete_fields = ['objetivo']
     search_fields = ['nome']
     list_filter = ('objetivo__materia', )
+
+    @admin.display(empty_value='???')
+    def objetivo_codigo(self, obj):
+        return obj.objetivo and obj.objetivo.codigo or ""
 class SubAssuntoAdmin(admin.ModelAdmin):
     autocomplete_fields = ['assunto']
 
@@ -34,6 +39,7 @@ class FileDocAdminInline(admin.StackedInline):
 class ObjetivoAdmin(ImportExportModelAdmin):
     search_fields = ['nome', 'codigo']
     list_filter = ('materia', )
+    list_display = ("codigo", "nome")
     inlines = (AssuntoAdminInline, FileDocAdminInline, )
 
 class ObjetivoParcialAdmin(admin.ModelAdmin):
