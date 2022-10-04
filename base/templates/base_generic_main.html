@@ -23,8 +23,8 @@
   </head>
 
 <body>
-<main>
 
+<header>
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark" aria-label="Third navbar example">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Exercito Brasileiro</a>
@@ -72,9 +72,33 @@
   </div>
 </nav>
 
-{% block content %}{% endblock content %}
+</header>
+
+<main>
+  {% block content %}{% endblock content %}
   <!-- Content here -->
 </main>
+
+<footer class="container-fluid">
+  <div class="row">
+    <div class="col-md">
+      <i class="fa-sharp fa-solid fa-copyright"></i>
+      <small>2017-2022</small>
+    </div>
+    <div class="col-md">
+      <strong>Social</strong>
+      <div><a href="https://fb.com/teofanesp12"><i class="fa-brands fa-facebook"></i></a><small>@TEOFANESP12</small></div>
+      <div><a href="https://instagram.com/teofanesp12"><i class="fa-brands fa-instagram"></i></a><small>@TEOFANESP12</small></div>
+      <div><a href="https://github.com/teofanesp12"><i class="fa-brands fa-github"></i></i></a><small>@TEOFANESP12</small></div>
+    </div>
+    <div class="col-md">
+      
+    </div>
+    <div class="col-md">
+      
+    </div>
+  </div>
+</footer>
 
 {% block script %} {% endblock script %}
     <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}" ></script>
