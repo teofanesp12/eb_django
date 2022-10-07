@@ -4,6 +4,12 @@ from django.contrib import admin
 
 from .models import Religiao, Escolaridade
 
+admin.site.register(Religiao)
+admin.site.register(Escolaridade)
+
+from .models import Banco
+admin.site.register(Banco)
+
 from .models import Pais, Estado, Cidade
 class EstadoAdminInline(admin.TabularInline):
     model = Estado
@@ -14,8 +20,6 @@ class CidadeAdminInline(admin.TabularInline):
 class EstadoAdmin(admin.ModelAdmin):
     inlines = (CidadeAdminInline, )
 
-admin.site.register(Religiao)
-admin.site.register(Escolaridade)
 
 admin.site.register(Cidade)
 admin.site.register(Pais, PaisAdmin)

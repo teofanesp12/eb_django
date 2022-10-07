@@ -22,8 +22,10 @@ app_name = 'militar'
 
 urlpatterns = [
     # path('', views.home, name='home'),
-    path('<int:pk>/', views.MilitarDetailView.as_view(), name='militar-detail-view'),
-    path('<int:pk>/assentamentos/', views.gerate_assentamentos, name='militar-assentamentos-reportview'),
+    path('militares/adicionar/', views.create_militar, name='militar-create_militar-view'),
+    path('militares/<int:pk>/', views.MilitarDetailView.as_view(), name='militar-detail-view'),
+    path('militares/<int:pk>/editar/', views.edit_militar, name='militar-edit_militar-view'),
+    path('militares/<int:pk>/assentamentos/', views.gerate_assentamentos, name='militar-assentamentos-reportview'),
     path('escolaridade/relatorio/', views.escolaridade_report, name='militar-escolaridade-reportview'),
     path('religiao/relatorio/', views.religiao_report, name='militar-religiao-reportview'),
     path('geochart/relatorio/', views.geochart_report, name='militar-geochart-reportview'),

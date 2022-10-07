@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import FatoObservado
+from .models import FatoObservado, Militar
 
 """
 from datetime import date
@@ -14,3 +14,17 @@ class FatoObservadoForm(forms.ModelForm):
         model = FatoObservado
         fields = ['motivo', 'conteudo_atitudinal', 'tipo', 'detalhes', 'data']
         # widgets = {'data': forms.DateField(initial=date.today)}
+
+class MilitarForm(forms.ModelForm):
+    class Meta:
+        model = Militar
+        fields = '__all__'
+        # fields = ['name', 'title', 'birth_date']
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for f in self.fields.keys():
+            field = self.fields[f]
+            if not f in ['graduacao','qm', 'escolaridade', 'religiao', 'naturalidade', 'cidade_endereco', 'cidade_endereco', 'banco', 'subunidade', 'pelotao', 'grupo_combate']:
+                field.widget.attrs.update({'class': 'form-control'})
+            else:
+                field.widget.attrs.update({'class': 'form-select'})

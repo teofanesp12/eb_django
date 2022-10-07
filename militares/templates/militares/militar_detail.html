@@ -79,7 +79,9 @@ border-radius: 100px;">
         {% endif %}
       </div>
       <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-        <a type="button" class="btn btn-primary btn-lg px-4 gap-3" href="{% url 'militar:militar-assentamentos-reportview' object.pk %}">Gerar Alterações</a><a type="button" class="btn btn-secondary btn-lg px-4 gap-3" href="">Lançar FO</a>
+        <a type="button" class="btn btn-primary btn-lg px-4 gap-3" href="{% url 'militar:militar-edit_militar-view' object.pk %}">Editar</a>
+        <a type="button" class="btn btn-primary btn-lg px-4 gap-3" href="{% url 'militar:militar-assentamentos-reportview' object.pk %}">Gerar Alterações</a>
+        <a type="button" class="btn btn-secondary btn-lg px-4 gap-3" href="">Lançar FO</a>
         <button type="button" data-bs-toggle="modal" data-bs-target="#searchBIsModal" class="btn btn-outline-secondary btn-lg px-4 ">Abrir BIs</button>
       </div>
     </div>

@@ -4,10 +4,14 @@ from django.contrib import admin
 
 
 from .models import Militar
-from .models import Graduacao, QualificacaoMilitar, Unidade
-
+from .models import Graduacao, QualificacaoMilitar
+from .models import Unidade, SubUnidade, Pelotao, GrupoCombate
 
 admin.site.register(Unidade)
+admin.site.register(SubUnidade)
+admin.site.register(Pelotao)
+admin.site.register(GrupoCombate)
+
 admin.site.register(Graduacao)
 admin.site.register(QualificacaoMilitar)
 
@@ -67,13 +71,19 @@ class MilitarAdmin(admin.ModelAdmin):
     save_on_top = True
     fieldsets = (
         ("Identificação", {
-            'fields': ('nome', 'nome_guerra', 'numero', 'identidade', 'ra', 'preccp', 'graduacao', 'qm', 'photo')
+            'fields': ('nome', 'nome_guerra', 'numero', 'cpf', 'rg','identidade', 'ra', 'graduacao', 'qm', 'photo')
         }),
         ('Detalhes', {
             'fields': ('aptidao', 'escolaridade', 'religiao', 'tipagem', 'naturalidade', 'pai', 'mae')
         }),
         ('Endereço & Contato', {
             'fields': ('logradouro', 'numero_endereco', 'bairro_endereco', 'complemento_endereco', 'cep_endereco', 'cidade_endereco', 'celular', 'telefone', 'email')
+        }),
+        ('Dados Bancários', {
+            'fields': ('preccp', 'banco', 'agencia', 'conta', 'conta_tipo')
+        }),
+        ('Mapa da Força', {
+            'fields': ('subunidade', 'pelotao', 'grupo_combate', 'funcao')
         }),
     )
     inlines = (VisitaMedicaAdminInline, PunicaoAdminInline, ElogioAdminInline, FatoObservadoAdminInline)

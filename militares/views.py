@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
@@ -6,6 +6,53 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Militar, Graduacao
 from base.models import Escolaridade, Religiao
 from boletin.models import BoletinDocumento
+
+from .forms import MilitarForm
+
+import datetime
+
+def set_cookie(response, key, value, days_expire=7):
+    if days_expire is None:
+        max_age = 365 * 24 * 60 * 60  # one year
+    else:
+        max_age = days_expire * 24 * 60 * 60
+    expires = datetime.datetime.strftime(
+        datetime.datetime.utcnow() + datetime.timedelta(seconds=max_age),
+        "%a, %d-%b-%Y %H:%M:%S GMT",
+    )
+    response.set_cookie(
+        key,
+        value,
+        max_age=max_age,
+        expires=expires,
+        domain=None,
+        secure=None,
+    )
+
+def edit_militar(request, pk):
+    context = {}
+    if request.POST:
+        form = MilitarForm(request.POST, instance=Militar.objects.get(pk=pk))
+        form.save()
+    else:
+        form = MilitarForm(instance=Militar.objects.get(pk=pk))
+
+    context['form'] = form
+    return render(request, 'militares/militar_edit.html', context)
+
+def create_militar(request):
+    if request.POST:
+        form = MilitarForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect(form.instance)
+        else:
+            context['form'] = form
+            return render(request, 'militares/militar_edit.html', context)
+    context = {}
+    form = MilitarForm()
+    context['form'] = form
+    return render(request, 'militares/militar_edit.html', context)
 
 class MilitarDetailView(LoginRequiredMixin, generic.DetailView):
     model = Militar

@@ -1,0 +1,305 @@
+{% extends "base_generic_main.html" %}
+{% load static %}
+
+{% block title %}Militar - {{ form.instance.nome }}{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+
+
+<form action="" method="post">
+  {% csrf_token %}
+  <div class="row" style="margin-top:5px;">
+
+  <div class="offset-md-3 col-md-6 mb-3" style="box-shadow: 10px 5px 15px #0000008a;">
+    <div class="mb-3">
+      {% if form.instance and form.instance.photo %}
+        <img class="d-block mx-auto mb-4" src="{{ form.instance.photo.url }}" alt="" style="max-width: 200px;
+    border-radius: 100px;">
+        {% endif %}
+      {{ form.photo }}
+      {{ form.photo.errors }}
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="form-floating mb-3">
+      {{ form.nome }}
+      {{ form.nome.label_tag }}
+      {{ form.nome.errors }}
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="form-floating mb-3">
+      {{ form.nome_guerra }}
+      {{ form.nome_guerra.label_tag }}
+      {{ form.nome_guerra.errors }}
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="form-floating mb-3">
+      {{ form.numero }}
+      {{ form.numero.label_tag }}
+      {{ form.numero.errors }}
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="form-floating mb-3">
+      {{ form.identidade }}
+      {{ form.identidade.label_tag }}
+      {{ form.identidade.errors }}
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="form-floating mb-3">
+      {{ form.cpf }}
+      {{ form.cpf.label_tag }}
+      {{ form.cpf.errors }}
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="form-floating mb-3">
+      {{ form.rg }}
+      {{ form.rg.label_tag }}
+      {{ form.rg.errors }}
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="form-floating mb-3">
+      {{ form.ra }}
+      {{ form.ra.label_tag }}
+      {{ form.ra.errors }}
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="form-floating mb-3">
+      {{ form.graduacao }}
+      {{ form.graduacao.label_tag }}
+      {{ form.graduacao.errors }}
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="form-floating mb-3">
+      {{ form.qm }}
+      {{ form.qm.label_tag }}
+      {{ form.qm.errors }}
+    </div>
+  </div>
+
+  <div class="col-md-12">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="detail-tab" data-bs-toggle="tab" data-bs-target="#detail-tab-pane" type="button" role="tab" aria-controls="detail-tab-pane" aria-selected="true">Detalhes</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Endereço &amp; Contato</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="bank-tab" data-bs-toggle="tab" data-bs-target="#bank-tab-pane" type="button" role="tab" aria-controls="bank-tab-pane" aria-selected="false">Dados Bancários</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="mapsF-tab" data-bs-toggle="tab" data-bs-target="#mapsF-tab-pane" type="button" role="tab" aria-controls="mapsF-tab-pane" aria-selected="false">Mapa da Força</button>
+      </li>
+    </ul>
+  </div>
+  </div>
+
+<div class="tab-content" id="myTabContent" style="box-shadow: 10px 5px 15px #0000008a;">
+  <div class="tab-pane fade show active" id="detail-tab-pane" role="tabpanel" aria-labelledby="detail-tab" tabindex="0">
+    <div class="row" style="margin-top:5px;">
+      <div class="col-md-4">
+        <div class="form-floating mb-3">
+          {{ form.escolaridade }}
+          {{ form.escolaridade.label_tag }}
+          {{ form.escolaridade.errors }}
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-floating mb-3">
+          {{ form.religiao }}
+          {{ form.religiao.label_tag }}
+          {{ form.religiao.errors }}
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-floating mb-3">
+          {{ form.tipagem }}
+          {{ form.tipagem.label_tag }}
+          {{ form.tipagem.errors }}
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-floating mb-3">
+          {{ form.naturalidade }}
+          {{ form.naturalidade.label_tag }}
+          {{ form.naturalidade.errors }}
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-floating mb-3">
+          {{ form.aptidao }}
+          {{ form.aptidao.label_tag }}
+          {{ form.aptidao.errors }}
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-floating mb-3">
+          {{ form.pai }}
+          {{ form.pai.label_tag }}
+          {{ form.pai.errors }}
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-floating mb-3">
+          {{ form.mae }}
+          {{ form.mae.label_tag }}
+          {{ form.mae.errors }}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
+    <div class="row" style="margin-top:5px;">
+      <div class="col-md-4">
+        <div class="form-floating mb-3">
+          {{ form.logradouro }}
+          {{ form.logradouro.label_tag }}
+          {{ form.logradouro.errors }}
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-floating mb-3">
+          {{ form.numero_endereco }}
+          {{ form.numero_endereco.label_tag }}
+          {{ form.numero_endereco.errors }}
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-floating mb-3">
+          {{ form.bairro_endereco }}
+          {{ form.bairro_endereco.label_tag }}
+          {{ form.bairro_endereco.errors }}
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-floating mb-3">
+          {{ form.complemento_endereco }}
+          {{ form.complemento_endereco.label_tag }}
+          {{ form.complemento_endereco.errors }}
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-floating mb-3">
+          {{ form.cep_endereco }}
+          {{ form.cep_endereco.label_tag }}
+          {{ form.cep_endereco.errors }}
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-floating mb-3">
+          {{ form.cidade_endereco }}
+          {{ form.cidade_endereco.label_tag }}
+          {{ form.cidade_endereco.errors }}
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-floating mb-3">
+          {{ form.celular }}
+          {{ form.celular.label_tag }}
+          {{ form.celular.errors }}
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-floating mb-3">
+          {{ form.telefone }}
+          {{ form.telefone.label_tag }}
+          {{ form.telefone.errors }}
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-floating mb-3">
+          {{ form.email }}
+          {{ form.email.label_tag }}
+          {{ form.email.errors }}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="tab-pane fade" id="bank-tab-pane" role="tabpanel" aria-labelledby="bank-tab" tabindex="0">
+    <div class="row" style="margin-top:5px;">
+      <div class="col-md-4">
+        <div class="form-floating mb-3">
+          {{ form.preccp }}
+          {{ form.preccp.label_tag }}
+          {{ form.preccp.errors }}
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-floating mb-3">
+          {{ form.banco }}
+          {{ form.banco.label_tag }}
+          {{ form.banco.errors }}
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-floating mb-3">
+          {{ form.agencia }}
+          {{ form.agencia.label_tag }}
+          {{ form.agencia.errors }}
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-floating mb-3">
+          {{ form.conta }}
+          {{ form.conta.label_tag }}
+          {{ form.conta.errors }}
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-floating mb-3">
+          {{ form.conta_tipo }}
+          {{ form.conta_tipo.label_tag }}
+          {{ form.conta_tipo.errors }}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="tab-pane fade" id="mapsF-tab-pane" role="tabpanel" aria-labelledby="mapsF-tab" tabindex="0">
+    <div class="row" style="margin-top:5px;">
+      <div class="col-md-4">
+        <div class="form-floating mb-3">
+          {{ form.subunidade }}
+          {{ form.subunidade.label_tag }}
+          {{ form.subunidade.errors }}
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-floating mb-3">
+          {{ form.pelotao }}
+          {{ form.pelotao.label_tag }}
+          {{ form.pelotao.errors }}
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-floating mb-3">
+          {{ form.grupo_combate }}
+          {{ form.grupo_combate.label_tag }}
+          {{ form.grupo_combate.errors }}
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-floating mb-3">
+          {{ form.funcao }}
+          {{ form.funcao.label_tag }}
+          {{ form.funcao.errors }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <input type="submit" value="Salvar" class="btn btn-primary">
+</form>
+
+</div>
+{% endblock content %}
