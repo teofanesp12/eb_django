@@ -7,7 +7,7 @@
 <div class="container-fluid">
 
 
-<form action="" method="post">
+<form action="" method="post" enctype="multipart/form-data">
   {% csrf_token %}
   <div class="row" style="margin-top:5px;">
 
@@ -132,6 +132,13 @@
           {{ form.naturalidade }}
           {{ form.naturalidade.label_tag }}
           {{ form.naturalidade.errors }}
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-floating mb-3">
+          {{ form.nascimento }}
+          {{ form.nascimento.label_tag }}
+          {{ form.nascimento.errors }}
         </div>
       </div>
       <div class="col-md-12">
@@ -297,9 +304,71 @@
   </div>
 </div>
 
-
-  <input type="submit" value="Salvar" class="btn btn-primary">
+<div class="row my-5">
+  <div class="offset-md-7 col-md-3">
+    <div class="form-floating">
+      {{ form.chave }}
+      {{ form.chave.label_tag }}
+      {{ form.chave.errors }}
+    </div>
+  </div>
+  <div class="col-md-2">
+    <input type="submit" value="Salvar" class="btn btn-primary">
+  </div>
+</div>
+  
 </form>
 
 </div>
 {% endblock content %}
+
+{% block script %}
+
+<script>
+$(document).ready(function(){
+  $("#id_subunidade").change(function(){
+    selected = $("#id_subunidade option:selected").val()
+    $.ajax({
+      type: 'GET',
+      dataType: 'json',
+      contentType: 'application/json; charset=utf-8',
+      url: '{% url 'militar:militar-get_pelotao-json'  %}',
+      data: {
+              'subunidade': selected
+            },
+      success: function(jsonResult) {
+        $("#id_pelotao").empty();
+        $('#id_pelotao').append(new Option("---------", ""));
+        for (var i = 0, emp; i < jsonResult.pelotoes.length; i++) {
+           emp = jsonResult.pelotoes[i];
+           $('#id_pelotao').append(new Option(emp[1], emp[0]));
+        };
+        $("#id_pelotao").change();
+      }
+    });
+  });
+
+  $("#id_pelotao").change(function(){
+    selected = $("#id_pelotao option:selected").val()
+    $.ajax({
+      type: 'GET',
+      dataType: 'json',
+      contentType: 'application/json; charset=utf-8',
+      url: '{% url 'militar:militar-get_gc-json'  %}',
+      data: {'pelotao': selected},
+      success: function(jsonResult) {
+        $("#id_grupo_combate").empty();
+        $('#id_grupo_combate').append(new Option("---------", ""));
+        for (var i = 0, emp; i < jsonResult.gcs.length; i++) {
+           emp = jsonResult.gcs[i];
+           $('#id_grupo_combate').append(new Option(emp[1], emp[0]));
+        };
+      }
+    });
+  });
+
+  
+  $("#id_subunidade").change();
+});
+</script>
+{% endblock script %}

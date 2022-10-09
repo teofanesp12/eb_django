@@ -72,6 +72,15 @@
   </div>
 </nav>
 
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-{% if message.tags %}{{ message.tags }}{% else %}info{% endif %} alert-dismissible fade show " role="alert">
+  <strong>{{ message }}</strong>.
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+</div>
+{% endfor %}
+{% endif %}
+
 </header>
 
 <main>
@@ -79,7 +88,7 @@
   <!-- Content here -->
 </main>
 
-<footer class="container-fluid">
+<footer class="container-fluid" style="box-shadow: 0px -10px 5px #888888a8;">
   <div class="row">
     <div class="col-md">
       <i class="fa-sharp fa-solid fa-copyright"></i>

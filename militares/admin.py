@@ -71,10 +71,10 @@ class MilitarAdmin(admin.ModelAdmin):
     save_on_top = True
     fieldsets = (
         ("Identificação", {
-            'fields': ('nome', 'nome_guerra', 'numero', 'cpf', 'rg','identidade', 'ra', 'graduacao', 'qm', 'photo')
+            'fields': ('nome', 'nome_guerra', 'numero', 'cpf', 'rg','identidade', 'ra', 'graduacao', 'qm', 'chave', 'photo')
         }),
         ('Detalhes', {
-            'fields': ('aptidao', 'escolaridade', 'religiao', 'tipagem', 'naturalidade', 'pai', 'mae')
+            'fields': ('aptidao', 'escolaridade', 'religiao', 'tipagem', 'naturalidade', 'nascimento', 'pai', 'mae')
         }),
         ('Endereço & Contato', {
             'fields': ('logradouro', 'numero_endereco', 'bairro_endereco', 'complemento_endereco', 'cep_endereco', 'cidade_endereco', 'celular', 'telefone', 'email')

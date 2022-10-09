@@ -29,4 +29,8 @@ urlpatterns = [
     path('escolaridade/relatorio/', views.escolaridade_report, name='militar-escolaridade-reportview'),
     path('religiao/relatorio/', views.religiao_report, name='militar-religiao-reportview'),
     path('geochart/relatorio/', views.geochart_report, name='militar-geochart-reportview'),
+
+    # Jsons
+    path('militares/pelotoes/json', views.get_pelotao_json, name='militar-get_pelotao-json'),
+    path('militares/gcs/json', views.get_gc_json, name='militar-get_gc-json'),
 ]

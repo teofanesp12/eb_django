@@ -33,6 +33,7 @@ ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'base',
+    'access',
     'boletin',
     'pp',
     'ndaca',

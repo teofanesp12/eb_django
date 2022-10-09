@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import JsonResponse
 # Create your views here.
 
-from .models import Militar, Graduacao
+from .models import Militar, Graduacao, Pelotao, GrupoCombate
 from base.models import Escolaridade, Religiao
 from boletin.models import BoletinDocumento
 
@@ -32,7 +33,7 @@ def set_cookie(response, key, value, days_expire=7):
 def edit_militar(request, pk):
     context = {}
     if request.POST:
-        form = MilitarForm(request.POST, instance=Militar.objects.get(pk=pk))
+        form = MilitarForm(request.POST, request.FILES, instance=Militar.objects.get(pk=pk))
         form.save()
     else:
         form = MilitarForm(instance=Militar.objects.get(pk=pk))
@@ -42,7 +43,14 @@ def edit_militar(request, pk):
 
 def create_militar(request):
     if request.POST:
-        form = MilitarForm(request.POST)
+        try:
+            if request.POST.get('cpf'):
+                militar = Militar.objects.get(cpf=request.POST.get('cpf'))
+                if militar:
+                    return redirect('access:access-login-view')
+        except Exception:
+            pass
+        form = MilitarForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect(form.instance)
@@ -119,3 +127,28 @@ def geochart_report(request):
     context = {}
 
     return render(request, 'militares/geochart_militares.html', context)
+
+
+def get_pelotao_json(request):
+    json = {}
+    if request.GET:
+        subunidade = request.GET.get('subunidade',0)
+        if subunidade == '':
+            subunidade = 0
+        pelotoes    = Pelotao.objects.filter(subunidade=subunidade)
+    else:
+        pelotoes    = Pelotao.objects.all()
+    json['pelotoes'] = [(x.pk,x.nome) for x in pelotoes]
+    return JsonResponse(json)
+
+def get_gc_json(request):
+    json = {}
+    if request.GET:
+        pelotao = request.GET.get('pelotao',0)
+        if pelotao == '':
+            pelotao = 0
+        gcs    = GrupoCombate.objects.filter(pelotao=pelotao)
+    else:
+        gcs    = GrupoCombate.objects.all()
+    json['gcs'] = [(x.pk,x.nome) for x in gcs]
+    return JsonResponse(json)
