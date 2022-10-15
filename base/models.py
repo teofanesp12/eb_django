@@ -45,6 +45,7 @@ class Estado(models.Model):
 class Cidade(models.Model):
     nome   = models.CharField(max_length=250)
     estado = models.ForeignKey(Estado, on_delete=models.CASCADE)
+    ibge   = models.CharField(max_length=50, blank=True, null=True,verbose_name="IBGE")
 
     latitude  = models.DecimalField(max_digits = 5, decimal_places = 2, null=True, blank=True)
     longitude = models.DecimalField(max_digits = 5, decimal_places = 2, null=True, blank=True)

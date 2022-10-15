@@ -32,11 +32,18 @@ def set_cookie(response, key, value, days_expire=7):
 
 def edit_militar(request, pk):
     context = {}
+    instance=Militar.objects.get(pk=pk)
+    if instance.naturalidade:
+        context['id_naturalidade_estado'] = instance.naturalidade.estado.pk
+        context['id_naturalidade'] = instance.naturalidade.pk
+    if instance.cidade_endereco:
+        context['id_estado_endereco'] = instance.cidade_endereco.estado.pk
+        context['id_cidade_endereco'] = instance.cidade_endereco.pk
     if request.POST:
-        form = MilitarForm(request.POST, request.FILES, instance=Militar.objects.get(pk=pk))
+        form = MilitarForm(request.POST, request.FILES, instance=instance)
         form.save()
     else:
-        form = MilitarForm(instance=Militar.objects.get(pk=pk))
+        form = MilitarForm(instance=instance)
 
     context['form'] = form
     return render(request, 'militares/militar_edit.html', context)

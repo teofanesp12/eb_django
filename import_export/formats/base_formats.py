@@ -102,7 +102,7 @@ class TablibFormat(Format):
 
 class TextFormat(TablibFormat):
     def get_read_mode(self):
-        return 'r'
+        return 'rb'
 
     def is_binary(self):
         return False

@@ -24,7 +24,7 @@ class BaseStorage:
 
 class TempFolderStorage(BaseStorage):
 
-    def open(self, mode='r'):
+    def open(self, mode='rb'):
         if self.name:
             return open(self.get_full_path(), mode)
         else:
@@ -32,13 +32,13 @@ class TempFolderStorage(BaseStorage):
             self.name = tmp_file.name
             return tmp_file
 
-    def save(self, data, mode='w'):
+    def save(self, data, mode='wb'):
         with self.open(mode=mode) as file:
-            file.write(data)
+            file.write(bytes(data, 'utf-8'))
 
-    def read(self, mode='r'):
+    def read(self, mode='rb'):
         with self.open(mode=mode) as file:
-            return file.read()
+            return file.read().decode('utf-8')
 
     def remove(self):
         os.remove(self.get_full_path())

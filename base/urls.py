@@ -22,4 +22,8 @@ app_name = 'base'
 
 urlpatterns = [
     path('', views.home, name='home'),
+
+    # Jsons
+    path('base/estados/json', views.get_estados_json, name='base-get_estados-json'),
+    path('base/cidades/json', views.get_cidades_json, name='base-get_cidades-json'),
 ]

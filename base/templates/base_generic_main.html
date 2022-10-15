@@ -37,36 +37,19 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="/">Inicio</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">1° Sessão</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link">2° Sessão</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'pp:home' %}">Programa Padrão</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'ndaca:home' %}">NDACA</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-bs-toggle="dropdown" aria-expanded="false">Relatórios</a>
-          <ul class="dropdown-menu" aria-labelledby="dropdown03">
-            <li><a class="dropdown-item" href="{% url 'militar:militar-escolaridade-reportview' %}">Escolaridades</a></li>
-            <li><a class="dropdown-item" href="{% url 'militar:militar-religiao-reportview' %}">Religião</a></li>
-            <li><a class="dropdown-item" href="{% url 'militar:militar-geochart-reportview' %}">GeoRelatório</a></li>
-            <li><a class="dropdown-item" href="#">Outros</a></li>
-          </ul>
-        </li>
+        {% if user.is_authenticated %}
+        {% include "li_private.html" %}
+        {% else %}
+        {% include "li_public.html" %}
+        {% endif %}
       </ul>
-      <form role="search">
+      <form role="search" method="GET" action="{% block action_search %}{% endblock action_search %}">
         <div class="input-group">
           <input class="form-control" type="search" placeholder="Pesquisar" aria-label="Pesquisar" aria-describedby="button-addon2">
-            <button class="btn btn-outline-primary" type="button" id="button-addon2">
-              <span class="fa fa-search" aria-hidden="true"></span>
-            </button>
-          </div>
-
+          <button class="btn btn-outline-primary" type="button" id="button-addon2">
+            <span class="fa fa-search" aria-hidden="true"></span>
+          </button>
+        </div>
       </form>
     </div>
   </div>

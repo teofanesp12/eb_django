@@ -1,5 +1,6 @@
 from django.contrib import admin
 
+from import_export.admin import ImportExportModelAdmin
 # Register your models here.
 
 from .models import Religiao, Escolaridade
@@ -17,10 +18,15 @@ class PaisAdmin(admin.ModelAdmin):
     inlines = (EstadoAdminInline, )
 class CidadeAdminInline(admin.TabularInline):
     model = Cidade
-class EstadoAdmin(admin.ModelAdmin):
+
+
+class CidadeAdmin(ImportExportModelAdmin):
+    search_fields = ['nome']
+class EstadoAdmin(ImportExportModelAdmin):
     inlines = (CidadeAdminInline, )
+    search_fields = ['nome']
 
 
-admin.site.register(Cidade)
+admin.site.register(Cidade, CidadeAdmin)
 admin.site.register(Pais, PaisAdmin)
 admin.site.register(Estado, EstadoAdmin)

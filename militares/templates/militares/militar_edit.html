@@ -105,7 +105,7 @@
 
 <div class="tab-content" id="myTabContent" style="box-shadow: 10px 5px 15px #0000008a;">
   <div class="tab-pane fade show active" id="detail-tab-pane" role="tabpanel" aria-labelledby="detail-tab" tabindex="0">
-    <div class="row" style="margin-top:5px;">
+    <div class="row" style="padding: 15px;">
       <div class="col-md-4">
         <div class="form-floating mb-3">
           {{ form.escolaridade }}
@@ -127,9 +127,19 @@
           {{ form.tipagem.errors }}
         </div>
       </div>
+      <div class="col-md-4">        
+        <div class="form-floating mb-3">
+          <select class="form-select" id="id_naturalidade_estado">
+            <option value="" selected="">---------</option>
+          </select>
+          <label for="id_naturalidade_estado">Naturalidade Estado:</label>
+        </div>
+      </div>
       <div class="col-md-4">
         <div class="form-floating mb-3">
-          {{ form.naturalidade }}
+          <select name="naturalidade" class="form-select" id="id_naturalidade">
+            <option value="" selected="">---------</option>
+          </select>
           {{ form.naturalidade.label_tag }}
           {{ form.naturalidade.errors }}
         </div>
@@ -165,7 +175,7 @@
     </div>
   </div>
   <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
-    <div class="row" style="margin-top:5px;">
+    <div class="row" style="padding: 15px;">
       <div class="col-md-4">
         <div class="form-floating mb-3">
           {{ form.logradouro }}
@@ -187,7 +197,24 @@
           {{ form.bairro_endereco.errors }}
         </div>
       </div>
-      <div class="col-md-4">
+      <div class="col-md-6">        
+        <div class="form-floating mb-3">
+          <select class="form-select" id="id_estado_endereco">
+            <option value="" selected="">---------</option>
+          </select>
+          <label for="id_estado_endereco">Estado:</label>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-floating mb-3">
+          <select class="form-select" id="id_cidade_endereco" name="cidade_endereco">
+            <option value="" selected="">---------</option>
+          </select>
+          {{ form.cidade_endereco.label_tag }}
+          {{ form.cidade_endereco.errors }}
+        </div>
+      </div>
+      <div class="col-md-8">
         <div class="form-floating mb-3">
           {{ form.complemento_endereco }}
           {{ form.complemento_endereco.label_tag }}
@@ -199,13 +226,6 @@
           {{ form.cep_endereco }}
           {{ form.cep_endereco.label_tag }}
           {{ form.cep_endereco.errors }}
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="form-floating mb-3">
-          {{ form.cidade_endereco }}
-          {{ form.cidade_endereco.label_tag }}
-          {{ form.cidade_endereco.errors }}
         </div>
       </div>
       <div class="col-md-4">
@@ -232,7 +252,7 @@
     </div>
   </div>
   <div class="tab-pane fade" id="bank-tab-pane" role="tabpanel" aria-labelledby="bank-tab" tabindex="0">
-    <div class="row" style="margin-top:5px;">
+    <div class="row" style="padding: 15px;">
       <div class="col-md-4">
         <div class="form-floating mb-3">
           {{ form.preccp }}
@@ -271,7 +291,7 @@
     </div>
   </div>
   <div class="tab-pane fade" id="mapsF-tab-pane" role="tabpanel" aria-labelledby="mapsF-tab" tabindex="0">
-    <div class="row" style="margin-top:5px;">
+    <div class="row" style="padding: 15px;">
       <div class="col-md-4">
         <div class="form-floating mb-3">
           {{ form.subunidade }}
@@ -369,6 +389,104 @@ $(document).ready(function(){
 
   
   $("#id_subunidade").change();
+
+  $("#id_naturalidade_estado").change(function(){
+    selected = $("#id_naturalidade_estado option:selected").val()
+    $.ajax({
+      type: 'GET',
+      dataType: 'json',
+      contentType: 'application/json; charset=utf-8',
+      url: '{% url 'base:base-get_cidades-json'  %}',
+      data: {
+              'id_estado': selected
+            },
+      success: function(jsonResult) {
+        $("#id_naturalidade").empty();
+        $('#id_naturalidade').append(new Option("---------", ""));
+        for (var i = 0, emp; i < jsonResult.cidades.length; i++) {
+           emp = jsonResult.cidades[i];
+           if (emp[0] == '{{ id_naturalidade }}'){
+           $('#id_naturalidade').append(new Option(emp[1], emp[0], true, true));
+           }else{
+            $('#id_naturalidade').append(new Option(emp[1], emp[0]));
+           }
+        };
+        $("#id_naturalidade").change();
+      }
+    });
+  });
+
+  $("#id_estado_endereco").change(function(){
+    selected = $("#id_estado_endereco option:selected").val()
+    $.ajax({
+      type: 'GET',
+      dataType: 'json',
+      contentType: 'application/json; charset=utf-8',
+      url: '{% url 'base:base-get_cidades-json'  %}',
+      data: {
+              'id_estado': selected
+            },
+      success: function(jsonResult) {
+        $("#id_cidade_endereco").empty();
+        $('#id_cidade_endereco').append(new Option("---------", ""));
+        for (var i = 0, emp; i < jsonResult.cidades.length; i++) {
+           emp = jsonResult.cidades[i];
+           if (emp[0] == '{{ id_cidade_endereco }}'){
+           $('#id_cidade_endereco').append(new Option(emp[1], emp[0], true, true));
+           }else{
+            $('#id_cidade_endereco').append(new Option(emp[1], emp[0]));
+           }
+        };
+        $("#id_cidade_endereco").change();
+      }
+    });
+  });
+  
+});
+
+$(function() {
+  $.ajax({
+    type: 'GET',
+    dataType: 'json',
+    contentType: 'application/json; charset=utf-8',
+    url: '{% url 'base:base-get_estados-json'  %}',
+    data: {},
+    success: function(jsonResult) {
+      $("#id_estado_endereco").empty();
+      $('#id_estado_endereco').append(new Option("---------", ""));
+      for (var i = 0, emp; i < jsonResult.estados.length; i++) {
+         emp = jsonResult.estados[i];
+         if (emp[0] == '{{ id_estado_endereco }}'){
+         $('#id_estado_endereco').append(new Option(emp[1], emp[0], true, true));
+         }else{
+          $('#id_estado_endereco').append(new Option(emp[1], emp[0]));
+         }
+      };
+      $("#id_estado_endereco").change();
+    }
+  });
+  
+  $.ajax({
+    type: 'GET',
+    dataType: 'json',
+    contentType: 'application/json; charset=utf-8',
+    url: '{% url 'base:base-get_estados-json'  %}',
+    data: {},
+    success: function(jsonResult) {
+      $("#id_naturalidade_estado").empty();
+      $('#id_naturalidade_estado').append(new Option("---------", ""));
+      for (var i = 0, emp; i < jsonResult.estados.length; i++) {
+         emp = jsonResult.estados[i];
+         if (emp[0] == '{{ id_naturalidade_estado }}'){
+         $('#id_naturalidade_estado').append(new Option(emp[1], emp[0], true, true));
+         }else{
+          $('#id_naturalidade_estado').append(new Option(emp[1], emp[0]));
+         }
+      };
+      $("#id_naturalidade_estado").change();
+    }
+  });
+  
 });
 </script>
 {% endblock script %}

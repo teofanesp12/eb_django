@@ -24,7 +24,7 @@ class MilitarForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         for f in self.fields.keys():
             field = self.fields[f]
-            if not f in ['graduacao','qm', 'escolaridade', 'religiao', 'naturalidade', 'cidade_endereco', 'cidade_endereco', 'banco', 'subunidade', 'pelotao', 'grupo_combate']:
+            if not f in ['graduacao','qm', 'escolaridade', 'religiao', 'naturalidade', 'cidade_endereco', 'cidade_endereco', 'banco', 'subunidade', 'pelotao', 'grupo_combate','conta_tipo']:
                 field.widget.attrs.update({'class': 'form-control'})
             else:
                 field.widget.attrs.update({'class': 'form-select'})

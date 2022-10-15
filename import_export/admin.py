@@ -220,6 +220,11 @@ class ImportMixin(BaseImportMixin, ImportExportMixinBase):
         for chunk in import_file.chunks():
             data += chunk
 
+        try:
+            data = data.decode("utf-8")
+        except:
+            pass
+
         tmp_storage.save(data, input_format.get_read_mode())
         return tmp_storage
 

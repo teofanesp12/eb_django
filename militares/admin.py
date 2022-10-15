@@ -68,6 +68,7 @@ admin.site.register(FatoObservado, FatoObservadoAdmin)
 class MilitarAdmin(admin.ModelAdmin):
     list_display = ("graduacao", "numero", "nome")
     search_fields = ['nome']
+    autocomplete_fields = ['naturalidade', 'cidade_endereco']
     save_on_top = True
     fieldsets = (
         ("Identificação", {
