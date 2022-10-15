@@ -1,7 +1,24 @@
 {% extends "base_generic_main.html" %}
 {% load static %}
+{% load humanize %}
 
 {% block title %}Militar - {{ form.instance.nome }}{% endblock %}
+
+{% block style %}
+<script src="{% static 'js/jquery.mask.min.js' %}" ></script>
+<script src="{% static 'leaflet/dist/leaflet.js' %}" ></script>
+<link href="{% static 'leaflet/dist/leaflet.css' %}" rel="stylesheet"/>
+
+<style>
+#endereco-mapa{
+  position: relative;
+  border: 1px solid black;
+  border-radius: 8px;
+  height: 400px;  /* or as desired */
+  width: 100%; 
+}
+</style>
+{% endblock style %}
 
 {% block content %}
 <div class="container-fluid">
@@ -229,9 +246,15 @@
         </div>
       </div>
       <div class="col-md-4">
-        <div class="form-floating mb-3">
-          {{ form.celular }}
-          {{ form.celular.label_tag }}
+        <div class="input-group mb-3">
+          <span class="input-group-text">WhastApp?</span>
+          <div class="input-group-text">
+            {{ form.celular_is_whatsapp }}
+          </div>
+          <div class="form-floating ">
+            {{ form.celular }}
+            {{ form.celular.label_tag }}
+          </div>
           {{ form.celular.errors }}
         </div>
       </div>
@@ -247,6 +270,23 @@
           {{ form.email }}
           {{ form.email.label_tag }}
           {{ form.email.errors }}
+        </div>
+      </div>
+      <div class="col-md-12" style="min-height: 500px;">
+        <div id="endereco-mapa" class="leaflet-container" ></div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-floating mb-3">
+          {{ form.endereco_latitude }}
+          {{ form.endereco_latitude.label_tag }}
+          {{ form.endereco_latitude.errors }}
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-floating mb-3">
+          {{ form.endereco_longitude }}
+          {{ form.endereco_longitude.label_tag }}
+          {{ form.endereco_longitude.errors }}
         </div>
       </div>
     </div>
@@ -442,6 +482,67 @@ $(document).ready(function(){
     });
   });
   
+  var lat = -15.5699123;
+  var lng = -56.0670877;
+  {% if form.instance.endereco_latitude %}lat=parseFloat("{{ form.instance.endereco_latitude }}".replace(",","."));{% endif %}
+  {% if form.instance.endereco_longitude %}lng=parseFloat("{{ form.instance.endereco_longitude }}".replace(",","."));{% endif %}
+  console.log(lat);
+  // quando clicamos em contatos, ele vai montar o mapa, economizar memoria.
+  $("#contact-tab").click(function() {
+    var map = L.map('endereco-mapa').setView([ lat, lng], 17);
+    mapLink = '<a href="https://openstreetmap.org">OpenStreetMap</a>';
+    L.tileLayer(
+      'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+      {
+        attribution: 'Mapa &copy; ' + mapLink,
+        maxZoom: 200,
+      }).addTo(map);
+    var marker = L.marker([lat, lng],{
+          draggable: true
+        });
+    marker.on('dragend', function(e) {
+      lat = e.target.getLatLng().lat;
+      lng = e.target.getLatLng().lng;
+      $("#id_endereco_latitude").val(lat);
+      $("#id_endereco_longitude").val(lng)
+    });
+    marker.addTo(map);
+  });
+  
+  /*
+  map.on('click',
+  function mapClickListen(e) {
+    var pos = e.latlng;
+    console.log('map click event');
+    var marker = L.marker(
+      pos, {
+        draggable: true
+      }
+    );
+    marker.on('drag', function(e) {
+      console.log('marker drag event');
+    });
+    marker.on('dragstart', function(e) {
+      console.log('marker dragstart event');
+      map.off('click', mapClickListen);
+    });
+    marker.on('dragend', function(e) {
+      console.log('marker dragend event');
+      setTimeout(function() {
+        map.on('click', mapClickListen);
+      }, 10);
+    });
+    marker.addTo(map);
+    }
+  );*/
+
+
+// colocamos mascaras...
+$("#id_cpf").mask('000.000.000-00', {reverse:true});
+$('#id_nascimento').mask('00/00/0000');
+$('#id_celular').mask('(00) 0.0000-0000');
+$('#id_telefone').mask('(00) 0000-0000');
+$('#id_cep_endereco').mask('00000-000');
 });
 
 $(function() {
@@ -487,6 +588,7 @@ $(function() {
     }
   });
   
+
 });
 </script>
 {% endblock script %}

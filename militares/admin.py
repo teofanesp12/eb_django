@@ -78,7 +78,7 @@ class MilitarAdmin(admin.ModelAdmin):
             'fields': ('aptidao', 'escolaridade', 'religiao', 'tipagem', 'naturalidade', 'nascimento', 'pai', 'mae')
         }),
         ('Endereço & Contato', {
-            'fields': ('logradouro', 'numero_endereco', 'bairro_endereco', 'complemento_endereco', 'cep_endereco', 'cidade_endereco', 'celular', 'telefone', 'email')
+            'fields': ('logradouro', 'numero_endereco', 'bairro_endereco', 'complemento_endereco', 'cep_endereco', 'cidade_endereco', 'endereco_latitude', 'endereco_longitude', 'celular', 'celular_is_whatsapp', 'telefone', 'email')
         }),
         ('Dados Bancários', {
             'fields': ('preccp', 'banco', 'agencia', 'conta', 'conta_tipo')

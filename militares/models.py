@@ -98,7 +98,10 @@ class Militar(models.Model):
     complemento_endereco = models.CharField(max_length=250, blank=True, null=True, verbose_name="Complemento")
     cep_endereco = models.CharField(max_length=250, blank=True, null=True, verbose_name="CEP")
     cidade_endereco = models.ForeignKey(Cidade, on_delete=models.SET_NULL, blank=True, null=True, verbose_name="Cidade")
+    endereco_latitude  = models.DecimalField(max_digits=18, decimal_places=15, null=True, blank=True, verbose_name="Latitude")
+    endereco_longitude = models.DecimalField(max_digits=20, decimal_places=15,null=True, blank=True, verbose_name="Longitude")
     celular  = models.CharField(max_length=250, blank=True, null=True)
+    celular_is_whatsapp = models.BooleanField(default=False, verbose_name="Whatsapp?")
     telefone = models.CharField(max_length=250, blank=True, null=True)
     email    = models.EmailField(max_length=250, blank=True, null=True, verbose_name="E-mail")
     preccp   = models.CharField(max_length=25, null=True, blank=True, verbose_name="PrecCP")
@@ -114,6 +117,7 @@ class Militar(models.Model):
     funcao      = models.CharField(max_length=250, verbose_name="Função", blank=True, null=True, help_text='Cmt Cia, Cmt Pel, Adj Pel, Cmt GC, Cmt Esq, E1, A1?')
     photo = models.ImageField(upload_to = user_directory_path, null=True, blank=True)
     chave      = models.CharField(max_length=250, null=True)
+
 
     # visitas_medicas = models.ManyToManyField(VisitaMedica)
 
