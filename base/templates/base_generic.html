@@ -47,12 +47,13 @@
           </button>
         </div>
       </form>
+    <a type="button" class="btn btn-outline-light" href="{% url 'access:access-login-view' %}" style="margin-left: 15px;"><i class="fa-solid fa-address-card"></i></a>
     </div>
   </div>
 </nav>
 {% if messages %}
 {% for message in messages %}
-<div class="alert alert-{% if message.tags %}{{ message.tags }}{% else %}info{% endif %} alert-dismissible fade show " role="alert">
+<div class="alert alert-{% if message.tags %}{{ message.tags }}{% else %}info{% endif %} alert-dismissible fade show " role="alert" style="margin: 15px 10px 15px 10px;box-shadow: 10px 5px 15px #0000008a;">
   <strong>{{ message }}</strong>.
   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
 </div>

@@ -1,0 +1,13 @@
+{% extends "base_generic_main.html" %}
+{% load static %}
+
+{% block title %}Mapa da Força - Mapa{% endblock title %}
+
+
+{% block content %}
+<div class="container-fluid" style="min-height:600px;">
+  <div class="row" style="padding:15px;">
+    {% include "militares/mapforce/col_md_selecttype_view.html" %}
+  </div>
+</div>
+{% endblock content %}

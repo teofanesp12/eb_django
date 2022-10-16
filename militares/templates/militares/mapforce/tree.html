@@ -1,0 +1,104 @@
+{% extends "base_generic_main.html" %}
+{% load static %}
+
+{% block title %}Mapa da Força - Lista{% endblock title %}
+
+
+{% block content %}
+<div class="container-fluid" style="min-height:600px;">
+  <div class="row" style="padding:15px;">
+    {% include "militares/mapforce/col_md_selecttype_view.html" %}
+    <div class="offset-md-1 col-md-10">
+
+<div class="accordion" id="accordionPanelsStayOpenUnidade">
+{% for b in unidades %}
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="panelsStayOpen-headingUnidade">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseUnidade" aria-expanded="true" aria-controls="panelsStayOpen-collapseUnidade">
+        {{ b.instance.nome }}
+      </button>
+    </h2>
+    <div id="panelsStayOpen-collapseUnidade" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingUnidade">
+      <div class="accordion-body">
+        <strong>{{ b.instance.nome_historico }}</strong> - {{ b.instance.nome }} - <code>{{ b.instance.ref }}</code>
+        <div class="accordion" id="accordionPanelsStayOpenSubUnidade">
+          {% for s in b.filhos %}
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="panelsStayOpen-headingSUnidade{{ s.instance.pk }}">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseSubUnidade{{ s.instance.pk }}" aria-expanded="true" aria-controls="panelsStayOpen-collapseSubUnidade{{ s.instance.pk }}">
+                {{ s.instance.nome }}
+              </button>
+            </h2>
+            <div id="panelsStayOpen-collapseSubUnidade{{ s.instance.pk }}" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingPelotao{{ s.instance.pk }}">
+              <div class="accordion-body">
+                <strong>{{ s.instance.nome }}</strong> - {{ s.instance.nome }} - <code>{{ s.instance.ref }}</code>
+                {% for p in s.filhos %}
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="panelsStayOpen-headingPelotao{{ p.instance.pk }}">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapsePelotao{{ p.instance.pk }}" aria-expanded="true" aria-controls="panelsStayOpen-collapsePelotao{{ p.instance.pk }}">
+                        {{ p.instance.nome }}
+                      </button>
+                    </h2>
+                    <div id="panelsStayOpen-collapsePelotao{{ p.instance.pk }}" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingPelotao{{ p.instance.pk }}">
+                      <div class="accordion-body">
+                        <strong>{{ p.instance.nome }}</strong> - {{ p.instance.nome }} - <code>{{ p.instance.ref }}</code>
+                        {% for g in p.filhos %}
+                          <div class="accordion-item">
+                            <h2 class="accordion-header" id="panelsStayOpen-headingGC{{ g.instance.pk }}">
+                              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseGC{{ g.instance.pk }}" aria-expanded="true" aria-controls="panelsStayOpen-collapseGC{{ g.instance.pk }}">
+                                {{ g.instance.nome }}
+                              </button>
+                            </h2>
+                            <div id="panelsStayOpen-collapseGC{{ g.instance.pk }}" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingGC{{ g.instance.pk }}">
+                              <div class="accordion-body table-responsive text-nowrap">
+                                <strong>{{ g.instance.nome }}</strong> - {{ g.instance.nome }} - <code>{{ g.instance.ref }}</code>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Nome</th>
+      <th scope="col">Função</th>
+      <th scope="col">Celular</th>
+      <th scope="col">Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for m in g.filhos %}
+    <tr>
+      <th scope="row">{{ m.numero }}</th>
+      <td>{{ m.nome }}</td>
+      <td>{{ m.funcao }}</td>
+      <td>{{ m.celular }}</td>
+      <td><a href="https://instagram.com/teofanesp12"><i class="fa-brands fa-whatsapp" style="color: black; min-height:25px;"></i></a>
+        <a href="https://instagram.com/teofanesp12"><i class="fa-solid fa-phone" style="color: black; min-height:22px;"></i></a>
+        <a href="https://instagram.com/teofanesp12"><i class="fa-regular fa-envelope" style="color: black; min-height:25px;"></i></a>
+        |
+        <a href="{% url 'militar:militar-edit_militar-view' pk=m.pk %}"><i class="fa-regular fa-pen-to-square" style="color: black; min-height:25px;"></i></a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+                              </div>
+                            </div>
+                          </div>
+                        {% endfor %}
+                      </div>
+                    </div>
+                  </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endfor %}
+</div>
+
+    </div>
+  </div>
+</div>
+{% endblock content %}

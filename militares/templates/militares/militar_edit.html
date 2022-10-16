@@ -2,7 +2,7 @@
 {% load static %}
 {% load humanize %}
 
-{% block title %}Militar - {{ form.instance.nome }}{% endblock %}
+{% block title %}Militar - {% if form.instance.nome %}{{ form.instance.nome }}{% else %}Adicionar Novo{% endif %}{% endblock %}
 
 {% block style %}
 <script src="{% static 'js/jquery.mask.min.js' %}" ></script>
@@ -12,8 +12,7 @@
 <style>
 #endereco-mapa{
   position: relative;
-  border: 1px solid black;
-  border-radius: 8px;
+  border-radius: 15px;
   height: 400px;  /* or as desired */
   width: 100%; 
 }
@@ -33,6 +32,9 @@
       {% if form.instance and form.instance.photo %}
         <img class="d-block mx-auto mb-4" src="{{ form.instance.photo.url }}" alt="" style="max-width: 200px;
     border-radius: 100px;">
+      {% else %}
+      <i class="fa-solid fa-user-tie d-block mx-auto mb-4" style="min-height: 150px;margin-top:15px;"></i>
+      <label for="id_photo">Adicionar Foto:</label>
         {% endif %}
       {{ form.photo }}
       {{ form.photo.errors }}
@@ -272,7 +274,7 @@
           {{ form.email.errors }}
         </div>
       </div>
-      <div class="col-md-12" style="min-height: 500px;">
+      <div class="col-md-12" style="min-height: 420px;">
         <div id="endereco-mapa" class="leaflet-container" ></div>
       </div>
       <div class="col-md-4">
@@ -373,7 +375,8 @@
     </div>
   </div>
   <div class="col-md-2">
-    <input type="submit" value="Salvar" class="btn btn-primary">
+    <button class="btn btn-success" type="submit"><i class="fa-regular fa-floppy-disk"></i> | Salvar</button>
+    <!--input type="submit" value="Salvar" class="btn btn-primary"-->
   </div>
 </div>
   
@@ -486,7 +489,7 @@ $(document).ready(function(){
   var lng = -56.0670877;
   {% if form.instance.endereco_latitude %}lat=parseFloat("{{ form.instance.endereco_latitude }}".replace(",","."));{% endif %}
   {% if form.instance.endereco_longitude %}lng=parseFloat("{{ form.instance.endereco_longitude }}".replace(",","."));{% endif %}
-  console.log(lat);
+  // console.log(lat);
   // quando clicamos em contatos, ele vai montar o mapa, economizar memoria.
   $("#contact-tab").click(function() {
     var map = L.map('endereco-mapa').setView([ lat, lng], 17);

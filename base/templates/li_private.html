@@ -5,14 +5,21 @@
   <a class="nav-link">2° Sessão</a>
 </li>
 <li class="nav-item">
-  <a class="nav-link" href="{% url 'pp:home' %}">Programa Padrão</a>
+  <a class="nav-link" href="#">3° Sessão</a>
 </li>
 <li class="nav-item">
-  <a class="nav-link" href="{% url 'ndaca:home' %}">NDACA</a>
+  <a class="nav-link" href="{% url 'militar:militar-map_force_tree-view' %}">Mapa da Força</a>
+</li>
+<li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle" href="#" id="dropdownInst" data-bs-toggle="dropdown" aria-expanded="false">Instrução</a>
+  <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownInst">
+    <li><a class="dropdown-item" href="{% url 'pp:home' %}">Programa Padrão</a></li>
+    <li><a class="dropdown-item" href="{% url 'ndaca:home' %}">NDACA</a></li>
+  </ul>
 </li>
 <li class="nav-item dropdown">
   <a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-bs-toggle="dropdown" aria-expanded="false">Relatórios</a>
-  <ul class="dropdown-menu" aria-labelledby="dropdown03">
+  <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdown03">
     <li><a class="dropdown-item" href="{% url 'militar:militar-escolaridade-reportview' %}">Escolaridades</a></li>
     <li><a class="dropdown-item" href="{% url 'militar:militar-religiao-reportview' %}">Religião</a></li>
     <li><a class="dropdown-item" href="{% url 'militar:militar-geochart-reportview' %}">GeoRelatório</a></li>

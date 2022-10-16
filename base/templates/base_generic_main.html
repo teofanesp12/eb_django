@@ -28,6 +28,7 @@
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark" aria-label="Third navbar example">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Exercito Brasileiro</a>
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -51,13 +52,14 @@
           </button>
         </div>
       </form>
+    <a type="button" class="btn btn-outline-light" href="{% url 'access:access-login-view' %}" style="margin-left: 15px;"><i class="fa-solid fa-address-card"></i></a>
     </div>
   </div>
 </nav>
 
 {% if messages %}
 {% for message in messages %}
-<div class="alert alert-{% if message.tags %}{{ message.tags }}{% else %}info{% endif %} alert-dismissible fade show " role="alert">
+<div class="alert alert-{% if message.tags %}{{ message.tags }}{% else %}info{% endif %} alert-dismissible fade show " role="alert" style="margin: 15px 10px 15px 10px;box-shadow: 10px 5px 15px #0000008a;">
   <strong>{{ message }}</strong>.
   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
 </div>
@@ -71,23 +73,35 @@
   <!-- Content here -->
 </main>
 
-<footer class="container-fluid" style="box-shadow: 0px -10px 5px #888888a8;">
-  <div class="row">
+<footer class="container-fluid text-white bg-dark" style="box-shadow: 0px -10px 5px #888888a8;">
+  <div class="row" style="padding: 10px;">
     <div class="col-md">
       <i class="fa-sharp fa-solid fa-copyright"></i>
       <small>2017-2022</small>
     </div>
+    
+    <div class="col-md">
+      <strong>Informações</strong>
+      <div>
+        <a href="https://instagram.com/teofanesp12"><i class="fa-brands fa-linux" style="color: white; min-height:25px;"></i></a>
+        <a href="https://instagram.com/teofanesp12"><i class="fa-brands fa-python" style="color: white; min-height:25px;"></i></a>
+      </div>
+    </div>
+    <div class="col-md">
+      <strong>Sobre o Projeto</strong>
+      <div>
+        <a href="https://github.com/teofanesp12"><i class="fa-brands fa-github" style="color: white; min-height:25px;"></i></i></a>
+        <a href="https://instagram.com/teofanesp12"><i class="fa-brands fa-youtube" style="color: white; min-height:25px;"></i></a>
+      </div>
+    </div>
     <div class="col-md">
       <strong>Social</strong>
-      <div><a href="https://fb.com/teofanesp12"><i class="fa-brands fa-facebook"></i></a><small>@TEOFANESP12</small></div>
-      <div><a href="https://instagram.com/teofanesp12"><i class="fa-brands fa-instagram"></i></a><small>@TEOFANESP12</small></div>
-      <div><a href="https://github.com/teofanesp12"><i class="fa-brands fa-github"></i></i></a><small>@TEOFANESP12</small></div>
-    </div>
-    <div class="col-md">
-      
-    </div>
-    <div class="col-md">
-      
+      <div>
+        <a href="https://fb.com/teofanesp12"><i class="fa-brands fa-facebook" style="color: white; min-height:25px;"></i></a>
+        <a href="https://instagram.com/teofanesp12"><i class="fa-brands fa-instagram" style="color: white; min-height:25px;"></i></a>
+        <a href="https://twitter.com/teofanesp12"><i class="fa-brands fa-twitter" style="color: white; min-height:25px;"></i></a>
+        <a href="https://instagram.com/teofanesp12"><i class="fa-brands fa-whatsapp" style="color: white; min-height:25px;"></i></a>
+      </div>
     </div>
   </div>
 </footer>

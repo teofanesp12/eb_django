@@ -1,10 +1,13 @@
 from django.shortcuts import render, redirect
 from django.views import generic
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 # Create your views here.
 
-from .models import Militar, Graduacao, Pelotao, GrupoCombate
+from .models import Militar, Graduacao
+from .models import Unidade, SubUnidade, Pelotao, GrupoCombate
 from base.models import Escolaridade, Religiao
 from boletin.models import BoletinDocumento
 
@@ -42,8 +45,10 @@ def edit_militar(request, pk):
     if request.POST:
         form = MilitarForm(request.POST, request.FILES, instance=instance)
         form.save()
+        messages.add_message(request, messages.SUCCESS, 'Salvo com Sucesso!')
     else:
         form = MilitarForm(instance=instance)
+        # messages.add_message(request, messages.INFO, 'Hello world.')
 
     context['form'] = form
     return render(request, 'militares/militar_edit.html', context)
@@ -60,9 +65,11 @@ def create_militar(request):
         form = MilitarForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
+            messages.add_message(request, messages.SUCCESS, 'Salvo com Sucesso!')
             return redirect(form.instance)
         else:
             context['form'] = form
+            messages.add_message(request, messages.WARNING, 'Confira as suas informações!')
             return render(request, 'militares/militar_edit.html', context)
     context = {}
     form = MilitarForm()
@@ -135,6 +142,52 @@ def geochart_report(request):
 
     return render(request, 'militares/geochart_militares.html', context)
 
+#
+# Mapa da Força
+#
+class normal(object):
+    def __init__(self):
+        self.instance = None
+        self.filhos = []
+
+@login_required
+def map_force_tree(request):
+    context = {}
+    context["unidades"] = []
+    for b in Unidade.objects.all():
+        b0 = normal()
+        b0.instance = b
+        for s in SubUnidade.objects.filter(unidade=b.pk):
+            s0 = normal()
+            s0.instance = s
+            for p in Pelotao.objects.filter(subunidade=s.pk):
+                p0 = normal()
+                p0.instance = p
+                for g in GrupoCombate.objects.filter(pelotao=p.pk):
+                    g0 = normal()
+                    g0.instance = g
+                    for m in Militar.objects.filter(grupo_combate=g.pk):
+                        g0.filhos.append(m)
+                    p0.filhos.append(g0)
+                s0.filhos.append(p0)
+            b0.filhos.append(s0)
+        context["unidades"].append(b0)
+    return render(request, 'militares/mapforce/tree.html', context)
+@login_required
+def map_force_kaban(request):
+    context = {}
+
+    return render(request, 'militares/mapforce/kaban.html', context)
+@login_required
+def map_force_maps(request):
+    context = {}
+
+    return render(request, 'militares/mapforce/maps.html', context)
+@login_required
+def map_force_diagram(request):
+    context = {}
+
+    return render(request, 'militares/mapforce/diagram.html', context)
 
 def get_pelotao_json(request):
     json = {}

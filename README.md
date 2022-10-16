@@ -13,7 +13,7 @@ PYTHON:
 
 INICIAR O BANCO DE DADOS
 ------------------------
-Contruir a migração do Banco de Dados:
+Construir a migração do Banco de Dados:
 
     python manage.py makemigrations
 

@@ -25,10 +25,18 @@ urlpatterns = [
     path('militares/adicionar/', views.create_militar, name='militar-create_militar-view'),
     path('militares/<int:pk>/', views.MilitarDetailView.as_view(), name='militar-detail-view'),
     path('militares/<int:pk>/editar/', views.edit_militar, name='militar-edit_militar-view'),
+
+    # Relatorios
     path('militares/<int:pk>/assentamentos/', views.gerate_assentamentos, name='militar-assentamentos-reportview'),
     path('escolaridade/relatorio/', views.escolaridade_report, name='militar-escolaridade-reportview'),
     path('religiao/relatorio/', views.religiao_report, name='militar-religiao-reportview'),
     path('geochart/relatorio/', views.geochart_report, name='militar-geochart-reportview'),
+
+    # Mapa da Força
+    path('militares/mapforce/tree', views.map_force_tree, name='militar-map_force_tree-view'),
+    path('militares/mapforce/kaban', views.map_force_kaban, name='militar-map_force_kaban-view'),
+    path('militares/mapforce/maps', views.map_force_maps, name='militar-map_force_maps-view'),
+    path('militares/mapforce/diagram', views.map_force_diagram, name='militar-map_force_diagram-view'),
 
     # Jsons
     path('militares/pelotoes/json', views.get_pelotao_json, name='militar-get_pelotao-json'),
