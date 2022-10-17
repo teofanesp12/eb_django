@@ -29,9 +29,11 @@
                 {{ s.instance.nome }}
               </button>
             </h2>
-            <div id="panelsStayOpen-collapseSubUnidade{{ s.instance.pk }}" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingPelotao{{ s.instance.pk }}">
+            <div id="panelsStayOpen-collapseSubUnidade{{ s.instance.pk }}" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingSUnidade{{ s.instance.pk }}">
               <div class="accordion-body">
                 <strong>{{ s.instance.nome }}</strong> - {{ s.instance.nome }} - <code>{{ s.instance.ref }}</code>
+                <button type="button" class="btn btn-outline-primary"><i class="fa-solid fa-up-right-from-square"></i></button>
+
                 {% for p in s.filhos %}
                   <div class="accordion-item">
                     <h2 class="accordion-header" id="panelsStayOpen-headingPelotao{{ p.instance.pk }}">
