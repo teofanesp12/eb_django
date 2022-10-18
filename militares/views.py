@@ -11,6 +11,8 @@ from .models import Unidade, SubUnidade, Pelotao, GrupoCombate
 from base.models import Escolaridade, Religiao
 from boletin.models import BoletinDocumento
 
+from access.decorators import login_access_required
+
 from .forms import MilitarForm
 
 import datetime
@@ -32,7 +34,7 @@ def set_cookie(response, key, value, days_expire=7):
         domain=None,
         secure=None,
     )
-
+@login_access_required
 def edit_militar(request, pk):
     context = {}
     instance=Militar.objects.get(pk=pk)
@@ -75,13 +77,17 @@ def create_militar(request):
     form = MilitarForm()
     context['form'] = form
     return render(request, 'militares/militar_edit.html', context)
-
-class MilitarDetailView(LoginRequiredMixin, generic.DetailView):
+# LoginRequiredMixin
+class MilitarDetailView(generic.DetailView):
     model = Militar
     def get_context_data(self, **kwargs):
         context = super(MilitarDetailView, self).get_context_data(**kwargs)
         context['boletins'] = BoletinDocumento.objects.all()
         return context
+
+    @login_access_required
+    def get(self, request, *args, **kwargs):
+        return super(MilitarDetailView, self).get(request)
 
 def gerate_assentamentos(request, pk):
     context = {}
