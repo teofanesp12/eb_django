@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.contrib import messages
 
 from militares.models import Militar
 
@@ -22,7 +23,11 @@ def access_login(request):
         except Exception:
             militar = None
 
-        if not militar:
+        if militar:
+            if militar.chave!=password:
+                messages.add_message(request, messages.WARNING, 'Chave Incorreta!')
+                return render(request, 'access/login.html', context)
+        else:
             return redirect('militar:militar-create_militar-view')
 
         response = redirect(militar)

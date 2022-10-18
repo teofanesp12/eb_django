@@ -149,29 +149,74 @@ class normal(object):
     def __init__(self):
         self.instance = None
         self.filhos = []
+        self.militares = []
+    def tipo(self):
+        if type(self.instance) == SubUnidade:
+            return "subunidade_id"
+        elif type(self.instance) == Pelotao:
+            return "pelotao_id"
+        elif type(self.instance) == GrupoCombate:
+            return "gc_id"
+        else:
+            return "unidade_id"
+
+def get_gcs(pelotao_id):
+    filhos = []
+    for g in GrupoCombate.objects.filter(pelotao=pelotao_id):
+        g0 = normal()
+        g0.instance  = g
+        g0.militares = Militar.objects.filter(grupo_combate=g.pk)
+        filhos.append(g0)
+    return filhos
+def get_pelotoes(subunidade_id):
+    filhos = []
+    for p in Pelotao.objects.filter(subunidade=subunidade_id):
+        p0 = normal()
+        p0.instance = p
+        p0.militares = Militar.objects.filter(grupo_combate=None, pelotao=p)
+        p0.filhos = get_gcs(p.pk)
+        filhos.append(p0)
+    return filhos
+def get_subunidades(unidade_id):
+    filhos = []
+    for s in SubUnidade.objects.filter(unidade=unidade_id):
+        s0 = normal()
+        s0.instance  = s
+        s0.militares = Militar.objects.filter(grupo_combate=None, pelotao=None, subunidade=s)
+        s0.filhos    = get_pelotoes(s.pk)
+        filhos.append(s0)
+    return filhos
 
 @login_required
 def map_force_tree(request):
     context = {}
     context["unidades"] = []
-    for b in Unidade.objects.all():
-        b0 = normal()
-        b0.instance = b
-        for s in SubUnidade.objects.filter(unidade=b.pk):
-            s0 = normal()
-            s0.instance = s
-            for p in Pelotao.objects.filter(subunidade=s.pk):
-                p0 = normal()
-                p0.instance = p
-                for g in GrupoCombate.objects.filter(pelotao=p.pk):
-                    g0 = normal()
-                    g0.instance = g
-                    for m in Militar.objects.filter(grupo_combate=g.pk):
-                        g0.filhos.append(m)
-                    p0.filhos.append(g0)
-                s0.filhos.append(p0)
-            b0.filhos.append(s0)
-        context["unidades"].append(b0)
+    if request.GET:
+        subunidade_id = request.GET.get("subunidade_id")
+        pelotao_id = request.GET.get("pelotao_id")
+        gc_id = request.GET.get("gc_id")
+        if subunidade_id:
+            res = normal()
+            res.instance = SubUnidade.objects.get(pk=subunidade_id)
+            res.filhos = get_pelotoes(subunidade_id)
+            context["unidades"] = [res]
+        elif pelotao_id:
+            res = normal()
+            res.instance = Pelotao.objects.get(pk=pelotao_id)
+            res.filhos = get_gcs(pelotao_id)
+            context["unidades"] = [res]
+        elif gc_id:
+            res = normal()
+            res.instance = GrupoCombate.objects.get(pk=gc_id)
+            # res.filhos = get_gcs(pelotao_id)
+            res.militares = Militar.objects.filter(grupo_combate=res.instance)
+            context["unidades"] = [res]
+    else:
+        for b in Unidade.objects.all():
+            b0 = normal()
+            b0.instance = b
+            b0.filhos = get_subunidades(b.pk)
+            context["unidades"].append(b0)
     return render(request, 'militares/mapforce/tree.html', context)
 @login_required
 def map_force_kaban(request):

@@ -1,5 +1,6 @@
 {% extends "base_generic_main.html" %}
 {% load static %}
+{% load extras %}
 
 {% block title %}Mapa da Força - Lista{% endblock title %}
 
@@ -20,7 +21,7 @@
     </h2>
     <div id="panelsStayOpen-collapseUnidade" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingUnidade">
       <div class="accordion-body">
-        <strong>{{ b.instance.nome_historico }}</strong> - {{ b.instance.nome }} - <code>{{ b.instance.ref }}</code>
+        <strong>{{ b.instance.nome_historico }}</strong> - {{ b.instance.nome }} - <code>{{ b.instance.ref|default_if_none:"--" }}</code>
         <div class="accordion" id="accordionPanelsStayOpenSubUnidade">
           {% for s in b.filhos %}
           <div class="accordion-item">
@@ -31,8 +32,8 @@
             </h2>
             <div id="panelsStayOpen-collapseSubUnidade{{ s.instance.pk }}" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingSUnidade{{ s.instance.pk }}">
               <div class="accordion-body">
-                <strong>{{ s.instance.nome }}</strong> - {{ s.instance.nome }} - <code>{{ s.instance.ref }}</code>
-                <button type="button" class="btn btn-outline-primary"><i class="fa-solid fa-up-right-from-square"></i></button>
+                <strong>{{ s.instance.nome }}</strong> - {{ s.instance.nome }} - <code>{{ s.instance.ref|default_if_none:"--" }}</code>
+                <a type="button" class="btn btn-outline-primary mb-2" href="?{{ s.tipo }}={{ s.instance.pk }}">Abrir <i class="fa-solid fa-up-right-from-square"></i></a>
 
                 {% for p in s.filhos %}
                   <div class="accordion-item">
@@ -43,7 +44,9 @@
                     </h2>
                     <div id="panelsStayOpen-collapsePelotao{{ p.instance.pk }}" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingPelotao{{ p.instance.pk }}">
                       <div class="accordion-body">
-                        <strong>{{ p.instance.nome }}</strong> - {{ p.instance.nome }} - <code>{{ p.instance.ref }}</code>
+                        <strong>{{ p.instance.nome }}</strong> - {{ p.instance.nome }} - <code>{{ p.instance.ref|default_if_none:"--" }}</code>
+                <a type="button" class="btn btn-outline-primary mb-2" href="?{{ p.tipo }}={{ p.instance.pk }}">Abrir <i class="fa-solid fa-up-right-from-square"></i></a>
+
                         {% for g in p.filhos %}
                           <div class="accordion-item">
                             <h2 class="accordion-header" id="panelsStayOpen-headingGC{{ g.instance.pk }}">
@@ -53,46 +56,25 @@
                             </h2>
                             <div id="panelsStayOpen-collapseGC{{ g.instance.pk }}" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingGC{{ g.instance.pk }}">
                               <div class="accordion-body table-responsive text-nowrap">
-                                <strong>{{ g.instance.nome }}</strong> - {{ g.instance.nome }} - <code>{{ g.instance.ref }}</code>
-<table class="table table-hover">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Nome</th>
-      <th scope="col">Função</th>
-      <th scope="col">Celular</th>
-      <th scope="col">Ações</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for m in g.filhos %}
-    <tr>
-      <th scope="row">{{ m.numero }}</th>
-      <td>{{ m.nome }}</td>
-      <td>{{ m.funcao }}</td>
-      <td>{{ m.celular }}</td>
-      <td><a href="https://instagram.com/teofanesp12"><i class="fa-brands fa-whatsapp" style="color: black; min-height:25px;"></i></a>
-        <a href="https://instagram.com/teofanesp12"><i class="fa-solid fa-phone" style="color: black; min-height:22px;"></i></a>
-        <a href="https://instagram.com/teofanesp12"><i class="fa-regular fa-envelope" style="color: black; min-height:25px;"></i></a>
-        |
-        <a href="{% url 'militar:militar-edit_militar-view' pk=m.pk %}"><i class="fa-regular fa-pen-to-square" style="color: black; min-height:25px;"></i></a>
-      </td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+                                <strong>{{ g.instance.nome }}</strong> - {{ g.instance.nome|default_if_none:"--" }} - <code>{{ g.instance.ref|default_if_none:"--" }}</code>
+                <a type="button" class="btn btn-outline-primary mb-2" href="?{{ g.tipo }}={{ g.instance.pk }}">Abrir <i class="fa-solid fa-up-right-from-square"></i></a>
+
+                                {% include "militares/mapforce/tree_table.html" with militares=g.militares %}
                               </div>
                             </div>
                           </div>
                         {% endfor %}
+                        {% include "militares/mapforce/tree_table.html" with militares=p.militares %}
                       </div>
                     </div>
                   </div>
                 {% endfor %}
               </div>
+            {% include "militares/mapforce/tree_table.html" with militares=s.militares %}
             </div>
           </div>
           {% endfor %}
+          {% include "militares/mapforce/tree_table.html" with militares=b.militares %}
         </div>
       </div>
     </div>

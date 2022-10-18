@@ -158,5 +158,12 @@ button{
 
         <button type="submit">Entrar</button>
     </form>
+    <script type="text/javascript">
+{% if messages %}
+{% for message in messages %}
+alert("{{ message }}");
+{% endfor %}
+{% endif %}
+    </script>
 </body>
 </html>
