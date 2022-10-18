@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
   <!-- Design by foolishdeveloper.com -->
     <title>Acessar</title>
@@ -17,7 +17,10 @@
     box-sizing: border-box;
 }
 body{
-    background-color: #080710;
+    background-image: url(https://ava.44bimtz.eb.mil.br/pluginfile.php/1/theme_moove/loginbgimg/1654541525/WhatsApp%20Image%202022-05-16%20at%2011.30.33.jpeg);
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
 }
 .background{
     width: 430px;
@@ -51,7 +54,7 @@ body{
     bottom: -80px;
 }
 form{
-    height: 520px;
+    min-height: 520px;
     width: 400px;
     background-color: rgba(255,255,255,0.13);
     position: absolute;
@@ -61,7 +64,7 @@ form{
     border-radius: 10px;
     backdrop-filter: blur(10px);
     border: 2px solid rgba(255,255,255,0.1);
-    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    box-shadow: 20px 20px 40px black;
     padding: 50px 35px;
 }
 form *{
@@ -109,6 +112,26 @@ button{
     border-radius: 5px;
     cursor: pointer;
 }
+button:hover{
+    box-shadow: 20px 20px 40px black;
+}
+
+a:link, a:visited {
+    margin-top: 30px;
+    width: 100%;
+    background-color: #ffffff;
+    color: white;
+    border-radius: 5px;
+    padding: 15px 0;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+a:hover, a:active {
+    box-shadow: 20px 20px 40px black;
+}
+
 .social{
   margin-top: 30px;
   display: flex;
@@ -143,20 +166,27 @@ button{
          {% csrf_token %} 
         <h3>Acessar o Cadastro</h3>
 
-        <label for="username">Usuario</label>
+        <label for="username">Usuário</label>
         <input type="text" placeholder="depente do tipo de login" id="username" name="username">
 
         <label for="password">Chave</label>
         <input type="password" placeholder="chave de Cadastro" id="password" name="password">
 
-        <label for="type">Tipo de Login</label>
-        <select name="type" id="type" style="color: darkred;">
-          <option value="cpf" style="color: darkred;">CPF</option>
-          <option value="rg" style="color: darkred;">RG</option>
-          <option value="numero" style="color: darkred;">Número</option>
-        </select>
+        <div style="width:100%;display: inline-flex;">
+            <div style="width:50%">
+                <label for="type">Tipo de Login</label>
+                <select name="type" id="type" style="color: darkred;">
+                  <option value="cpf" style="color: darkred;">CPF</option>
+                  <option value="rg" style="color: darkred;">RG</option>
+                  <option value="numero" style="color: darkred;">Número</option>
+                </select>
+            </div>
+            <div style="width:50%">
+                <a type="button" style="background-color: #828282;" href="{% url 'militar:militar-create_militar-view' %}">CRIAR</a>
+            </div>
+        </div>
 
-        <button type="submit">Entrar</button>
+        <button type="submit" style="margin-top: 15px;">ENTRAR</button>
     </form>
     <script type="text/javascript">
 {% if messages %}
