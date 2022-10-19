@@ -5,7 +5,7 @@ INSTALAÇÃO
 ----------
 DEP:
 
-    tablib, django, diff_match_patch
+    tablib, django, diff_match_patch, PyPDF2, Pillow
 
 PYTHON:
 

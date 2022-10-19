@@ -2,3 +2,4 @@ tablib
 Django
 diff_match_patch
 Pillow
+PyPDF2
