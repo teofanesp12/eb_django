@@ -1,8 +1,9 @@
-<div class="offset-md-9 col-md-3 mb-3">
+<div class="{% if class %}{{ class }}{% else %}offset-md-9 col-md-3 mb-3{% endif %}">
   <div class="btn-group" role="group" aria-label="Basic outlined example">
-    <a type="button" class="btn btn-outline-secondary" href="{% url 'militar:militar-map_force_tree-view' %}"><i class="fa-solid fa-list"></i></a>
-    <a type="button" class="btn btn-outline-secondary" href="{% url 'militar:militar-map_force_kaban-view' %}"><i class="fa-solid fa-address-book"></i></a>
-    <a type="button" class="btn btn-outline-secondary" href="{% url 'militar:militar-map_force_maps-view' %}"><i class="fa-solid fa-map-location-dot"></i></a>
-    <a type="button" class="btn btn-outline-secondary" href="{% url 'militar:militar-map_force_diagram-view' %}"><i class="fa-solid fa-diagram-project"></i></a>
+    <a type="button" class="btn btn-outline-secondary{% if type == 'list' %} active{% endif %}" href="{% url 'militar:militar-map_force_list-view' %}"><i class="fa-solid fa-bars"></i></a>
+    <a type="button" class="btn btn-outline-secondary{% if type == 'tree' %} active{% endif %}" href="{% url 'militar:militar-map_force_tree-view' %}"><i class="fa-solid fa-list"></i></a>
+    <a type="button" class="btn btn-outline-secondary{% if type == 'kanban' %} active{% endif %}" href="{% url 'militar:militar-map_force_kaban-view' %}"><i class="fa-solid fa-address-book"></i></a>
+    <a type="button" class="btn btn-outline-secondary{% if type == 'maps' %} active{% endif %}" href="{% url 'militar:militar-map_force_maps-view' %}"><i class="fa-solid fa-map-location-dot"></i></a>
+    <a type="button" class="btn btn-outline-secondary{% if type == 'diagram' %} active{% endif %}" href="{% url 'militar:militar-map_force_diagram-view' %}"><i class="fa-solid fa-diagram-project"></i></a>
   </div>
 </div>

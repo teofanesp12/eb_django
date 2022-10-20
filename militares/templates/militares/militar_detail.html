@@ -3,65 +3,76 @@
 {% load extras %}
 {% block title %}Militares - {{ object.nome }}{% endblock %}
 
+
 {% block style %}
+<!--script src="{% static 'js/jquery.mask.min.js' %}" ></script-->
+<script src="{% static 'leaflet/dist/leaflet.js' %}" ></script>
+<link href="{% static 'leaflet/dist/leaflet.css' %}" rel="stylesheet"/>
 
 <link href="{% static 'datepicker/css/bootstrap-datepicker3.min.css' %}" rel="stylesheet"/>
 <script src="{% static 'js/jquery-3.6.0.min.js' %}" ></script>
 <script src="{% static 'datepicker/js/bootstrap-datepicker.min.js' %}" charset="UTF-8"></script>
 
 <meta name="theme-color" content="#712cf9">
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
 
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
+<style>
+#endereco-mapa{
+  position: relative;
+  border-radius: 15px;
+  height: 400px;  /* or as desired */
+  width: 100%; 
+}
+  .bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+  }
 
-      .b-example-divider {
-        height: 3rem;
-        background-color: rgba(0, 0, 0, .1);
-        border: solid rgba(0, 0, 0, .15);
-        border-width: 1px 0;
-        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
-      }
+  @media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+      font-size: 3.5rem;
+    }
+  }
 
-      .b-example-vr {
-        flex-shrink: 0;
-        width: 1.5rem;
-        height: 100vh;
-      }
+  .b-example-divider {
+    height: 3rem;
+    background-color: rgba(0, 0, 0, .1);
+    border: solid rgba(0, 0, 0, .15);
+    border-width: 1px 0;
+    box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+  }
 
-      .bi {
-        vertical-align: -.125em;
-        fill: currentColor;
-      }
+  .b-example-vr {
+    flex-shrink: 0;
+    width: 1.5rem;
+    height: 100vh;
+  }
 
-      .nav-scroller {
-        position: relative;
-        z-index: 2;
-        height: 2.75rem;
-        overflow-y: hidden;
-      }
+  .bi {
+    vertical-align: -.125em;
+    fill: currentColor;
+  }
 
-      .nav-scroller .nav {
-        display: flex;
-        flex-wrap: nowrap;
-        padding-bottom: 1rem;
-        margin-top: -1px;
-        overflow-x: auto;
-        text-align: center;
-        white-space: nowrap;
-        -webkit-overflow-scrolling: touch;
-      }
-    </style>
+  .nav-scroller {
+    position: relative;
+    z-index: 2;
+    height: 2.75rem;
+    overflow-y: hidden;
+  }
+
+  .nav-scroller .nav {
+    display: flex;
+    flex-wrap: nowrap;
+    padding-bottom: 1rem;
+    margin-top: -1px;
+    overflow-x: auto;
+    text-align: center;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+</style>
 {% endblock style %}
 
 {% block content %}
@@ -162,11 +173,18 @@ border-radius: 100px;">
       </div>
       <div class="row justify-content-start"> 
         <div class="col-lg-2 text-md-end">Celular:</div>
-        <div class="col-lg-2"><strong>{{ object.celular|default:"--" }}</strong> {% if object.celular and object.whatsapp %}<a href="https://wa.me/{{ object.celular|phone_to_int }}?text=urlencodedtext"><i class="fa-brands fa-whatsapp" style="min-height:25px;"></i></a>{% endif %}</div>
+        <div class="col-lg-2"><strong>{{ object.celular|default:"--" }}</strong> {% if object.celular and object.celular_is_whatsapp %}<a href="https://wa.me/{{ object.celular|phone_to_int }}?text=MandaBrasa"><i class="fa-brands fa-whatsapp" style="min-height:25px;"></i></a>{% endif %}
+          {% if object.celular %}<a href="tel:{{ object.celular|phone_to_int }}"><i class="fa-solid fa-mobile-screen" style="min-height:25px;"></i></a>{% endif %}
+        </div>
         <div class="col-lg-2 text-md-end">Telefone:</div>
-        <div class="col-lg-2"><strong>{{ object.telefone|default:"--" }}</strong></div>
+        <div class="col-lg-2"><strong>{{ object.telefone|default:"--" }}</strong> {% if object.telefone %}<a href="tel:{{ object.telefone|phone_to_int }}"><i class="fa-solid fa-phone" style="min-height:25px;"></i></a>{% endif %}</div>
         <div class="col-lg-2 text-md-end">E-mail:</div>
-        <div class="col-lg-2"><strong>{{ object.email|default:"--" }}</strong> <a href="mailto:{{ m.email }}"><i class="fa-regular fa-envelope" style="min-height:25px;"></i></a></div>
+        <div class="col-lg-2"><strong>{{ object.email|default:"--" }}</strong> {% if object.email %}<a href="mailto:{{ object.email }}"><i class="fa-regular fa-envelope" style="min-height:25px;"></i></a>{% endif %}</div>
+      </div>
+      <div class="row">
+        <div class="col-md-12" style="min-height: 420px;">
+          <div id="endereco-mapa" class="leaflet-container" ></div>
+        </div>
       </div>
     </div>
   </div>
@@ -287,3 +305,31 @@ $(".datepicker").datepicker({
     </script-->
 
 {% endblock %}
+
+{% block script %}
+
+<script>
+$(document).ready(function(){
+  var lat = -15.5699123;
+  var lng = -56.0670877;
+
+  {% if object.endereco_latitude and object.endereco_longitude %}
+  lat=parseFloat("{{ object.endereco_latitude }}".replace(",","."));
+  lng=parseFloat("{{ object.endereco_longitude }}".replace(",","."));
+  {% endif %}
+  var map = L.map('endereco-mapa').setView([ lat, lng], 14);
+  mapLink = '<a href="https://openstreetmap.org">OpenStreetMap</a>';
+  L.tileLayer(
+    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    {
+      attribution: 'Mapa &copy; ' + mapLink,
+      maxZoom: 200,
+    }).addTo(map);
+{% if object.endereco_latitude and object.endereco_longitude %}
+  var marker = L.marker([lat, lng],{
+        });
+  marker.addTo(map);
+{% endif %}
+});
+</script>
+{% endblock script %}

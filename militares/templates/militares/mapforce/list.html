@@ -1,0 +1,82 @@
+{% extends "base_generic_main.html" %}
+{% load static %}
+{% load extras %}
+
+{% block title %}Mapa da Força - Lista{% endblock title %}
+
+
+{% block content %}
+
+{% for obj in objects %}
+<div class="container-fluid" style="min-height:600px;">
+  <div class="row" style="padding:15px;">
+    <div class="col-md-7" >
+      <nav aria-label="breadcrumb" style="width:100%;">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item active">{{ obj.instance.nome }}</li>
+          <li class="breadcrumb-item"><select class="form-select" aria-label="Default select example" style="width: 90%;" name="filho_id" id="filho_id">
+        <option selected>----</option>
+        {% for filho in obj.filhos %}
+        <option value="{{ filho.pk }}">{{ filho.nome }}</option>
+        {% endfor %}
+      </select></li>
+        </ol>
+      </nav>
+      
+      
+    </div>
+    {% include "militares/mapforce/col_md_selecttype_view.html" with type="list" class="offset-md-2 col-md-3 mb-3" %}
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nome</th>
+            <th scope="col">Graduação</th>
+            <th scope="col">Função</th>
+            <th scope="col">Celular</th>
+            <th scope="col">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for m in obj.militares %}
+          <tr>
+            <th scope="row">{{ m.numero }}</th>
+            <td>{{ m.nome }}</td>
+            <td>{{ m.graduacao|default_if_none:"--" }}</td>
+            <td>{{ m.funcao|default_if_none:"--" }}</td>
+            <td>{{ m.celular|default_if_none:"--" }}</td>
+            <td>{% if m.celular and m.celular_is_whatsapp %}<a href="https://wa.me/{{ m.celular|phone_to_int }}?text=MandaBrasa"><i class="fa-brands fa-whatsapp" style="color: black; min-height:25px;"></i></a>{% endif %}
+              <a href="tel:{{ m.celular|phone_to_int }}"><i class="fa-solid fa-mobile-screen" style="color: black; min-height:25px;"></i></a>
+              <a href="tel:{{ m.telefone|phone_to_int }}"><i class="fa-solid fa-phone" style="color: black; min-height:22px;"></i></a>
+              <a href="mailto:{{ m.email }}"><i class="fa-regular fa-envelope" style="color: black; min-height:25px;"></i></a>
+              |
+              <a href="{% url 'militar:militar-edit_militar-view' pk=m.pk %}"><i class="fa-regular fa-pen-to-square" style="color: black; min-height:25px;"></i></a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+</div>
+{% endfor %}
+{% endblock content %}
+
+{% block script %}
+
+<script>
+$(document).ready(function(){
+  $("#filho_id").change(function(){
+    filho_id = $("#filho_id option:selected").val();
+    if (filho_id){
+      window.location.href = "{% url 'militar:militar-map_force_list-view' %}?{{ tipo }}="+filho_id;
+    }
+  });
+});
+</script>
+{% endblock script %}

@@ -33,6 +33,7 @@ urlpatterns = [
     path('geochart/relatorio/', views.geochart_report, name='militar-geochart-reportview'),
 
     # Mapa da Força
+    path('militares/mapforce/list', views.map_force_list, name='militar-map_force_list-view'),
     path('militares/mapforce/tree', views.map_force_tree, name='militar-map_force_tree-view'),
     path('militares/mapforce/kaban', views.map_force_kaban, name='militar-map_force_kaban-view'),
     path('militares/mapforce/maps', views.map_force_maps, name='militar-map_force_maps-view'),

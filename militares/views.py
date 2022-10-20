@@ -225,6 +225,46 @@ def map_force_tree(request):
             context["unidades"].append(b0)
     return render(request, 'militares/mapforce/tree.html', context)
 @login_required
+def map_force_list(request):
+    context = {}
+    context["objects"] = []
+    if request.GET:
+        if request.GET.get('subunidade_id'):
+            res = normal()
+            su = SubUnidade.objects.get(pk=request.GET.get('subunidade_id'))
+            res.instance = su
+            res.filhos   = Pelotao.objects.filter(subunidade=su)
+            for pel in res.filhos:
+                res.militares += Militar.objects.filter(pelotao=pel)
+            context["tipo"] = "pelotao_id"
+            context["objects"].append(res)
+        if request.GET.get('pelotao_id'):
+            res = normal()
+            pel = Pelotao.objects.get(pk=request.GET.get('pelotao_id'))
+            res.instance = pel
+            res.filhos   = GrupoCombate.objects.filter(pelotao=pel)
+            for gc in res.filhos:
+                res.militares += Militar.objects.filter(grupo_combate=gc)
+            context["tipo"] = "gc_id"
+            context["objects"].append(res)
+        if request.GET.get('gc_id'):
+            res = normal()
+            gc = GrupoCombate.objects.get(pk=request.GET.get('gc_id'))
+            res.instance = gc
+            res.militares += Militar.objects.filter(grupo_combate=gc)
+            # context["tipo"] = "gc_id"
+            context["objects"].append(res)
+    else:
+        for u in Unidade.objects.all():
+            res = normal()
+            res.instance = u
+            res.filhos   = SubUnidade.objects.filter(unidade=u)
+            for su in res.filhos:
+                res.militares += Militar.objects.filter(subunidade=su)
+            context["tipo"] = "subunidade_id"
+            context["objects"].append(res)
+    return render(request, 'militares/mapforce/list.html', context)
+@login_required
 def map_force_kaban(request):
     context = {}
 

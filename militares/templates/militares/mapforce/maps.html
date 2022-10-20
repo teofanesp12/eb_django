@@ -3,11 +3,50 @@
 
 {% block title %}Mapa da Força - Mapa{% endblock title %}
 
+{% block style %}
+
+<script src="{% static 'leaflet/dist/leaflet.js' %}" ></script>
+<link href="{% static 'leaflet/dist/leaflet.css' %}" rel="stylesheet"/>
+<script src="{% static 'js/jquery-3.6.0.min.js' %}" ></script>
+<style>
+#mapa{
+  position: relative;
+  border-radius: 15px;
+  height: 500px;  /* or as desired */
+  width: 100%; 
+}
+</style>
+{% endblock style %}
 
 {% block content %}
 <div class="container-fluid" style="min-height:600px;">
   <div class="row" style="padding:15px;">
-    {% include "militares/mapforce/col_md_selecttype_view.html" %}
+    {% include "militares/mapforce/col_md_selecttype_view.html" with type="maps" %}
+  </div>
+  <div class="row">
+    <div class="col-md-12" style="min-height: 420px;">
+      <div id="mapa" class="leaflet-container" ></div>
+    </div>
   </div>
 </div>
 {% endblock content %}
+
+{% block script %}
+
+<script>
+$(document).ready(function(){
+  var lat = -15.5699123;
+  var lng = -56.0670877;
+
+  var map = L.map('mapa').setView([ lat, lng], 14);
+  mapLink = '<a href="https://openstreetmap.org">OpenStreetMap</a>';
+  L.tileLayer(
+    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    {
+      attribution: 'Mapa &copy; ' + mapLink,
+      maxZoom: 200,
+    }).addTo(map);
+
+});
+</script>
+{% endblock script %}

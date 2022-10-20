@@ -500,7 +500,7 @@ $(document).ready(function(){
   // console.log(lat);
   // quando clicamos em contatos, ele vai montar o mapa, economizar memoria.
   $("#contact-tab").click(function() {
-    var map = L.map('endereco-mapa').setView([ lat, lng], 17);
+    var map = L.map('endereco-mapa').setView([ lat, lng], 16);
     mapLink = '<a href="https://openstreetmap.org">OpenStreetMap</a>';
     L.tileLayer(
       'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
