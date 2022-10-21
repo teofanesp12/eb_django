@@ -250,9 +250,9 @@ def map_force_list(request):
         if request.GET.get('gc_id'):
             res = normal()
             gc = GrupoCombate.objects.get(pk=request.GET.get('gc_id'))
-            res.instance = gc
-            res.militares += Militar.objects.filter(grupo_combate=gc)
-            # context["tipo"] = "gc_id"
+            res.instance    = gc
+            res.militares  += Militar.objects.filter(grupo_combate=gc)
+            context["tipo"] = "militares"
             context["objects"].append(res)
     else:
         for u in Unidade.objects.all():

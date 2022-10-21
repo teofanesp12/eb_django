@@ -13,13 +13,23 @@
     <div class="col-md-7" >
       <nav aria-label="breadcrumb" style="width:100%;">
         <ol class="breadcrumb">
+          {% if tipo == "pelotao_id" %}<li class="breadcrumb-item active">{{ obj.instance.unidade }}</li>
+          {% elif tipo == "gc_id" %}
+          <li class="breadcrumb-item">{{ obj.instance.subunidade.unidade.abr }}</li>
+          <li class="breadcrumb-item"><a href="{% url 'militar:militar-map_force_list-view' %}?subunidade_id={{ obj.instance.subunidade.pk }}">{{ obj.instance.subunidade }}</a></li>
+          {% elif tipo == "militares" %}
+          <li class="breadcrumb-item">{{ obj.instance.pelotao.subunidade.unidade.abr }}</li>
+          <li class="breadcrumb-item"><a href="{% url 'militar:militar-map_force_list-view' %}?subunidade_id={{ obj.instance.pelotao.subunidade.pk }}">{{ obj.instance.pelotao.subunidade }}</a></li>
+          <li class="breadcrumb-item"><a href="{% url 'militar:militar-map_force_list-view' %}?pelotao_id={{ obj.instance.pelotao.pk }}">{{ obj.instance.pelotao }}</a></li>
+          {% endif %}
           <li class="breadcrumb-item active">{{ obj.instance.nome }}</li>
-          <li class="breadcrumb-item"><select class="form-select" aria-label="Default select example" style="width: 90%;" name="filho_id" id="filho_id">
-        <option selected>----</option>
-        {% for filho in obj.filhos %}
-        <option value="{{ filho.pk }}">{{ filho.nome }}</option>
-        {% endfor %}
-      </select></li>
+          {% if tipo != "militares" %}
+          <li class="breadcrumb-item" style="display: flex;"><select class="form-select" aria-label="Default select example" style="width: 90%;" name="filho_id" id="filho_id">
+            <option value="0" selected>----</option>
+            {% for filho in obj.filhos %}
+            <option value="{{ filho.pk }}">{{ filho.nome }}</option>
+            {% endfor %}
+            </select></li>{% endif %}
         </ol>
       </nav>
       
@@ -29,7 +39,7 @@
   </div>
 
   <div class="row">
-    <div class="col-md-12 table-responsive">
+    <div class="col-md-12 table-responsive text-nowrap">
       <table class="table table-striped">
         <thead>
           <tr>
@@ -73,7 +83,7 @@
 $(document).ready(function(){
   $("#filho_id").change(function(){
     filho_id = $("#filho_id option:selected").val();
-    if (filho_id){
+    if (filho_id && filho_id!=0){
       window.location.href = "{% url 'militar:militar-map_force_list-view' %}?{{ tipo }}="+filho_id;
     }
   });

@@ -20,7 +20,7 @@
       </button>
     </h2>
     <div id="panelsStayOpen-collapseUnidade" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingUnidade">
-      <div class="accordion-body">
+      <div class="accordion-body table-responsive text-nowrap">
         <strong>{{ b.instance.nome_historico }}</strong> - {{ b.instance.nome }} - <code>{{ b.instance.ref|default_if_none:"--" }}</code>
         <div class="accordion" id="accordionPanelsStayOpenSubUnidade">
           {% for s in b.filhos %}
@@ -31,7 +31,7 @@
               </button>
             </h2>
             <div id="panelsStayOpen-collapseSubUnidade{{ s.instance.pk }}" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingSUnidade{{ s.instance.pk }}">
-              <div class="accordion-body">
+              <div class="accordion-body table-responsive text-nowrap">
                 <strong>{{ s.instance.nome }}</strong> - {{ s.instance.nome }} - <code>{{ s.instance.ref|default_if_none:"--" }}</code>
                 <a type="button" class="btn btn-outline-primary mb-2" href="?{{ s.tipo }}={{ s.instance.pk }}">Abrir <i class="fa-solid fa-up-right-from-square"></i></a>
 
@@ -43,7 +43,7 @@
                       </button>
                     </h2>
                     <div id="panelsStayOpen-collapsePelotao{{ p.instance.pk }}" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingPelotao{{ p.instance.pk }}">
-                      <div class="accordion-body">
+                      <div class="accordion-body table-responsive text-nowrap">
                         <strong>{{ p.instance.nome }}</strong> - {{ p.instance.nome }} - <code>{{ p.instance.ref|default_if_none:"--" }}</code>
                 <a type="button" class="btn btn-outline-primary mb-2" href="?{{ p.tipo }}={{ p.instance.pk }}">Abrir <i class="fa-solid fa-up-right-from-square"></i></a>
 
@@ -69,8 +69,8 @@
                     </div>
                   </div>
                 {% endfor %}
+                {% include "militares/mapforce/tree_table.html" with militares=s.militares %}
               </div>
-            {% include "militares/mapforce/tree_table.html" with militares=s.militares %}
             </div>
           </div>
           {% endfor %}
