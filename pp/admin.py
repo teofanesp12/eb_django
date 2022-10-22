@@ -30,7 +30,7 @@ class AssuntoAdmin(ImportExportModelAdmin):
     @admin.display(empty_value='???')
     def objetivo_codigo(self, obj):
         return obj.objetivo and obj.objetivo.codigo or ""
-class SubAssuntoAdmin(admin.ModelAdmin):
+class SubAssuntoAdmin(ImportExportModelAdmin):
     autocomplete_fields = ['assunto']
 
 class FileDocAdminInline(admin.StackedInline):
@@ -42,11 +42,11 @@ class ObjetivoAdmin(ImportExportModelAdmin):
     list_display = ("codigo", "nome")
     inlines = (AssuntoAdminInline, FileDocAdminInline, )
 
-class ObjetivoParcialAdmin(admin.ModelAdmin):
+class ObjetivoParcialAdmin(ImportExportModelAdmin):
     search_fields = ['nome', 'codigo']
     filter_horizontal = ('objetivos',)
 
-admin.site.register(TipoTurma)
+admin.site.register(TipoTurma, ImportExportModelAdmin)
 admin.site.register(FileDoc)
 admin.site.register(Materia, MateriaAdmin)
 admin.site.register(Objetivo, ObjetivoAdmin)

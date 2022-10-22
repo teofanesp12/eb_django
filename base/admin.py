@@ -5,16 +5,16 @@ from import_export.admin import ImportExportModelAdmin
 
 from .models import Religiao, Escolaridade
 
-admin.site.register(Religiao)
-admin.site.register(Escolaridade)
+admin.site.register(Religiao, ImportExportModelAdmin)
+admin.site.register(Escolaridade, ImportExportModelAdmin)
 
 from .models import Banco
-admin.site.register(Banco)
+admin.site.register(Banco, ImportExportModelAdmin)
 
 from .models import Pais, Estado, Cidade
 class EstadoAdminInline(admin.TabularInline):
     model = Estado
-class PaisAdmin(admin.ModelAdmin):
+class PaisAdmin(ImportExportModelAdmin):
     inlines = (EstadoAdminInline, )
 class CidadeAdminInline(admin.TabularInline):
     model = Cidade

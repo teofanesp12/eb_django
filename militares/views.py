@@ -300,8 +300,23 @@ def map_force_maps(request):
     return render(request, 'militares/mapforce/maps.html', context)
 @login_required
 def map_force_diagram(request):
-    context = {}
-
+    context = {'objects':[]}
+    for u in Unidade.objects.all():
+        res = normal()
+        res.instance = u
+        for su in SubUnidade.objects.filter(unidade=u):
+            s0 = normal()
+            s0.instance = su
+            for pel in Pelotao.objects.filter(subunidade=su):
+                p0 = normal()
+                p0.instance = pel
+                for gc in GrupoCombate.objects.filter(pelotao=pel):
+                    g0 = normal()
+                    g0.instance = gc
+                    p0.filhos.append(g0)
+                s0.filhos.append(p0)
+            res.filhos.append(s0)
+        context['objects'].append(res)
     return render(request, 'militares/mapforce/diagram.html', context)
 
 def get_pelotao_json(request):

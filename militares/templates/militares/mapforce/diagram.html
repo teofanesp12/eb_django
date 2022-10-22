@@ -3,11 +3,75 @@
 
 {% block title %}Mapa da Força - Diagrama{% endblock title %}
 
+{% block style %}
+
+<script src="{% static 'js/go.js' %}" ></script>
+<script src="{% static 'js/jquery-3.6.0.min.js' %}" ></script>
+
+{% endblock style %}
 
 {% block content %}
 <div class="container-fluid" style="min-height:600px;">
   <div class="row" style="padding:15px;">
-    {% include "militares/mapforce/col_md_selecttype_view.html" with type="diagram" %}
+    <div class="col-md-7" >
+      
+    </div>
+    {% include "militares/mapforce/col_md_selecttype_view.html" with type="maps" class="offset-md-2 col-md-3 mb-3" %}
   </div>
+  <div class="row">
+    <div class="col-md-12" style="min-height: 420px;">
+      <div id="myDiagramDiv"
+     style="min-height:500px; background-color: #DAE4E4;"></div>
+   </div>
+ </div>
+
 </div>
 {% endblock content %}
+
+{% block script %}
+
+<script>
+$(document).ready(function(){
+  const myDiagram = new go.Diagram("myDiagramDiv",
+  {
+    "undoManager.isEnabled": true,
+    layout: new go.TreeLayout({ angle: 90, layerSpacing: 35 })
+  });
+
+// the template we defined earlier
+myDiagram.nodeTemplate =
+  new go.Node("Horizontal",
+    { background: "#44CCFF" })
+    .add(new go.TextBlock("Default Text",
+        { margin: 12, stroke: "white", font: "bold 16px sans-serif" })
+        .bind("text", "name"));
+
+// the same model as before
+myDiagram.model = new go.TreeModel(
+  [
+    { key: "mapa_diagram",              name: "Mapa da Força"    },
+    {% for obj in objects %}
+    { key: "unidade_{{ obj.instance.pk }}", parent: "mapa_diagram", name: "{{ obj.instance.nome }}"     },
+    {% for su in obj.filhos %}
+    { key: "subunidade_id={{ su.instance.pk }}", parent: "unidade_{{ obj.instance.pk }}", name: "{{ su.instance.nome }}"     },
+    {% for pel in su.filhos %}
+    { key: "pelotao_id={{ pel.instance.pk }}", parent: "subunidade_id={{ su.instance.pk }}", name: "{{ pel.instance.nome }}"     },
+    {% for gc in pel.filhos %}
+    { key: "gc_id={{ gc.instance.pk }}", parent: "pelotao_id={{ pel.instance.pk }}", name: "{{ gc.instance.nome }}"     },
+    {% endfor %}
+    {% endfor %}
+    {% endfor %}
+    {% endfor %}
+  ]);
+
+myDiagram.addDiagramListener("ObjectSingleClicked",
+    function(e) {
+      var part = e.subject.part;
+      if (!(part instanceof go.Link)){
+        window.location.href = "{% url 'militar:militar-map_force_list-view' %}?"+part.data.key;
+      };
+    });
+
+});
+</script>
+{% endblock script %}
