@@ -37,6 +37,10 @@ Podemos Criar um SUPERUSER para o Admin:
 
     python manage.py createsuperuser
 
+DATA DEFAULT
+------------
+Arquivos padrão para importação estão na pasta ´data/´
+
 EXEMPLO
 -------
 Abra no navegador o seguinte link [Servidor PythonAnyWhere](http://teofanesp12.pythonanywhere.com)

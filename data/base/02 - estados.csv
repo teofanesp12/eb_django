@@ -1,0 +1,28 @@
+id,nome,uf,pais
+11,Rondônia,RO,1
+12,Acre,AC,1
+13,Amazonas,AM,1
+14,Roraima,RR,1
+15,Pará,PA,1
+16,Amapá,AP,1
+17,Tocantins,TO,1
+21,Maranhão,MA,1
+22,Piauí,PI,1
+23,Ceará,CE,1
+24,Rio Grande do Norte,RN,1
+25,Paraíba,PB,1
+26,Pernambuco,PE,1
+27,Alagoas,AL,1
+28,Sergipe,SE,1
+29,Bahia,BA,1
+31,Minas Gerais,MG,1
+32,Espírito Santo,ES,1
+33,Rio de Janeiro,RJ,1
+35,São Paulo,SP,1
+41,Paraná,PR,1
+42,Santa Catarina,SC,1
+43,Rio Grande do Sul,RS,1
+50,Mato Grosso do Sul,MS,1
+51,Mato Grosso,MT,1
+52,Goiás,GO,1
+53,Distrito Federal,DF,1
