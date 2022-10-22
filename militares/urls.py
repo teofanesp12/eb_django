@@ -35,7 +35,7 @@ urlpatterns = [
     # Mapa da Força
     path('militares/mapforce/list', views.map_force_list, name='militar-map_force_list-view'),
     path('militares/mapforce/tree', views.map_force_tree, name='militar-map_force_tree-view'),
-    path('militares/mapforce/kaban', views.map_force_kaban, name='militar-map_force_kaban-view'),
+    path('militares/mapforce/kanban', views.map_force_kanban, name='militar-map_force_kanban-view'),
     path('militares/mapforce/maps', views.map_force_maps, name='militar-map_force_maps-view'),
     path('militares/mapforce/diagram', views.map_force_diagram, name='militar-map_force_diagram-view'),
 

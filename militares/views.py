@@ -3,6 +3,7 @@ from django.views import generic
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 from django.http import JsonResponse
 # Create your views here.
 
@@ -166,6 +167,9 @@ class normal(object):
         else:
             return "unidade_id"
 
+def getPaginator(militares, limit=50, pagina=1):
+    return Paginator(militares, limit).get_page(pagina)
+
 def get_gcs(pelotao_id):
     filhos = []
     for g in GrupoCombate.objects.filter(pelotao=pelotao_id):
@@ -192,7 +196,65 @@ def get_subunidades(unidade_id):
         s0.filhos    = get_pelotoes(s.pk)
         filhos.append(s0)
     return filhos
-
+def get_default_context(request):
+    context = {}
+    context["objects"] = []
+    limit = 50
+    if request.GET:
+        pagina = request.GET.get('pagina',0)
+        subunidade_id = request.GET.get('subunidade_id')
+        pelotao_id = request.GET.get('pelotao_id')
+        gc_id = request.GET.get('gc_id')
+        if subunidade_id:
+            res = normal()
+            su = SubUnidade.objects.get(pk=request.GET.get('subunidade_id'))
+            res.instance = su
+            res.filhos   = Pelotao.objects.filter(subunidade=su)
+            res.militares = [x for x in Militar.objects.filter(subunidade=su, pelotao=None)]
+            for pel in res.filhos:
+                res.militares += Militar.objects.filter(pelotao=pel)
+            res.militares = getPaginator(res.militares, limit=limit, pagina=pagina)
+            context["tipo"] = "pelotao_id"
+            context["objects"].append(res)
+        if pelotao_id:
+            res = normal()
+            pel = Pelotao.objects.get(pk=request.GET.get('pelotao_id'))
+            res.instance = pel
+            res.filhos   = GrupoCombate.objects.filter(pelotao=pel)
+            res.militares = [x for x in Militar.objects.filter(pelotao=pel, grupo_combate=None)]
+            for gc in res.filhos:
+                res.militares += Militar.objects.filter(grupo_combate=gc)
+            res.militares = getPaginator(res.militares, limit=limit, pagina=pagina)
+            context["tipo"] = "gc_id"
+            context["objects"].append(res)
+        if gc_id:
+            res = normal()
+            gc = GrupoCombate.objects.get(pk=request.GET.get('gc_id'))
+            res.instance    = gc
+            res.militares = getPaginator(Militar.objects.filter(grupo_combate=gc), limit=limit, pagina=pagina)
+            context["tipo"] = "militares"
+            context["objects"].append(res)
+        if not subunidade_id and not pelotao_id and not gc_id:
+            for u in Unidade.objects.all():
+                res = normal()
+                res.instance = u
+                res.filhos   = SubUnidade.objects.filter(unidade=u)
+                for su in res.filhos:
+                    res.militares += Militar.objects.filter(subunidade=su)
+                res.militares = getPaginator(res.militares, limit=limit, pagina=pagina)
+                context["tipo"] = "subunidade_id"
+                context["objects"].append(res)
+    else:
+        for u in Unidade.objects.all():
+            res = normal()
+            res.instance = u
+            res.filhos   = SubUnidade.objects.filter(unidade=u)
+            for su in res.filhos:
+                res.militares += Militar.objects.filter(subunidade=su)
+            res.militares = getPaginator(res.militares, limit=limit)
+            context["tipo"] = "subunidade_id"
+            context["objects"].append(res)
+    return context
 @login_required
 def map_force_tree(request):
     context = {}
@@ -226,53 +288,15 @@ def map_force_tree(request):
     return render(request, 'militares/mapforce/tree.html', context)
 @login_required
 def map_force_list(request):
-    context = {}
-    context["objects"] = []
-    if request.GET:
-        if request.GET.get('subunidade_id'):
-            res = normal()
-            su = SubUnidade.objects.get(pk=request.GET.get('subunidade_id'))
-            res.instance = su
-            res.filhos   = Pelotao.objects.filter(subunidade=su)
-            for pel in res.filhos:
-                res.militares += Militar.objects.filter(pelotao=pel)
-            context["tipo"] = "pelotao_id"
-            context["objects"].append(res)
-        if request.GET.get('pelotao_id'):
-            res = normal()
-            pel = Pelotao.objects.get(pk=request.GET.get('pelotao_id'))
-            res.instance = pel
-            res.filhos   = GrupoCombate.objects.filter(pelotao=pel)
-            for gc in res.filhos:
-                res.militares += Militar.objects.filter(grupo_combate=gc)
-            context["tipo"] = "gc_id"
-            context["objects"].append(res)
-        if request.GET.get('gc_id'):
-            res = normal()
-            gc = GrupoCombate.objects.get(pk=request.GET.get('gc_id'))
-            res.instance    = gc
-            res.militares  += Militar.objects.filter(grupo_combate=gc)
-            context["tipo"] = "militares"
-            context["objects"].append(res)
-    else:
-        for u in Unidade.objects.all():
-            res = normal()
-            res.instance = u
-            res.filhos   = SubUnidade.objects.filter(unidade=u)
-            for su in res.filhos:
-                res.militares += Militar.objects.filter(subunidade=su)
-            context["tipo"] = "subunidade_id"
-            context["objects"].append(res)
+    context = get_default_context(request)
     return render(request, 'militares/mapforce/list.html', context)
 @login_required
-def map_force_kaban(request):
-    context = {}
-
-    return render(request, 'militares/mapforce/kaban.html', context)
+def map_force_kanban(request):
+    context = get_default_context(request)
+    return render(request, 'militares/mapforce/kanban.html', context)
 @login_required
 def map_force_maps(request):
-    context = {}
-
+    context = get_default_context(request)
     return render(request, 'militares/mapforce/maps.html', context)
 @login_required
 def map_force_diagram(request):

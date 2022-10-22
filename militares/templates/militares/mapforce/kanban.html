@@ -1,24 +1,12 @@
 {% extends "base_generic_main.html" %}
 {% load static %}
+{% load extras %}
 
-{% block title %}Mapa da Força - Mapa{% endblock title %}
+{% block title %}Mapa da Força - Kanban{% endblock title %}
 
-{% block style %}
-
-<script src="{% static 'leaflet/dist/leaflet.js' %}" ></script>
-<link href="{% static 'leaflet/dist/leaflet.css' %}" rel="stylesheet"/>
-<script src="{% static 'js/jquery-3.6.0.min.js' %}" ></script>
-<style>
-#mapa{
-  position: relative;
-  border-radius: 15px;
-  height: 500px;  /* or as desired */
-  width: 100%; 
-}
-</style>
-{% endblock style %}
 
 {% block content %}
+
 {% for obj in objects %}
 <div class="container-fluid" style="min-height:600px;">
   <div class="row" style="padding:15px;">
@@ -47,13 +35,32 @@
       
       
     </div>
-    {% include "militares/mapforce/col_md_selecttype_view.html" with type="list" class="offset-md-2 col-md-3 mb-3" %}
+    {% include "militares/mapforce/col_md_selecttype_view.html" with type="kanban" class="offset-md-2 col-md-3 mb-3" %}
   </div>
 
   <div class="row">
-    <div class="col-md-12" style="min-height: 420px;">
-      <div id="mapa" class="leaflet-container" ></div>
+    {% for m in obj.militares %}
+    <div class="col">
+      <div class="card">
+        {% if m.photo %}
+          <img class="card-img-top d-block mx-auto" src="{{ m.photo.url }}" alt="" style="max-width: 150px;
+      border-radius: 50px;">
+          {% else %}
+          <i class="fa-solid fa-user-tie d-block mx-auto mb-4" style="min-height: 150px;margin-top:15px;"></i>
+          {% endif %}
+        <div class="card-body">
+          <h5 class="card-title">{{ m.nome }}</h5>
+          <p class="card-text">{% if m.celular and m.celular_is_whatsapp %}<a href="https://wa.me/{{ m.celular|phone_to_int }}?text=MandaBrasa"><i class="fa-brands fa-whatsapp" style="color: black; min-height:25px;"></i></a>{% endif %}
+      <a href="tel:{{ m.celular|phone_to_int }}"><i class="fa-solid fa-mobile-screen" style="color: black; min-height:25px;"></i></a>
+      <a href="tel:{{ m.telefone|phone_to_int }}"><i class="fa-solid fa-phone" style="color: black; min-height:22px;"></i></a>
+      <a href="mailto:{{ m.email }}"><i class="fa-regular fa-envelope" style="color: black; min-height:25px;"></i></a>
+      |
+      <a href="{% url 'militar:militar-edit_militar-view' pk=m.pk %}"><i class="fa-regular fa-pen-to-square" style="color: black; min-height:25px;"></i></a></p>
+        </div>
+      </div>
     </div>
+    
+    {% endfor %}
   </div>
   <nav aria-label="Page navigation example">
     <ul class="pagination justify-content-end">
@@ -70,43 +77,16 @@
   </nav>
 </div>
 {% endfor %}
-
 {% endblock content %}
 
 {% block script %}
 
 <script>
 $(document).ready(function(){
-  var lat = -15.5699123;
-  var lng = -56.0670877;
-
-  var map = L.map('mapa').setView([ lat, lng], 14);
-  mapLink = '<a href="https://openstreetmap.org">OpenStreetMap</a>';
-  L.tileLayer(
-    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-    {
-      attribution: 'Mapa &copy; ' + mapLink,
-      maxZoom: 200,
-    }).addTo(map);
-{% for obj in objects %}
-{% for m in obj.militares %}
-  {% if m.endereco_latitude and m.endereco_longitude %}
-  var lat=parseFloat("{{ m.endereco_latitude }}".replace(",","."));
-  var lng=parseFloat("{{ m.endereco_longitude }}".replace(",","."));
-  var marker = L.marker([lat, lng],{
-    title: 'Precione para Abrir',     // Add a title
-    opacity: 0.7// Adjust the opacity
-    })       
-    .addTo(map)
-    .bindPopup('<b>{{ m.nome }}</b><br>.<a href="maps:'+lat+','+lng+'">Abrir</a>');
-    //.openPopup();
-  {% endif %}
-{% endfor %}
-{% endfor %}
-$("#filho_id").change(function(){
+  $("#filho_id").change(function(){
     filho_id = $("#filho_id option:selected").val();
     if (filho_id && filho_id!=0){
-      window.location.href = "{% url 'militar:militar-map_force_maps-view' %}?{{ tipo }}="+filho_id;
+      window.location.href = "{% url 'militar:militar-map_force_kanban-view' %}?{{ tipo }}="+filho_id;
     }
   });
 });

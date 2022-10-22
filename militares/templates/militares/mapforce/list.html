@@ -72,7 +72,19 @@
       </table>
     </div>
   </div>
-  
+  <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-end">
+      <li class="page-item {% if not obj.militares.has_previous %}disabled{% endif %}">
+        <a class="page-link" href="?{% if tipo == 'pelotao_id' %}subunidade_id={{ obj.instance.pk }}&amp;{% elif tipo == 'gc_id' %}pelotao_id={{ obj.instance.pk }}&amp;{% elif tipo == 'militares' %}gc_id={{ obj.instance.pk }}&amp;{% endif %}pagina={% if obj.militares.has_previous %}{{ obj.militares.previous_page_number }}{% endif %}">Anterior</a>
+      </li>
+      {% for p in obj.militares.paginator.page_range %}
+      <li class="page-item {% if obj.militares.number == p %}active{% endif %}"><a class="page-link" href="?{% if tipo == 'pelotao_id' %}subunidade_id={{ obj.instance.pk }}&amp;{% elif tipo == 'gc_id' %}pelotao_id={{ obj.instance.pk }}&amp;{% elif tipo == 'militares' %}gc_id={{ obj.instance.pk }}&amp;{% endif %}pagina={{ p }}">{{ p }}</a></li>
+      {% endfor %}
+      <li class="page-item {% if not obj.militares.has_next  %}disabled{% endif %}">
+        <a class="page-link" href="?{% if tipo == 'pelotao_id' %}subunidade_id={{ obj.instance.pk }}&amp;{% elif tipo == 'gc_id' %}pelotao_id={{ obj.instance.pk }}&amp;{% elif tipo == 'militares' %}gc_id={{ obj.instance.pk }}&amp;{% endif %}pagina={% if obj.militares.has_next  %}{{ obj.militares.next_page_number }}{% endif %}">Proximo</a>
+      </li>
+    </ul>
+  </nav>
 </div>
 {% endfor %}
 {% endblock content %}
