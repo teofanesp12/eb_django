@@ -47,7 +47,7 @@
       
       
     </div>
-    {% include "militares/mapforce/col_md_selecttype_view.html" with type="list" class="offset-md-2 col-md-3 mb-3" %}
+    {% include "militares/mapforce/col_md_selecttype_view.html" with type="maps" class="offset-md-2 col-md-3 mb-3" %}
   </div>
 
   <div class="row">
@@ -77,10 +77,10 @@
 
 <script>
 $(document).ready(function(){
-  var lat = -15.5699123;
-  var lng = -56.0670877;
+  var lat = -15.5901356;
+  var lng = -56.1085081;
 
-  var map = L.map('mapa').setView([ lat, lng], 14);
+  var map = L.map('mapa').setView([ lat, lng], 13);
   mapLink = '<a href="https://openstreetmap.org">OpenStreetMap</a>';
   L.tileLayer(
     'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -98,7 +98,7 @@ $(document).ready(function(){
     opacity: 0.7// Adjust the opacity
     })       
     .addTo(map)
-    .bindPopup('<b>{{ m.nome }}</b><br>.<a href="maps:'+lat+','+lng+'">Abrir</a>');
+    .bindPopup('<b>{{ m.nome }}</b><br>.<a href="geo:'+lat+','+lng+'">Abrir</a>');
     //.openPopup();
   {% endif %}
 {% endfor %}

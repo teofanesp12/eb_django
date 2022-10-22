@@ -84,6 +84,20 @@
   </div>
   <div class="col-md-4">
     <div class="form-floating mb-3">
+      {{ form.cnh }}
+      {{ form.cnh.label_tag }}
+      {{ form.cnh.errors }}
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="form-floating mb-3">
+      {{ form.cnh_categoria }}
+      {{ form.cnh_categoria.label_tag }}
+      {{ form.cnh_categoria.errors }}
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="form-floating mb-3">
       {{ form.ra }}
       {{ form.ra.label_tag }}
       {{ form.ra.errors }}
@@ -276,6 +290,7 @@
       </div>
       <div class="col-md-12" style="min-height: 420px;">
         <div id="endereco-mapa" class="leaflet-container" ></div>
+        <span>*Arraste o <strong>Pino</strong> ate onde fica seu endereço</span>
       </div>
       <div class="col-md-4">
         <div class="form-floating mb-3">
@@ -493,8 +508,8 @@ $(document).ready(function(){
     });
   });
   
-  var lat = -15.5699123;
-  var lng = -56.0670877;
+  var lat = -15.5901356;
+  var lng = -56.1085081;
   {% if form.instance.endereco_latitude %}lat=parseFloat("{{ form.instance.endereco_latitude }}".replace(",","."));{% endif %}
   {% if form.instance.endereco_longitude %}lng=parseFloat("{{ form.instance.endereco_longitude }}".replace(",","."));{% endif %}
   // console.log(lat);

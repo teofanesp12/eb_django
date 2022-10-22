@@ -26,7 +26,7 @@ class MilitarForm(forms.ModelForm):
             field = self.fields[f]
             if f in ['celular_is_whatsapp']:
                 field.widget.attrs.update({'class': 'form-check-input'})
-            elif not f in ['graduacao','qm', 'escolaridade', 'religiao', 'naturalidade', 'cidade_endereco', 'cidade_endereco', 'banco', 'subunidade', 'pelotao', 'grupo_combate','conta_tipo']:
-                field.widget.attrs.update({'class': 'form-control'})
-            else:
+            elif f in ['graduacao','qm', 'escolaridade', 'religiao', 'naturalidade', 'cidade_endereco', 'cidade_endereco', 'banco', 'subunidade', 'pelotao', 'grupo_combate','conta_tipo', 'cnh_categoria']:
                 field.widget.attrs.update({'class': 'form-select'})
+            else:
+                field.widget.attrs.update({'class': 'form-control'})
