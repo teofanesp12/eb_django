@@ -50,12 +50,17 @@
           {% endif %}
         <div class="card-body">
           <h5 class="card-title">{{ m.nome }}</h5>
-          <p class="card-text">{% if m.celular and m.celular_is_whatsapp %}<a href="https://wa.me/+55{{ m.celular|phone_to_int }}?text=MandaBrasa"><i class="fa-brands fa-whatsapp" style="color: black; min-height:25px;"></i></a>{% endif %}
+          <p class="card-text">
+      <a href="{% url 'militar:militar-edit_militar-view' pk=m.pk %}"><i class="fa-regular fa-pen-to-square" style="color: black; min-height:25px;"></i></a>
+      <a href="{% url 'militar:militar-detail-view' pk=m.pk %}"><i class="fa-regular fa-file" style="color: black; min-height:25px;"></i></a>
+      |
+      {% if m.celular and m.celular_is_whatsapp %}<a href="https://wa.me/+55{{ m.celular|phone_to_int }}?text=MandaBrasa"><i class="fa-brands fa-whatsapp" style="color: black; min-height:25px;"></i></a>{% endif %}
       <a href="tel:{{ m.celular|phone_to_int }}"><i class="fa-solid fa-mobile-screen" style="color: black; min-height:25px;"></i></a>
       <a href="tel:{{ m.telefone|phone_to_int }}"><i class="fa-solid fa-phone" style="color: black; min-height:22px;"></i></a>
+      {% if m.email %}
       <a href="mailto:{{ m.email }}"><i class="fa-regular fa-envelope" style="color: black; min-height:25px;"></i></a>
-      |
-      <a href="{% url 'militar:militar-edit_militar-view' pk=m.pk %}"><i class="fa-regular fa-pen-to-square" style="color: black; min-height:25px;"></i></a></p>
+      {% endif %}
+      </p>
         </div>
       </div>
     </div>

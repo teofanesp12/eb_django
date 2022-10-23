@@ -8,13 +8,14 @@ from django.http import JsonResponse
 # Create your views here.
 
 from .models import Militar, Graduacao
+from .models import VisitaMedica, FatoObservado
 from .models import Unidade, SubUnidade, Pelotao, GrupoCombate
 from base.models import Escolaridade, Religiao
 from boletin.models import BoletinDocumento
 
 from access.decorators import login_access_required
 
-from .forms import MilitarForm
+from .forms import MilitarForm, FatoObservadoForm, VisitaMedicaForm
 
 import datetime
 
@@ -49,6 +50,7 @@ def edit_militar(request, pk):
         form = MilitarForm(request.POST, request.FILES, instance=instance)
         form.save()
         messages.add_message(request, messages.SUCCESS, 'Salvo com Sucesso!')
+        return redirect(form.instance)
     else:
         form = MilitarForm(instance=instance)
         # messages.add_message(request, messages.INFO, 'Hello world.')
@@ -84,11 +86,37 @@ class MilitarDetailView(generic.DetailView):
     def get_context_data(self, **kwargs):
         context = super(MilitarDetailView, self).get_context_data(**kwargs)
         context['boletins'] = BoletinDocumento.objects.all()
+        context['fatos'] = FatoObservado.objects.filter(militar=context['object'])
+        context['visitas_medica'] = VisitaMedica.objects.filter(militar=context['object'])
+
+        # Formularios
+        context['fo_form']     = FatoObservadoForm()
+        context['visita_form'] = VisitaMedicaForm()
         return context
 
     @login_access_required
     def get(self, request, *args, **kwargs):
         return super(MilitarDetailView, self).get(request)
+
+    @login_access_required
+    def post(self, request, *args, **kwargs):
+        type_form = request.POST.get("type_form")
+        if type_form == "fo":
+            form = FatoObservadoForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.add_message(request, messages.SUCCESS, 'Salvo com Sucesso!')
+            else:
+                messages.add_message(request, messages.WARNING, 'Não foi possivel adicionar!')
+        elif type_form == "visita_medica":
+            form = VisitaMedicaForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.add_message(request, messages.SUCCESS, 'Salvo com Sucesso!')
+            else:
+                messages.add_message(request, messages.WARNING, 'Não foi possivel adicionar!')
+            
+        return self.get(request)
 
 def gerate_assentamentos(request, pk):
     context = {}

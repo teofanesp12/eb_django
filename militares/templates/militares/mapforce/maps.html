@@ -98,8 +98,10 @@ $(document).ready(function(){
     opacity: 0.7// Adjust the opacity
     })       
     .addTo(map)
-    .bindPopup('<b>{{ m.nome }}</b><br>.<a href="geo:'+lat+','+lng+'">Abrir</a>');
+    .bindPopup('<b>{{ m.nome }}</b><br><a class="btn" href="geo:'+lat+','+lng+'">Abrir </a> ou <a href="{% url "militar:militar-edit_militar-view" pk=m.pk %}">Editar </a>');
     //.openPopup();
+    // <i class="fa-solid fa-location-dot" style="color: black; min-height:22px;">
+    // <i class="fa-regular fa-pen-to-square" style="color: black; min-height:25px;"></i>
   {% endif %}
 {% endfor %}
 {% endfor %}

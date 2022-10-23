@@ -95,8 +95,8 @@ border-radius: 100px;">
         <a type="button" class="btn btn-primary btn-lg px-4 gap-3" href="{% url 'militar:militar-edit_militar-view' object.pk %}">Editar</a>
         {% if user.is_authenticated %}
         <a type="button" class="btn btn-primary btn-lg px-4 gap-3" href="{% url 'militar:militar-assentamentos-reportview' object.pk %}">Gerar Alterações</a>
-        <a type="button" class="btn btn-secondary btn-lg px-4 gap-3" href="">Lançar FO</a>
         <button type="button" data-bs-toggle="modal" data-bs-target="#searchBIsModal" class="btn btn-outline-secondary btn-lg px-4 ">Abrir BIs</button>
+        <button type="button" data-bs-toggle="modal" data-bs-target="#LancarFOModal" class="btn btn-secondary btn-lg px-4 ">Lançar FO</button>
         {% endif %}
       </div>
     </div>
@@ -235,6 +235,106 @@ border-radius: 100px;">
 
   <div class="b-example-divider"></div>
 
+  <div class="px-4 my-5 text-center ">
+    <h1 class="display-4 fw-bold">Fatos Observados</h1>
+    {% if user.is_authenticated %}
+    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+      <button type="button" data-bs-toggle="modal" data-bs-target="#LancarFOModal" class="btn btn-secondary btn-lg px-4 ">Lançar Fato</button>
+    </div>
+    {% endif %}
+    <div class="container-fluid text-start">
+      <div class="row justify-content-start"> 
+        <div class="col-md-12 table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Data</th>
+                <th scope="col">Motivo</th>
+                <th scope="col">Atitudinal</th>
+                <th scope="col">Detalhes</th>
+                <th scope="col">Ação</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for fo in fatos %}
+              <tr class="{% if fo.tipo == 'fo+' %}text-primary{% elif fo.tipo == 'fo-' %}text-danger{% else %}text-muted{% endif %}">
+                <th scope="row">{{ fo.data }}</th>
+                <td>{{ fo.motivo|default:" - " }}</td>
+                <td class="text-nowrap">{{ fo.conteudo_atitudinal }}</td>
+                <td>{{ fo.detalhes|default:" - " }}</td>
+                <td class="text-nowrap">
+                  {% if user.is_authenticated %}
+                  <a type="button" class="btn btn-outline-info" href=""><i class="fa-regular fa-pen-to-square"></i></a>
+                  <a type="button" class="btn btn-outline-danger" href=""><i class="fa-solid fa-trash"></i></a>
+                  {% endif %}
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+            {% if user.is_authenticated %}
+            <tfoot>
+              <tr><td colspan="5"><button type="button" data-bs-toggle="modal" data-bs-target="#LancarFOModal" class="btn btn-link" style="padding: 0px;">Adicionar Fato</button></td></tr>
+            </tfoot>
+            {% endif %}
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="b-example-divider"></div>
+
+  <div class="px-4 my-5 text-center ">
+    <h1 class="display-4 fw-bold">Visitas Medicas</h1>
+    {% if user.is_authenticated %}
+    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+      <button type="button" data-bs-toggle="modal" data-bs-target="#VisitaMedicaModal" class="btn btn-secondary btn-lg px-4 ">Lançar Visita</button>
+    </div>
+    {% endif %}
+    <div class="container-fluid text-start">
+      <div class="row justify-content-start"> 
+        <div class="col-md-12 table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Data</th>
+                <th scope="col">Motivo</th>
+                <th scope="col">Medico</th>
+                <th scope="col">Detalhes</th>
+                <th scope="col">Ação</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for visita in visitas_medica %}
+              <tr>
+                <th scope="row">{{ visita.data }}</th>
+                <td>{{ visita.motivo|default:" - " }}</td>
+                <td class="text-nowrap">{{ visita.medico|default:" - " }}</td>
+                <td>{{ visita.detalhes|default:" - " }}</td>
+                <td class="text-nowrap">
+                  {% if user.is_authenticated %}
+                  <a type="button" class="btn btn-outline-info" href=""><i class="fa-regular fa-pen-to-square"></i></a>
+                  <a type="button" class="btn btn-outline-danger" href=""><i class="fa-solid fa-trash"></i></a>
+                  |
+                  <a type="button" class="btn btn-outline-danger" href=""><i class="fa-solid fa-house-medical-flag"></i></a>
+                  {% endif %}
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+            {% if user.is_authenticated %}
+            <tfoot>
+              <tr><td colspan="5"><button type="button" data-bs-toggle="modal" data-bs-target="#VisitaMedicaModal" class="btn btn-link" style="padding: 0px;">Adicionar Visita Medica</button></td></tr>
+            </tfoot>
+            {% endif %}
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="b-example-divider"></div>
+
 
 <div class="modal fade" id="searchBIsModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -283,7 +383,114 @@ border-radius: 100px;">
   </div>
 </div>
 
+<div class="modal fade" id="LancarFOModal" tabindex="-1" aria-labelledby="LancarFOModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content"><form action="" method="POST">{% csrf_token %}
+      <div class="modal-header">
+        <h5 class="modal-title" id="LancarFOModalLabel">Lançar Fato Observado</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-floating mb-3">
+                {{ fo_form.motivo }}
+                {{ fo_form.motivo.label_tag }}
+                {{ fo_form.motivo.errors }}
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-floating mb-3">
+                {{ fo_form.data }}
+                {{ fo_form.data.label_tag }}
+                {{ fo_form.data.errors }}
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-floating mb-3">
+                {{ fo_form.conteudo_atitudinal }}
+                {{ fo_form.conteudo_atitudinal.label_tag }}
+                {{ fo_form.conteudo_atitudinal.errors }}
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-floating mb-3">
+                {{ fo_form.tipo }}
+                {{ fo_form.tipo.label_tag }}
+                {{ fo_form.tipo.errors }}
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-floating mb-3">
+                {{ fo_form.detalhes }}
+                {{ fo_form.detalhes.label_tag }}
+                {{ fo_form.detalhes.errors }}
+              </div>
+            </div>
+            <input type="hidden" name="militar" id="id_militar" value="{{ object.pk }}"/>
+            <input type="hidden" name="type_form" id="type_form" value="fo"/>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+        <button type="submit" class="btn btn-primary">Lançar</button>
+      </div>
+    </form></div>
+  </div>
+</div>
 
+<div class="modal fade" id="VisitaMedicaModal" tabindex="-1" aria-labelledby="VisitaMedicaModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content"><form action="" method="POST">{% csrf_token %}
+      <div class="modal-header">
+        <h5 class="modal-title" id="VisitaMedicaModalLabel">Adicionar Visita Medica</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-floating mb-3">
+                {{ visita_form.motivo }}
+                {{ visita_form.motivo.label_tag }}
+                {{ visita_form.motivo.errors }}
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-floating mb-3">
+                {{ visita_form.data }}
+                {{ visita_form.data.label_tag }}
+                {{ visita_form.data.errors }}
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-floating mb-3">
+                {{ visita_form.medico }}
+                {{ visita_form.medico.label_tag }}
+                {{ visita_form.medico.errors }}
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-floating mb-3">
+                {{ visita_form.detalhes }}
+                {{ visita_form.detalhes.label_tag }}
+                {{ visita_form.detalhes.errors }}
+              </div>
+            </div>
+            <input type="hidden" name="militar" id="id_militar" value="{{ object.pk }}"/>
+            <input type="hidden" name="type_form" id="type_form" value="visita_medica"/>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+        <button type="submit" class="btn btn-primary">Adicionar</button>
+      </div>
+    </form></div>
+  </div>
+</div>
     <!--script type="text/javascript">
 
 $.fn.datepicker.dates['pt-BR'] = {
@@ -332,7 +539,9 @@ $(document).ready(function(){
 {% if object.endereco_latitude and object.endereco_longitude %}
   var marker = L.marker([lat, lng],{
         });
-  marker.addTo(map);
+  marker.addTo(map)
+  .bindPopup('<b>{{ object.nome }}</b><br><a class="btn" href="geo:'+lat+','+lng+'">Abrir </a> ou <a href="{% url "militar:militar-edit_militar-view" pk=object.pk %}">Editar </a>')
+  .openPopup();
 {% endif %}
 });
 </script>
