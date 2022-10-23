@@ -21,4 +21,5 @@ app_name = 'ndaca'
 
 urlpatterns = [
     path('', views.home, name='home'),
+    path('conteudo_atitudinal/json/', views.get_conteudo_atitudinal_json, name='ndaca-get_conteudo_atitudinal-json'),
 ]

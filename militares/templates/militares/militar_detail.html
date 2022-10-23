@@ -428,6 +428,14 @@ border-radius: 100px;">
                 {{ fo_form.detalhes.errors }}
               </div>
             </div>
+            <div class="col-md-6">
+              <h5>Como Avaliar</h5>
+              <p id="avaliar_id" style="text-align: justify;">Selecione Conteudo</p>
+            </div>
+            <div class="col-md-6">
+              <h5>Exemplo</h5>
+              <p id="exemplos_id" style="text-align: justify;">Selecione Conteudo</p>
+            </div>
             <input type="hidden" name="militar" id="id_militar" value="{{ object.pk }}"/>
             <input type="hidden" name="type_form" id="type_form" value="fo"/>
           </div>
@@ -543,6 +551,23 @@ $(document).ready(function(){
   .bindPopup('<b>{{ object.nome }}</b><br><a class="btn" href="geo:'+lat+','+lng+'">Abrir </a> ou <a href="{% url "militar:militar-edit_militar-view" pk=object.pk %}">Editar </a>')
   .openPopup();
 {% endif %}
+
+$("#id_conteudo_atitudinal").change(function(){
+    selected = $("#id_conteudo_atitudinal option:selected").val()
+    $.ajax({
+      type: 'GET',
+      dataType: 'json',
+      contentType: 'application/json; charset=utf-8',
+      url: '{% url "ndaca:ndaca-get_conteudo_atitudinal-json" %}',
+      data: {'pk': selected},
+      success: function(jsonResult) {
+        $('#exemplos_id').text(jsonResult.exemplos);
+        $('#avaliar_id').text(jsonResult.detalhes);
+      }
+    });
+  });
+
+
 });
 </script>
 {% endblock script %}
