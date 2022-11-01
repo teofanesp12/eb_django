@@ -13,17 +13,17 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-# from django.contrib import admin
+from django.contrib import admin
 from django.urls import path
 
 from . import views
 
-app_name = 'base'
+app_name = 'escala'
 
 urlpatterns = [
     path('', views.home, name='home'),
-
-    # Jsons
-    path('base/estados/json', views.get_estados_json, name='base-get_estados-json'),
-    path('base/cidades/json', views.get_cidades_json, name='base-get_cidades-json'),
+    path('servicolocal/', views.ServicoLocalView.list(), name='view-servicolocal-list'),
+    path('servicolocal/adicionar', views.ServicoLocalView.form(create=True), name='view-servicolocal-form'),
+    path('servicolocal/<int:pk>/editar', views.ServicoLocalView.form(), name='view-servicolocal_editar-form'),
+    path('servicolocal/<int:pk>/', views.ServicoLocalView.page(), name='view-servicolocal-page'),
 ]

@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-
+from import_export.admin import ImportExportModelAdmin
 
 from .models import Militar
 from .models import Graduacao, QualificacaoMilitar
@@ -65,7 +65,7 @@ class FatoObservadoAdminInline(admin.TabularInline):
 admin.site.register(FatoObservado, FatoObservadoAdmin)
 
 
-class MilitarAdmin(admin.ModelAdmin):
+class MilitarAdmin(ImportExportModelAdmin):
     list_display = ("graduacao", "numero", "nome")
     search_fields = ['nome']
     autocomplete_fields = ['naturalidade', 'cidade_endereco']

@@ -1,0 +1,7 @@
+<div class="{% if class %}{{ class }}{% else %}offset-md-9 col-md-3 mb-3{% endif %}">
+  <div class="btn-group" role="group" aria-label="Basic outlined example">
+    {% for ru in reverse_urls %}
+    <a type="button" class="btn btn-outline-secondary{% if ru.type == type %} active{% endif %}" href="{{ ru.url }}"><i class="{{ ru.get_icon }}"></i></a>
+    {% endfor %}
+  </div>
+</div>

@@ -1,0 +1,57 @@
+<a href="{% url 'escala:home' %}" class="d-flex align-items-center pb-3 mb-3 link-light text-decoration-none border-bottom">
+  <svg class="bi pe-none me-2" width="30" height="24"><use xlink:href="#bootstrap"/></svg>
+  <span class="fs-5 fw-semibold">Serviço</span>
+</a>
+<ul class="list-unstyled ps-0">
+  <li class="mb-1">
+    <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="true">
+      Inicio
+    </button>
+    <div class="collapse show" id="home-collapse">
+      <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+        <li><a href="#" class="link-light d-inline-flex text-decoration-none rounded">Escala</a></li>
+        <li><a href="#" class="link-light d-inline-flex text-decoration-none rounded">Livro</a></li>
+        <li><a href="#" class="link-light d-inline-flex text-decoration-none rounded">Folgas</a></li>
+      </ul>
+    </div>
+  </li>
+  <li class="mb-1">
+    <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
+      Militares
+    </button>
+    <div class="collapse" id="dashboard-collapse">
+      <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+        <li><a href="#" class="link-light d-inline-flex text-decoration-none rounded">Baixados</a></li>
+        <li><a href="#" class="link-light d-inline-flex text-decoration-none rounded">Visita Medica</a></li>
+        <li><a href="#" class="link-light d-inline-flex text-decoration-none rounded">Ferias</a></li>
+        <li><a href="#" class="link-light d-inline-flex text-decoration-none rounded">Em Condições</a></li>
+      </ul>
+    </div>
+  </li>
+  <li class="mb-1">
+    <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
+      Paineis
+    </button>
+    <div class="collapse" id="orders-collapse">
+      <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+        <li><a href="#" class="link-light d-inline-flex text-decoration-none rounded">Padrão</a></li>
+        <li><a href="#" class="link-light d-inline-flex text-decoration-none rounded">Semanal</a></li>
+        <li><a href="#" class="link-light d-inline-flex text-decoration-none rounded">Mensal</a></li>
+        <li><a href="#" class="link-light d-inline-flex text-decoration-none rounded">Anual</a></li>
+      </ul>
+    </div>
+  </li>
+  <li class="border-top my-3"></li>
+  <li class="mb-1">
+    <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false">
+      Configuração
+    </button>
+    <div class="collapse" id="account-collapse">
+      <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+        <li><a href="{% url 'escala:view-servicolocal-list' %}" class="link-light d-inline-flex text-decoration-none rounded">Locais</a></li>
+        <li><a href="#" class="link-light d-inline-flex text-decoration-none rounded">Instalações</a></li>
+        <li><a href="#" class="link-light d-inline-flex text-decoration-none rounded">Materiais</a></li>
+      </ul>
+    </div>
+  </li>
+</ul>

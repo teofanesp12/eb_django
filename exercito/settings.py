@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'pp',
     'ndaca',
     'militares',
+    'escala',
     'import_export',
     'django.contrib.admin',
     'django.contrib.auth',

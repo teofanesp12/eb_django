@@ -1,0 +1,247 @@
+{% extends "base_generic_main.html" %}
+{% load static %}
+{% load extras %}
+{% block title %}Local de Serviço{% endblock %}
+
+{% block style %}
+<script src="{% static 'leaflet/dist/leaflet.js' %}" ></script>
+<link href="{% static 'leaflet/dist/leaflet.css' %}" rel="stylesheet"/>
+
+<style>
+#endereco-mapa{
+  position: relative;
+  border-radius: 15px;
+  height: 400px;  /* or as desired */
+  width: 100%; 
+}
+
+.dropdown-toggle { outline: 0; }
+
+.btn-toggle {
+  padding: .25rem .5rem;
+  font-weight: 600;
+  color: rgba(244, 241, 241, 0.85);
+  background-color: transparent;
+}
+.btn-toggle:hover,
+.btn-toggle:focus {
+  color: rgba(0, 0, 0, .85) !important;
+  background-color: #d2f4ea;
+}
+
+.btn-toggle::before {
+  width: 1.25em;
+  line-height: 0;
+  content: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='rgba%280,255,0,.5%29' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 14l6-6-6-6'/%3e%3c/svg%3e");
+  transition: transform .35s ease;
+  transform-origin: .5em 50%;
+}
+
+.btn-toggle[aria-expanded="true"] {
+  color: rgba(244, 241, 241, 0.90);
+}
+.btn-toggle[aria-expanded="true"]::before {
+  transform: rotate(90deg);
+}
+
+.btn-toggle-nav a {
+  padding: .1875rem .5rem;
+  margin-top: .125rem;
+  margin-left: 1.25rem;
+}
+.btn-toggle-nav a:hover,
+.btn-toggle-nav a:focus {
+  color: rgba(0, 0, 0, .85) !important;
+  background-color: #d2f4ea;
+}
+
+</style>
+{% endblock style %}
+
+{% block content %}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2 bg-dark">
+      {% include "escala/menu_escala.html" %}
+    </div>
+    <div class="col-md" style="min-height:550px">
+      <form action="" method="post" enctype="multipart/form-data" class="container-fluid">{% csrf_token %}
+        <div class="row p-1">
+          <div class="col-md-9" >
+            
+<button type="submit" class="btn btn-success">Salvar</button>
+<button type="button" class="btn btn-danger">Cancelar</button>
+
+          </div>
+          {% include "base/col_md_selecttype_view.html" with class="col-md-3" type=type reverse_urls=reverse_urls %}
+        </div>
+        <div class="row">
+          
+          <div class="col-md-4">
+            <div class="form-floating mb-3">
+              {{ form.nome }}
+              {{ form.nome.label_tag }}
+              {{ form.nome.errors }}
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-floating mb-3">
+              {{ form.subunidade }}
+              {{ form.subunidade.label_tag }}
+              {{ form.subunidade.errors }}
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-floating mb-3">
+              {{ form.pelotao }}
+              {{ form.pelotao.label_tag }}
+              {{ form.pelotao.errors }}
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-floating mb-3">
+              {{ form.latitude }}
+              {{ form.latitude.label_tag }}
+              {{ form.latitude.errors }}
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-floating mb-3">
+              {{ form.longitude }}
+              {{ form.longitude.label_tag }}
+              {{ form.longitude.errors }}
+            </div>
+          </div>
+          <div class="col-md-12" style="min-height: 420px;">
+            <div id="endereco-mapa" class="leaflet-container" ></div>
+            <span>*Arraste o <strong>Pino</strong> ate onde fica seu endereço</span>
+          </div>
+        </div>
+        <div class="row">
+          <hr>
+          <h4>Militares neste Local</h4>
+          <div class="col-md-12">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">Graduação</th>
+                  <th scope="col">Quantidade</th>
+                  <th scope="col">Função</th>
+                  <th scope="col">Livro?</th>
+                  <th scope="col">Ação</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for obj in linhas %}
+                <tr>
+                  <td>{{ obj.graduacao|default:" - " }}</td>
+                  <td>{{ obj.quantidade|default:" - " }}</td>
+                  <td>{{ obj.funcao|default:" - " }}</td>
+                  <td>{{ obj.livro|default:" - " }}</td>
+                  <td>
+                    <a href="{% url 'escala:view-servicolocal_editar-form' pk=obj.pk %}"><i class="fa-regular fa-pen-to-square" style="color: black; min-height:25px;"></i></a>
+                    <a href="{% url 'escala:view-servicolocal-page' pk=obj.pk %}"><i class="fa-regular fa-file" style="color: black; min-height:25px;"></i></a>
+                    |
+                    <a type="button" class="btn btn-outline-danger" href=""><i class="fa-solid fa-house-medical-flag"></i></a>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+              <tfoot>
+                <tr><td colspan="5"><button type="button" data-bs-toggle="modal" data-bs-target="#LinhaLocalServicoAddModal" class="btn btn-link" style="padding: 0px;">Adicionar Linha</button></td></tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+
+
+      </form>
+    </div>
+  </div>
+</div>
+
+<form action="" method="post" class="container-fluid">{% csrf_token %}
+<!-- Modal -->
+<div class="modal fade" id="LinhaLocalServicoAddModal" tabindex="-1" aria-labelledby="LinhaLocalServicoAddModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="LinhaLocalServicoAddModalLabel">Adicionar Linha</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cancelar"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-floating mb-3">
+                {{ linha_form.graduacao }}
+                {{ linha_form.graduacao.label_tag }}
+                {{ linha_form.graduacao.errors }}
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-floating mb-3">
+                {{ linha_form.quantidade }}
+                {{ linha_form.quantidade.label_tag }}
+                {{ linha_form.quantidade.errors }}
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-floating mb-3">
+                {{ linha_form.funcao }}
+                {{ linha_form.funcao.label_tag }}
+                {{ linha_form.funcao.errors }}
+              </div>
+            </div>
+            <div class="col-md-6">
+              {{ linha_form.livro.label_tag }}
+              {{ linha_form.livro }}
+              {{ linha_form.livro.errors }}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <input type="hidden" name="popup" id="popup" value="1"/>
+        <input type="hidden" name="local" id="id_local" value="{{ pk }}"/>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btn btn-primary">Adicionar</button>
+      </div>
+    </div>
+  </div>
+</div>
+</form>
+
+{% endblock %}
+{% block script %}
+
+<script>
+$(document).ready(function(){
+  var lat = -15.5901356;
+  var lng = -56.1085081;
+  {% if form.instance.latitude %}lat=parseFloat("{{ form.instance.latitude }}".replace(",","."));{% endif %}
+  {% if form.instance.longitude %}lng=parseFloat("{{ form.instance.longitude }}".replace(",","."));{% endif %}
+  // console.log(lat);
+  // quando clicamos em contatos, ele vai montar o mapa, economizar memoria.
+  var map = L.map('endereco-mapa').setView([ lat, lng], 16);
+  mapLink = '<a href="https://openstreetmap.org">OpenStreetMap</a>';
+  L.tileLayer(
+    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    {
+      attribution: 'Mapa &copy; ' + mapLink,
+      maxZoom: 200,
+    }).addTo(map);
+  var marker = L.marker([lat, lng],{
+        draggable: true
+      });
+  marker.on('dragend', function(e) {
+    lat = e.target.getLatLng().lat;
+    lng = e.target.getLatLng().lng;
+    $("#id_latitude").val(lat);
+    $("#id_longitude").val(lng)
+  });
+  marker.addTo(map);
+
+});
+</script>
+{% endblock script %}

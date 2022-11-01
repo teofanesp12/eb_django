@@ -1,0 +1,105 @@
+{% extends "base_generic_main.html" %}
+{% load static %}
+{% load extras %}
+{% block title %}Local de Serviço{% endblock %}
+
+{% block style %}
+<style>
+.dropdown-toggle { outline: 0; }
+
+.btn-toggle {
+  padding: .25rem .5rem;
+  font-weight: 600;
+  color: rgba(244, 241, 241, 0.85);
+  background-color: transparent;
+}
+.btn-toggle:hover,
+.btn-toggle:focus {
+  color: rgba(0, 0, 0, .85) !important;
+  background-color: #d2f4ea;
+}
+
+.btn-toggle::before {
+  width: 1.25em;
+  line-height: 0;
+  content: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='rgba%280,255,0,.5%29' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 14l6-6-6-6'/%3e%3c/svg%3e");
+  transition: transform .35s ease;
+  transform-origin: .5em 50%;
+}
+
+.btn-toggle[aria-expanded="true"] {
+  color: rgba(244, 241, 241, 0.90);
+}
+.btn-toggle[aria-expanded="true"]::before {
+  transform: rotate(90deg);
+}
+
+.btn-toggle-nav a {
+  padding: .1875rem .5rem;
+  margin-top: .125rem;
+  margin-left: 1.25rem;
+}
+.btn-toggle-nav a:hover,
+.btn-toggle-nav a:focus {
+  color: rgba(0, 0, 0, .85) !important;
+  background-color: #d2f4ea;
+}
+
+</style>
+{% endblock style %}
+
+{% block content %}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2 bg-dark">
+      {% include "escala/menu_escala.html" %}
+    </div>
+    <div class="col-md" style="min-height:550px">
+      <div class="row p-1">
+        <div class="col-md-7" ></div>
+        {% include "base/col_md_selecttype_view.html" with type=type reverse_urls=reverse_urls %}
+      </div>
+      <div class="row">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Nome</th>
+              <th scope="col">Cia</th>
+              <th scope="col">Ação</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for obj in objects %}
+            <tr>
+              <th scope="row">{{ obj.pk }}</th>
+              <td>{{ obj.nome }}</td>
+              <td>{{ obj.subunidade|default:" - " }}</td>
+              <td>
+                <a href="{% url 'escala:view-servicolocal_editar-form' pk=obj.pk %}"><i class="fa-regular fa-pen-to-square" style="color: black; min-height:25px;"></i></a>
+                <a href="{% url 'escala:view-servicolocal-page' pk=obj.pk %}"><i class="fa-regular fa-file" style="color: black; min-height:25px;"></i></a>
+                |
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-end">
+          <li class="page-item {% if not objects.has_previous %}disabled{% endif %}">
+            <a class="page-link" href="?pagina={% if objects.has_previous %}{{ objects.previous_page_number }}{% endif %}">Anterior</a>
+          </li>
+          {% for p in objects.paginator.page_range %}
+          <li class="page-item {% if objects.number == p %}active{% endif %}"><a class="page-link" href="?pagina={{ p }}">{{ p }}</a></li>
+          {% endfor %}
+          <li class="page-item {% if not objects.has_next  %}disabled{% endif %}">
+            <a class="page-link" href="?pagina={% if objects.has_next  %}{{ objects.next_page_number }}{% endif %}">Proximo</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

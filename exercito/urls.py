@@ -27,6 +27,7 @@ urlpatterns = [
     path('ndaca/', include('ndaca.urls')),
     path('interno/', include('militares.urls')),
     path('documentos/', include('boletin.urls')),
+    path('escala/', include('escala.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 admin.site.site_header = 'Exercito Brasileiro'
