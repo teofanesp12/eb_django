@@ -15,8 +15,8 @@
     <div class="col-lg-6 mx-auto">
       <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
         <button type="button" class="btn btn-primary btn-lg px-4 gap-3" data-bs-toggle="modal" data-bs-target="#FormSessao">Gerar Plano de Sessão</button>
-        <button type="button" class="btn btn-success btn-lg px-4 gap-3">Gerar Plano de Segurança</button>
-        <button type="button" class="btn btn-danger btn-lg px-4 gap-3">Gerar Gerenciamento de Risco</button>
+        <button type="button" data-bs-toggle="modal" data-bs-target="#FormPlanSeg" class="btn btn-success btn-lg px-4 gap-3">Gerar Plano de Segurança</button>
+        <a type="button" class="btn btn-danger btn-lg px-4 gap-3" href="{% url 'pp:gerenciamento_risco-view' objetivo_id=objetivo.pk %}">Gerar Gerenciamento de Risco</a>
         <button type="button" class="btn btn-outline-secondary btn-lg px-4">Baixar Instrução</button>
       </div>
       <ul class="list-group list-group-flush" style="align-items: baseline;">
@@ -87,8 +87,7 @@
 </div>
 
 
-
-
+<!-- Plano de Sessão -->
 <div class="modal modal-xl fade" id="FormSessao" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <form action="{% url 'pp:gerar_plano_session' objetivo.pk %}" method="POST">{% csrf_token %}
@@ -307,6 +306,24 @@
   </div>
 </div>
 
+<!--Plano de Segurança-->
+<div class="modal modal-xl fade" id="FormPlanSeg" tabindex="-1" aria-labelledby="FormPlanSegModalLabel" aria-hidden="true">
+  <div class="modal-dialog"><form action="{% url 'pp:gerar_plano_session' objetivo.pk %}" method="POST">{% csrf_token %}
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="FormPlanSegModalLabel">Gerar Plano de Segurança</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+        <button type="submit" class="btn btn-primary">Gerar</button>
+      </div>
+    </div>
+  </form></div>
+</div>
 
 {% endblock %}
 

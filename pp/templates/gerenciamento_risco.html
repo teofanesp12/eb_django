@@ -1,0 +1,391 @@
+{% extends "base_generic_main.html" %}
+{% load static %}
+{% block title %}Matriz de Gerenciamento de Risco{% endblock %}
+{% block content %}
+<form action="" method="POST">{% csrf_token %}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-4">
+      <span>Analise do Risco Inicial</span>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Probabilidade</th>
+            <th scope="col">Gravidade</th>
+            <th scope="col">Classificação</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th><span id="id_probabilidade_inicial">5</span></th>
+            <td><span id="id_gravidade_inicial">A</span></td>
+            <td><span id="id_class_inicial">Alto</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="offset-md-4 col-md-4">
+      <span>Analise do Risco Final</span>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Probabilidade</th>
+            <th scope="col">Gravidade</th>
+            <th scope="col">Classificação</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th><span id="id_probabilidade_final">5</span></th>
+            <td><span id="id_gravidade_final">A</span></td>
+            <td><span id="id_class_final">Alto</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <ul class="nav nav-tabs" id="myTabGerRisc" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="detail-tab" data-bs-toggle="tab" data-bs-target="#detail-tab-pane" type="button" role="tab" aria-controls="detail-tab-pane" aria-selected="true">Detalhes</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="operacional-tab" data-bs-toggle="tab" data-bs-target="#operacional-tab-pane" type="button" role="tab" aria-controls="operacional-tab-pane" aria-selected="false">Fator Operacional</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="humano-tab" data-bs-toggle="tab" data-bs-target="#humano-tab-pane" type="button" role="tab" aria-controls="humano-tab-pane" aria-selected="false">Fator Humano</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="material-tab" data-bs-toggle="tab" data-bs-target="#material-tab-pane" type="button" role="tab" aria-controls="material-tab-pane" aria-selected="false">Fator Material</button>
+    </li>
+  </ul>
+  <div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="detail-tab-pane" role="tabpanel" aria-labelledby="detail-tab" tabindex="0">
+      <div class="row">
+        <div class="col-md-12">
+          <label for="id_atividade" class="form-label">Atividade Militar</label>
+          <input type="text" class="form-control" id="id_atividade" name="atividade" placeholder="Instrução de ...">
+        </div>
+        <div class="col-md-6">
+          <label for="id_data" class="form-label">Data</label>
+          <input type="text" class="form-control" id="id_data" name="data" placeholder="Data da instrução">
+        </div>
+        <div class="col-md-6">
+          <label for="id_periodo" class="form-label">Período</label>
+          <input type="text" class="form-control" id="id_periodo" name="periodo" placeholder="Ex: 12:00 às 14:00">
+        </div>
+        <div class="col-md-6">
+          <label for="id_instrutor" class="form-label">Instrutor</label>
+          <input type="text" class="form-control" id="id_instrutor" name="instrutor" placeholder="Nome completo">
+        </div>
+        <div class="col-md-6">
+          <label for="id_opai" class="form-label">OPAI</label>
+          <input type="text" class="form-control" id="id_opai" name="opai" placeholder="Nome completo">
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane fade" id="operacional-tab-pane" role="tabpanel" aria-labelledby="operacional-tab" tabindex="0">
+      <div class="row">
+        <div class="col-md-12">
+          <table class="table table-striped caption-top">
+            <caption>ANALISE</caption>
+            <thead>
+              <tr>
+                <th scope="col">Fator</th>
+                <th scope="col">Probabilidade</th>
+                <th scope="col">Gravidade</th>
+                <th scope="col">Ação</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>Há previsão de condições meteorológicas adversas (chuva, calor ou frio).</th>
+                <td>2</td>
+                <td>C</td>
+                <td>Editar / Corrigir / Deletar</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr><td colspan="4"><button type="button" class="btn btn-link" style="padding: 0px;" data-bs-toggle="modal" data-bs-target="#FormAddFator" data-bs-settype="operacional">Adicionar Linha</button></td></tr>
+            </tfoot>
+          </table>
+        </div>
+        <div class="col-md-12">
+          <table class="table table-striped caption-top">
+            <caption>RESIDUAL DA SOLUÇÃO</caption>
+            <thead>
+              <tr>
+                <th scope="col">Fator</th>
+                <th scope="col">Medidas Preventivas/Mitigadoras</th>
+                <th scope="col">Probabilidade</th>
+                <th scope="col">Gravidade</th>
+                <th scope="col">Ação</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>Há previsão de condições meteorológicas adversas (chuva, calor ou frio).</th>
+                <td>A Eq Inst deve disponibilizar uma área de abrigo sfc</td>
+                <td>1</td>
+                <td>D</td>
+                <td>Cancelar Solução</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane fade" id="humano-tab-pane" role="tabpanel" aria-labelledby="humano-tab" tabindex="0">
+      2
+    </div>
+    <div class="tab-pane fade" id="material-tab-pane" role="tabpanel" aria-labelledby="material-tab" tabindex="0">
+      3
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <hr>
+        <h4>Confira a Tabela de valores</h4>
+      </div>
+      <div class="col-md-6">
+        <table class="table table-striped caption-top">
+          <caption>PROBABILIDADE</caption>
+          <thead>
+            <tr>
+              <th scope="col">Qualitativa</th>
+              <th scope="col">Definição</th>
+              <th scope="col">Valor</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>Frequente</th>
+              <td>Muito provável que ocorra muitas vezes (tem ocorrido frequentemente)</td>
+              <td>5</td>
+            </tr>
+            <tr>
+              <th>Possível</th>
+              <td>Provável que ocorra algumas vezes (tem ocorrido com certa recorrência)</td>
+              <td>4</td>
+            </tr>
+            <tr>
+              <th>Ocasional</th>
+              <td>Pouco provável, porém é possível que ocorra (ocorre algumas vezes)</td>
+              <td>3</td>
+            </tr>
+            <tr>
+              <th>Remoto</th>
+              <td>Improvável que ocorra (não se conhece ocorrência anterior)</td>
+              <td>2</td>
+            </tr>
+            <tr>
+              <th>Extremamente Improvável</th>
+              <td>Quase inconcebível que o evento ocorra</td>
+              <td>1</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md-6">
+        <table class="table table-striped caption-top">
+          <caption>GRAVIDADE</caption>
+          <thead>
+            <tr>
+              <th scope="col">Qualitativa</th>
+              <th scope="col">Definição</th>
+              <th scope="col">Valor</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>Catastrófica</th>
+              <td>- Mortes múltiplas.<br>
+              - Destruição do material.</td>
+              <td>A</td>
+            </tr>
+            <tr>
+              <th>Severa</th>
+              <td>- Lesões graves ou óbito.<br>
+              -Danos graves no material.</td>
+              <td>B</td>
+            </tr>
+            <tr>
+              <th>Média</th>
+              <td>-Lesões com necessidade de hospitalização.<br>
+              -Indisponibilização do material</td>
+              <td>C</td>
+            </tr>
+            <tr>
+              <th>Leve</th>
+              <td>- Pequenas lesões.<br>
+              -Avarias no material, contudo sem indisponibilizá-lo</td>
+              <td>D</td>
+            </tr>
+            <tr>
+              <th>Insignificante</th>
+              <td>- Não se visualiza danos ao pessoal e material</td>
+              <td>E</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md-12">
+        <h4>Analises de Resultado</h4>
+      </div>
+      <div class="col-md-8">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">PBL x GVD</th>
+              <th scope="col">A. CATASTRÓFICA</th>
+              <th scope="col">B. SEVERA</th>
+              <th scope="col">C. MÉDIA</th>
+              <th scope="col">D. LEVE</th>
+              <th scope="col">E. INSIGNIFICANTE</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>5 – FREQUENTE</th>
+              <td style="background: black;color: white;">5A</td>
+              <td style="background-color: red;color: white;">5B</td>
+              <td style="background-color: red;color: white;">5C</td>
+              <td style="background-color: yellow;">5D</td>
+              <td>5E</td>
+            </tr>
+            <tr>
+              <th>4 – POSSÍVEL</th>
+              <td style="background-color: red;color: white;">4A</td>
+              <td style="background-color: red;color: white;">4B</td>
+              <td style="background-color: yellow;">4C</td>
+              <td>4D</td>
+              <td>4E</td>
+            </tr>
+            <tr>
+              <th>3 – OCASIONAL</th>
+              <td style="background-color: red;color: white;">3A</td>
+              <td style="background-color: yellow;">3B</td>
+              <td>3C</td>
+              <td style="background-color: green;color: white;">3D</td>
+              <td style="background-color: green;color: white;">3E</td>
+            </tr>
+            <tr>
+              <th>2 – REMOTO</th>
+              <td style="background-color: yellow;">2A</td>
+              <td>2B</td>
+              <td>2C</td>
+              <td style="background-color: green;color: white;">2D</td>
+              <td style="background-color: green;color: white;">2E</td>
+            </tr>
+            <tr>
+              <th>1 – EXTREMAMENTE IMPROVAVEL</th>
+              <td style="background-color: green;color: white;">1A</td>
+              <td style="background-color: green;color: white;">1B</td>
+              <td style="background-color: green;color: white;">1C</td>
+              <td style="background-color: green;color: white;">1D</td>
+              <td style="background-color: green;color: white;">1E</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md-4">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">ÍNDICES DE AVALIAÇÃO DE RISCO</th>
+              <th scope="col">CLASSIFICAÇÃO DO RISCO</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="background: black;color: white;">
+              <th>5A</th>
+              <td>Inaceitável</td>
+            </tr>
+            <tr style="background-color: red;color: white;">
+              <th>3A, 4A, 4B, 5B e 5C</th>
+              <td>Muito Alto</td>
+            </tr>
+            <tr style="background-color: yellow;">
+              <th>2A, 3B, 4C, e 5D</th>
+              <td>Alto</td>
+            </tr>
+            <tr>
+              <th>2B, 2C, 3C, 3D, 4D, 4E e 5E</th>
+              <td>Médio</td>
+            </tr>
+            <tr style="background-color: green;color: white;">
+              <th>1A, 1B, 1C, 1D, 1E, 2D, 2E e 3E</th>
+              <td>Baixo</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal modal-xl fade" id="FormAddFator" tabindex="-1" aria-labelledby="fatorModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="fatorModalLabel">Adicionar Fator de Risco</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-12">
+            <label for="id_nome_fator" class="form-label">Nome</label>
+            <input type="text" class="form-control" id="id_nome_fator" name="nome_fator" placeholder="Fator">
+          </div>
+          <div class="col-md-6">
+            <label for="id_probabilidade_fator" class="form-label">Probabilidade</label>
+            <select class="form-select" aria-label="Probabilidade" id="id_probabilidade_fator" name="probabilidade">
+              <option value="5" selected>5 - Frequente</option>
+              <option value="4">4 - Possível</option>
+              <option value="3">3 - Ocasional</option>
+              <option value="2">2 - Remoto</option>
+              <option value="1">1 - Extremamente Improvável</option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label for="id_gravidade_fator" class="form-label">Gravidade</label>
+            <select class="form-select" aria-label="Gravidade" id="id_gravidade_fator" name="gravidade">
+              <option value="A" selected>A - Catastrófica</option>
+              <option value="B">B - Severa</option>
+              <option value="C">C - Média</option>
+              <option value="D">D - Leve</option>
+              <option value="E">E - Insignificante</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <input type="hidden" id="id_tipo_fator" name="tipo">
+        <input type="hidden" id="_popup" name="_popup" value="1">
+        <input type="hidden" id="id_objetivo" name="objetivo" value="{{ objetivo_id }}">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+        <button type="submit" class="btn btn-primary">Adicionar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</form>
+{% endblock content %}
+
+{% block script %}
+<script>
+const FormAddFator = document.getElementById('FormAddFator')
+FormAddFator.addEventListener('show.bs.modal', event => {
+  // Button that triggered the modal
+  const button = event.relatedTarget
+  // Extract info from data-bs-* attributes
+  const type = button.getAttribute('data-bs-settype')
+  // If necessary, you could initiate an AJAX request here
+  // and then do the updating in a callback.
+  //
+  // Update the modal's content.
+  $('#id_tipo_fator').val(type);
+});
+</script>
+{% endblock script %}

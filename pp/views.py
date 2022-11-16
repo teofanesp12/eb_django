@@ -78,3 +78,49 @@ def gerar_plano_session(request, objetivo_id):
     context['conclusao'] = request.POST.get('conclusao', '')
     context['tempo_conclusao'] = request.POST.get('tempo_conclusao', '')
     return render(request, 'plano_session.html', context)
+
+
+from .models import FatorRisco
+def gerenciamento_risco(request, objetivo_id):
+    if request.POST:
+        if request.POST.get('_popup'):
+            fator = FatorRisco()
+            fator.nome = request.POST.get('nome_fator')
+            fator.probabilidade = int(request.POST.get('probabilidade'))
+            fator.gravidade = request.POST.get('gravidade')
+            fator.tipo = request.POST.get('tipo')
+            fator.objetivo = get_object_or_404(models.Objetivo, pk=objetivo_id)
+            fator.save()
+        else:
+            # Imprimimos...
+            pass
+    context = {
+        'operacional':[],
+        'operacional_residual':[],
+        'humano':[],
+        'humano_residual':[],
+        'material':[],
+        'material_residual':[],
+    }
+    context['objetivo_id'] = objetivo_id
+    fatores = FatorRisco.objects.filter(objetivo=objetivo_id)
+    for fator in fatores:
+        if fator.tipo == 'operacional':
+            if fator.mitigadora:
+                context['operacional_residual'].append(fator)
+            else:
+                context['operacional'].append(fator)
+        elif fator.tipo == 'humano':
+            if fator.mitigadora:
+                context['humano_residual'].append(fator)
+            else:
+                context['humano'].append(fator)
+        elif fator.tipo == 'material':
+            if fator.mitigadora:
+                context['material_residual'].append(fator)
+            else:
+                context['material'].append(fator)
+
+    return render(request, 'gerenciamento_risco.html', context)
+def gerenciamento_risco_report(request, objetivo_id):
+    return render(request, 'gerenciamento_risco_report.html', {})

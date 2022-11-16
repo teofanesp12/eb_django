@@ -22,6 +22,12 @@ app_name = 'escala'
 
 urlpatterns = [
     path('', views.home, name='home'),
+
+    # Serviço Escala
+    path('servicoescala/', views.ServicoEscalaView.list(), name='view-servicoescala-list'),
+    path('servicoescala/adicionar', views.ServicoEscalaView.form(create=True), name='view-servicoescala-form'),
+    
+    # Serviço Local
     path('servicolocal/', views.ServicoLocalView.list(), name='view-servicolocal-list'),
     path('servicolocal/adicionar', views.ServicoLocalView.form(create=True), name='view-servicolocal-form'),
     path('servicolocal/<int:pk>/editar', views.ServicoLocalView.form(), name='view-servicolocal_editar-form'),

@@ -29,4 +29,6 @@ urlpatterns = [
     path('materia/<int:materia_id>/', views.materia, name='materia'),
     path('objetivo/<int:objetivo_id>/', views.objetivo, name='objetivo'),
     path('objetivo/<int:objetivo_id>/gerar_plano_session', views.gerar_plano_session, name='gerar_plano_session'),
+    path('objetivo/<int:objetivo_id>/gerenciamento_risco/', views.gerenciamento_risco, name='gerenciamento_risco-view'),
+    path('objetivo/<int:objetivo_id>/gerenciamento_risco/report', views.gerenciamento_risco_report, name='gerar_gerenciamento_risco-report'),
 ]

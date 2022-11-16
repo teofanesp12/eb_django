@@ -63,18 +63,16 @@
         <table class="table table-striped">
           <thead>
             <tr>
-              <th scope="col">#</th>
-              <th scope="col">Nome</th>
-              <th scope="col">Cia</th>
+              <th scope="col">Data</th>
+              <th scope="col">Status</th>
               <th scope="col">Ação</th>
             </tr>
           </thead>
           <tbody>
             {% for obj in objects %}
             <tr>
-              <th scope="row">{{ obj.pk }}</th>
-              <td>{{ obj.nome }}</td>
-              <td>{{ obj.subunidade|default:" - " }}</td>
+              <th >{{ obj.data }}</th>
+              <td>{{ obj.status }}</td>
               <td>
                 <a href="{% url 'escala:view-servicolocal_editar-form' pk=obj.pk %}"><i class="fa-regular fa-pen-to-square" style="color: black; min-height:25px;"></i></a>
                 <a href="{% url 'escala:view-servicolocal-page' pk=obj.pk %}"><i class="fa-regular fa-file" style="color: black; min-height:25px;"></i></a>

@@ -4,8 +4,8 @@ from django.contrib import messages
 
 from base.viewutils import DefaultViewMode, ViewMethod, ReverseViews
 
-from .models import ServicoLocal, ServicoLocalLinha
-from .forms import ServicoLocalForm, ServicoLocalLinhaForm
+from .models import ServicoLocal, ServicoLocalLinha, ServicoEscala
+from .forms import ServicoLocalForm, ServicoLocalLinhaForm, ServicoEscalaForm
 # Create your views here.
 def home(request):
     context = {}
@@ -18,7 +18,8 @@ class ServicoLocalView(DefaultViewMode):
 
         self.views = [
             ReverseViews(ViewMethod.LIST, reverse('escala:view-servicolocal-list')),
-            ReverseViews(ViewMethod.FORM, reverse('escala:view-servicolocal-form'))
+            ReverseViews(ViewMethod.FORM, reverse('escala:view-servicolocal-form')),
+            #TODO add Maps Forms
         ]
         self.form = ServicoLocalForm
 
@@ -53,4 +54,22 @@ class ServicoLocalView(DefaultViewMode):
         if view==ViewMethod.FORM:
             context['linhas'] = ServicoLocalLinha.objects.filter(local=context.get('pk', 0))
             context['linha_form'] = ServicoLocalLinhaForm()
+        return context
+
+class ServicoEscalaView(DefaultViewMode):
+    def __init__(self):
+        self.model = ServicoEscala
+        self.module_name = 'escala/servicoescala/'
+
+        self.views = [
+            ReverseViews(ViewMethod.LIST, reverse('escala:view-servicoescala-list')),
+            ReverseViews(ViewMethod.FORM, reverse('escala:view-servicoescala-form'))
+        ]
+        self.form = ServicoEscalaForm
+
+    def process_request_list(self, request):
+        context = super().process_request_list(request)
+        pagina  = request.GET.get('pagina', 0)
+        limit   = request.GET.get('limit', 50)
+        context['objects'] = self.getPaginator(context['objects'], limit=limit, pagina=pagina)
         return context

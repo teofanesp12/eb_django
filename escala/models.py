@@ -18,15 +18,6 @@ class InstalacaoAlterado(models.Model):
     def __str__(self):
         return self.ocorrencia or ""
 
-class Livro(models.Model):
-    data        = models.DateField()
-    parada      = models.TextField(blank=True, null=True, verbose_name="Parada Diaria")
-    ocorrencia  = models.TextField(blank=True, null=True, verbose_name="Ocorrências")
-    material    = models.ManyToManyField(MaterialAlterado)
-    instalacao  = models.ManyToManyField(InstalacaoAlterado)
-    def __str__(self):
-        return self.data or ""
-
 def file_directory_path(instance, filename):
     # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
     filename = filename.split('.')
@@ -49,6 +40,16 @@ class ServicoLocal(models.Model):
         verbose_name = "Local do Serviço"
         verbose_name_plural = "Locais do Serviço"
 
+class Livro(models.Model):
+    data        = models.DateField()
+    local       = models.ForeignKey(ServicoLocal, on_delete=models.CASCADE, null=True)# No Null
+    parada      = models.TextField(blank=True, null=True, verbose_name="Parada Diaria")
+    ocorrencia  = models.TextField(blank=True, null=True, verbose_name="Ocorrências")
+    material    = models.ManyToManyField(MaterialAlterado)
+    instalacao  = models.ManyToManyField(InstalacaoAlterado)
+    def __str__(self):
+        return self.data or ""
+
 class ServicoLocalLinha(models.Model):
     local      = models.ForeignKey(ServicoLocal, on_delete=models.CASCADE, null=True)# No Null
     graduacao  = models.ForeignKey(Graduacao, on_delete=models.CASCADE, verbose_name="Graduação")
@@ -63,7 +64,7 @@ class ServicoLocalLinha(models.Model):
 class ServicoEscala(models.Model):
     data    = models.DateField()
     locais  = models.ManyToManyField(ServicoLocal)
-    livro   = models.ForeignKey(Livro, on_delete=models.SET_NULL, null=True, blank=True)
+    livros  = models.ManyToManyField(Livro, blank=True)
     status  = models.CharField(max_length=50, verbose_name="Status", choices=[("rascunho","Rascunho"),("gerado","Gerado"),("publicado","Publicado"),("finalizado","Finalizado") ], default="rascunho")
 
     class Meta:

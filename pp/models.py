@@ -87,6 +87,21 @@ class SubAssunto(models.Model):
     votes = models.IntegerField(default=0)
  '''
 
+class FatorRisco(models.Model):
+    nome   = models.TextField()
+    probabilidade = models.IntegerField()
+    gravidade     = models.CharField(max_length=1)
+    tipo          = models.CharField(max_length=50, choices=[("operacional","Operacional"), ("humano","Humano"), ("material","Material")], default='operacional')
+
+    mitigadora    = models.TextField(null=True, blank=True)
+    probabilidade_residual = models.IntegerField(null=True, blank=True)
+    gravidade_residual     = models.CharField(max_length=1, null=True, blank=True)
+
+    objetivo = models.ForeignKey(Objetivo, on_delete=models.CASCADE, null=True, blank=True)
+    
+    def __str__(self):
+        return self.nome or ""
+
 
 def file_directory_path(instance, filename):
     # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
