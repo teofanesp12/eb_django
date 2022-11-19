@@ -81,10 +81,56 @@ def gerar_plano_session(request, objetivo_id):
 
 
 from .models import FatorRisco
+def action_get_class_risco(probabilidade=0, gravidade='A', result_type=0):
+    if result_type==0:
+        result=['Inaceitavel', 'Muito Alto', 'Alto', 'Medio', 'Baixo']
+    elif result_type==1:
+        result=['background: black;color: white;', 'background-color: red;color: white;', 'background-color: yellow;', 'background-color: #6ec32a;', 'background-color: green;color: white;']
+    if probabilidade == 5:
+        if gravidade=='A':
+            return result[0]# 'inaceitavel'
+        elif gravidade in ['B','C']:
+            return result[1]# 'muito_alto'
+        elif gravidade=='D':
+            return result[2]# 'alto'
+        elif gravidade=='E':
+            return result[3]# 'Medio'
+    elif probabilidade == 4:
+        if gravidade in ['A','B']:
+            return result[1]
+        elif gravidade in ['C']:
+            return result[2]
+        elif gravidade in ['D','E']:
+            return result[3]
+    elif probabilidade == 3:
+        if gravidade in ['A']:
+            return result[1]
+        elif gravidade in ['B']:
+            return result[2]
+        elif gravidade in ['C']:
+            return result[3]
+        elif gravidade in ['D','E']:
+            return result[4]
+    elif probabilidade == 2:
+        if gravidade in ['A']:
+            return result[2]
+        elif gravidade in ['B','C']:
+            return result[3]
+        elif gravidade in ['D','E']:
+            return result[4]
+    elif probabilidade == 1:
+        return result[4]
+    return '-'
 def gerenciamento_risco(request, objetivo_id):
     if request.POST:
         if request.POST.get('_popup'):
-            fator = FatorRisco()
+            if request.POST.get('fator_pk'):
+                fator = FatorRisco.objects.get(pk=request.POST.get('fator_pk'))
+                fator.probabilidade_residual = int(request.POST.get('probabilidade_residual',0))
+                fator.gravidade_residual = request.POST.get('gravidade_residual')
+                fator.mitigadora = request.POST.get('mitigadora')
+            else:
+                fator = FatorRisco()
             fator.nome = request.POST.get('nome_fator')
             fator.probabilidade = int(request.POST.get('probabilidade'))
             fator.gravidade = request.POST.get('gravidade')
@@ -104,6 +150,10 @@ def gerenciamento_risco(request, objetivo_id):
     }
     context['objetivo_id'] = objetivo_id
     fatores = FatorRisco.objects.filter(objetivo=objetivo_id)
+    probabilidade_antes  = []
+    probabilidade_depois = []
+    gravidade_antes      = []
+    gravidade_depois     = []
     for fator in fatores:
         if fator.tipo == 'operacional':
             if fator.mitigadora:
@@ -121,6 +171,26 @@ def gerenciamento_risco(request, objetivo_id):
             else:
                 context['material'].append(fator)
 
+        probabilidade_antes.append(fator.probabilidade)
+        gravidade_antes.append(fator.gravidade)
+        if fator.mitigadora:
+            probabilidade_depois.append(fator.probabilidade_residual)
+            gravidade_depois.append(fator.gravidade_residual)
+        else:
+            probabilidade_depois.append(fator.probabilidade)
+            gravidade_depois.append(fator.gravidade)
+    probabilidade_antes.sort()
+    probabilidade_antes.reverse()
+    probabilidade_depois.sort()
+    probabilidade_depois.reverse()
+    gravidade_antes.sort()
+    gravidade_depois.sort()
+    context['probabilidade_antes']  = len(probabilidade_antes)>=1 and probabilidade_antes[0] or '-'
+    context['probabilidade_depois'] = len(probabilidade_depois)>=1 and probabilidade_depois[0] or '-'
+    context['gravidade_antes']      = len(gravidade_antes)>=1 and gravidade_antes[0] or '-'
+    context['gravidade_depois']     = len(gravidade_depois)>=1 and gravidade_depois[0] or '-'
+    context['classe_risco_antes']   = action_get_class_risco(context['probabilidade_antes'], context['gravidade_antes'])
+    context['classe_risco_depois']  = action_get_class_risco(context['probabilidade_depois'], context['gravidade_depois'])
     return render(request, 'gerenciamento_risco.html', context)
 def gerenciamento_risco_report(request, objetivo_id):
     return render(request, 'gerenciamento_risco_report.html', {})

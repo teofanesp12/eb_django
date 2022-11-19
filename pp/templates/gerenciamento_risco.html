@@ -2,7 +2,7 @@
 {% load static %}
 {% block title %}Matriz de Gerenciamento de Risco{% endblock %}
 {% block content %}
-<form action="" method="POST">{% csrf_token %}
+<form action="" method="POST" id="form_def">{% csrf_token %}
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-4">
@@ -17,16 +17,25 @@
         </thead>
         <tbody>
           <tr>
-            <th><span id="id_probabilidade_inicial">5</span></th>
-            <td><span id="id_gravidade_inicial">A</span></td>
-            <td><span id="id_class_inicial">Alto</span></td>
+            <th><span id="id_probabilidade_inicial">{{ probabilidade_antes }}</span></th>
+            <td><span id="id_gravidade_inicial">{{ gravidade_antes }}</span></td>
+            <td><span id="id_class_inicial">{{ classe_risco_antes }}</span></td>
           </tr>
         </tbody>
       </table>
     </div>
     <div class="col-md-4" align="center">
-      <img src="{% static 'img/gerencimento_risco/baixo_risco.png' %}" height="150px" 
->
+      {%  if classe_risco_depois == "Inaceitavel" %}
+      <img src="{% static 'img/gerencimento_risco/inaceitavel_risco.png' %}" height="150px"/>
+      {% elif classe_risco_depois == "Muito Alto" %}
+      <img src="{% static 'img/gerencimento_risco/muitoalto_risco.png' %}" height="150px"/>
+      {% elif classe_risco_depois == "Alto" %}
+      <img src="{% static 'img/gerencimento_risco/alto_risco.png' %}" height="150px"/>
+      {% elif classe_risco_depois == "Medio" %}
+      <img src="{% static 'img/gerencimento_risco/medio_risco.png' %}" height="150px"/>
+      {% elif classe_risco_depois == "Baixo" %}
+      <img src="{% static 'img/gerencimento_risco/baixo_risco.png' %}" height="150px"/>
+      {% endif %}
     </div>
     <div class="col-md-4">
       <span>Analise do Risco Final</span>
@@ -40,9 +49,9 @@
         </thead>
         <tbody>
           <tr>
-            <th><span id="id_probabilidade_final">5</span></th>
-            <td><span id="id_gravidade_final">A</span></td>
-            <td><span id="id_class_final">Alto</span></td>
+            <th><span id="id_probabilidade_final">{{ probabilidade_depois }}</span></th>
+            <td><span id="id_gravidade_final">{{ gravidade_depois }}</span></td>
+            <td><span id="id_class_final">{{ classe_risco_depois }}</span></td>
           </tr>
         </tbody>
       </table>
@@ -101,12 +110,20 @@
               </tr>
             </thead>
             <tbody>
+              {% for fator in operacional %}
               <tr>
-                <th>Há previsão de condições meteorológicas adversas (chuva, calor ou frio).</th>
-                <td>2</td>
-                <td>C</td>
-                <td>Editar / Corrigir / Deletar</td>
+                <th id="id_nome_{{fator.pk}}">{{ fator.nome }}</th>
+                <td id="id_probabilidade_{{fator.pk}}">{{ fator.probabilidade }}</td>
+                <td id="id_gravidade_{{fator.pk}}">{{ fator.gravidade }}</td>
+                <td>
+                  <div class="btn-group" role="group" aria-label="Grupo de Ação">
+                    <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#FormAddFator" data-bs-settype="operacional" data-bs-obj="{{fator.pk}}">Editar</button>
+                    <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#FormAddFator" data-bs-settype="operacional" data-bs-obj="{{fator.pk}}" data-bs-corrigir="1">Solucionar</button>
+                    <button type="button" class="btn btn-outline-danger">Deletar</button>
+                  </div>
+                </td>
               </tr>
+              {% endfor %}
             </tbody>
             <tfoot>
               <tr><td colspan="4"><button type="button" class="btn btn-link" style="padding: 0px;" data-bs-toggle="modal" data-bs-target="#FormAddFator" data-bs-settype="operacional">Adicionar Linha</button></td></tr>
@@ -126,23 +143,153 @@
               </tr>
             </thead>
             <tbody>
+              {% for fator in operacional_residual %}
               <tr>
-                <th>Há previsão de condições meteorológicas adversas (chuva, calor ou frio).</th>
-                <td>A Eq Inst deve disponibilizar uma área de abrigo sfc</td>
-                <td>1</td>
-                <td>D</td>
-                <td>Cancelar Solução</td>
+                <th>{{ fator.nome }}</th>
+                <td>{{ fator.mitigadora }}</td>
+                <td>{{ fator.probabilidade_residual }}</td>
+                <td>{{ fator.gravidade_residual }}</td>
+                <td><button type="button" class="btn btn-outline-danger cancelar-solucao" data-bs-settype="operacional" data-bs-obj="{{fator.pk}}">Cancelar Solução</button>
+                  <input type="hidden" id="id_nome_{{fator.pk}}" value="{{ fator.nome }}">
+                  <input type="hidden" id="id_probabilidade_{{fator.pk}}" value="{{ fator.probabilidade }}">
+                  <input type="hidden" id="id_gravidade_{{fator.pk}}" value="{{ fator.gravidade }}">
+                </td>
               </tr>
+              {% endfor %}
             </tbody>
           </table>
         </div>
       </div>
     </div>
     <div class="tab-pane fade" id="humano-tab-pane" role="tabpanel" aria-labelledby="humano-tab" tabindex="0">
-      2
+      <div class="row">
+        <div class="col-md-12 table-responsive">
+          <table class="table table-striped caption-top">
+            <caption>ANALISE</caption>
+            <thead>
+              <tr>
+                <th scope="col">Fator</th>
+                <th scope="col">Probabilidade</th>
+                <th scope="col">Gravidade</th>
+                <th scope="col">Ação</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for fator in humano %}
+              <tr>
+                <th id="id_nome_{{fator.pk}}">{{ fator.nome }}</th>
+                <td id="id_probabilidade_{{fator.pk}}">{{ fator.probabilidade }}</td>
+                <td id="id_gravidade_{{fator.pk}}">{{ fator.gravidade }}</td>
+                <td>
+                  <div class="btn-group" role="group" aria-label="Grupo de Ação">
+                    <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#FormAddFator" data-bs-settype="humano" data-bs-obj="{{fator.pk}}">Editar</button>
+                    <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#FormAddFator" data-bs-settype="humano" data-bs-obj="{{fator.pk}}" data-bs-corrigir="1">Solucionar</button>
+                    <button type="button" class="btn btn-outline-danger">Deletar</button>
+                  </div>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+            <tfoot>
+              <tr><td colspan="4"><button type="button" class="btn btn-link" style="padding: 0px;" data-bs-toggle="modal" data-bs-target="#FormAddFator" data-bs-settype="humano">Adicionar Linha</button></td></tr>
+            </tfoot>
+          </table>
+        </div>
+        <div class="col-md-12 table-responsive text-nowrap">
+          <table class="table table-striped caption-top">
+            <caption>RESIDUAL DA SOLUÇÃO</caption>
+            <thead>
+              <tr>
+                <th scope="col">Fator</th>
+                <th scope="col">Medidas Preventivas/Mitigadoras</th>
+                <th scope="col">Probabilidade</th>
+                <th scope="col">Gravidade</th>
+                <th scope="col">Ação</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for fator in humano_residual %}
+              <tr>
+                <th>{{ fator.nome }}</th>
+                <td>{{ fator.mitigadora }}</td>
+                <td>{{ fator.probabilidade_residual }}</td>
+                <td>{{ fator.gravidade_residual }}</td>
+                <td><button type="button" class="btn btn-outline-danger cancelar-solucao" data-bs-settype="humano" data-bs-obj="{{fator.pk}}">Cancelar Solução</button>
+                  <input type="hidden" id="id_nome_{{fator.pk}}" value="{{ fator.nome }}">
+                  <input type="hidden" id="id_probabilidade_{{fator.pk}}" value="{{ fator.probabilidade }}">
+                  <input type="hidden" id="id_gravidade_{{fator.pk}}" value="{{ fator.gravidade }}">
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
     <div class="tab-pane fade" id="material-tab-pane" role="tabpanel" aria-labelledby="material-tab" tabindex="0">
-      3
+      <div class="row">
+        <div class="col-md-12 table-responsive">
+          <table class="table table-striped caption-top">
+            <caption>ANALISE</caption>
+            <thead>
+              <tr>
+                <th scope="col">Fator</th>
+                <th scope="col">Probabilidade</th>
+                <th scope="col">Gravidade</th>
+                <th scope="col">Ação</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for fator in material %}
+              <tr>
+                <th id="id_nome_{{fator.pk}}">{{ fator.nome }}</th>
+                <td id="id_probabilidade_{{fator.pk}}">{{ fator.probabilidade }}</td>
+                <td id="id_gravidade_{{fator.pk}}">{{ fator.gravidade }}</td>
+                <td>
+                  <div class="btn-group" role="group" aria-label="Grupo de Ação">
+                    <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#FormAddFator" data-bs-settype="material" data-bs-obj="{{fator.pk}}">Editar</button>
+                    <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#FormAddFator" data-bs-settype="material" data-bs-obj="{{fator.pk}}" data-bs-corrigir="1">Solucionar</button>
+                    <button type="button" class="btn btn-outline-danger">Deletar</button>
+                  </div>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+            <tfoot>
+              <tr><td colspan="4"><button type="button" class="btn btn-link" style="padding: 0px;" data-bs-toggle="modal" data-bs-target="#FormAddFator" data-bs-settype="material">Adicionar Linha</button></td></tr>
+            </tfoot>
+          </table>
+        </div>
+        <div class="col-md-12 table-responsive text-nowrap">
+          <table class="table table-striped caption-top">
+            <caption>RESIDUAL DA SOLUÇÃO</caption>
+            <thead>
+              <tr>
+                <th scope="col">Fator</th>
+                <th scope="col">Medidas Preventivas/Mitigadoras</th>
+                <th scope="col">Probabilidade</th>
+                <th scope="col">Gravidade</th>
+                <th scope="col">Ação</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for fator in material_residual %}
+              <tr>
+                <th>{{ fator.nome }}</th>
+                <td>{{ fator.mitigadora }}</td>
+                <td>{{ fator.probabilidade_residual }}</td>
+                <td>{{ fator.gravidade_residual }}</td>
+                <td><button type="button" class="btn btn-outline-danger cancelar-solucao" data-bs-settype="material" data-bs-obj="{{fator.pk}}">Cancelar Solução</button>
+                  <input type="hidden" id="id_nome_{{fator.pk}}" value="{{ fator.nome }}">
+                  <input type="hidden" id="id_probabilidade_{{fator.pk}}" value="{{ fator.probabilidade }}">
+                  <input type="hidden" id="id_gravidade_{{fator.pk}}" value="{{ fator.gravidade }}">
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   </div>
   <div class="container-fluid">
@@ -255,29 +402,29 @@
               <td style="background-color: red;color: white;">5B</td>
               <td style="background-color: red;color: white;">5C</td>
               <td style="background-color: yellow;">5D</td>
-              <td>5E</td>
+              <td style="background-color: #6ec32a;">5E</td>
             </tr>
             <tr>
               <th>4 – POSSÍVEL</th>
               <td style="background-color: red;color: white;">4A</td>
               <td style="background-color: red;color: white;">4B</td>
               <td style="background-color: yellow;">4C</td>
-              <td>4D</td>
-              <td>4E</td>
+              <td style="background-color: #6ec32a;">4D</td>
+              <td style="background-color: #6ec32a;">4E</td>
             </tr>
             <tr>
               <th>3 – OCASIONAL</th>
               <td style="background-color: red;color: white;">3A</td>
               <td style="background-color: yellow;">3B</td>
-              <td>3C</td>
+              <td style="background-color: #6ec32a;">3C</td>
               <td style="background-color: green;color: white;">3D</td>
               <td style="background-color: green;color: white;">3E</td>
             </tr>
             <tr>
               <th>2 – REMOTO</th>
               <td style="background-color: yellow;">2A</td>
-              <td>2B</td>
-              <td>2C</td>
+              <td style="background-color: #6ec32a;">2B</td>
+              <td style="background-color: #6ec32a;">2C</td>
               <td style="background-color: green;color: white;">2D</td>
               <td style="background-color: green;color: white;">2E</td>
             </tr>
@@ -313,7 +460,7 @@
               <th>2A, 3B, 4C, e 5D</th>
               <td>Alto</td>
             </tr>
-            <tr>
+            <tr style="background-color: #6ec32a;">
               <th>2B, 2C, 3C, 3D, 4D, 4E e 5E</th>
               <td>Médio</td>
             </tr>
@@ -361,12 +508,47 @@
               <option value="E">E - Insignificante</option>
             </select>
           </div>
+          <div class="col-md-12">
+            <div class="collapse" id="CollapseCorrigir">
+              <hr>
+              <h5>Insira a Solução/Medida Metigadoras (Quem, o que, quando, quanto...)</h5>
+              <div class="row">
+                <div class="col-md-6">
+                  <label for="id_probabilidade_residual" class="form-label">Probabilidade</label>
+                  <select class="form-select" aria-label="Probabilidade" id="id_probabilidade_residual" name="probabilidade_residual">
+                    <option value="5" selected>5 - Frequente</option>
+                    <option value="4">4 - Possível</option>
+                    <option value="3">3 - Ocasional</option>
+                    <option value="2">2 - Remoto</option>
+                    <option value="1">1 - Extremamente Improvável</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label for="id_gravidade_residual" class="form-label">Gravidade</label>
+                  <select class="form-select" aria-label="Gravidade" id="id_gravidade_residual" name="gravidade_residual">
+                    <option value="A" selected>A - Catastrófica</option>
+                    <option value="B">B - Severa</option>
+                    <option value="C">C - Média</option>
+                    <option value="D">D - Leve</option>
+                    <option value="E">E - Insignificante</option>
+                  </select>
+                </div>
+                <div class="col-md-12">
+                  <div class="mb-3">
+                    <label for="id_mitigadora" class="form-label">Medida Metigadora</label>
+                    <textarea class="form-control" id="id_mitigadora" rows="3" name="mitigadora"></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div class="modal-footer">
         <input type="hidden" id="id_tipo_fator" name="tipo">
         <input type="hidden" id="_popup" name="_popup" value="1">
         <input type="hidden" id="id_objetivo" name="objetivo" value="{{ objetivo_id }}">
+        <input type="hidden" id="id_fator_pk" name="fator_pk" value="">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
         <button type="submit" class="btn btn-primary">Adicionar</button>
       </div>
@@ -379,12 +561,43 @@
 
 {% block script %}
 <script>
+$('.cancelar-solucao').on('click', function() {
+  const type = $(this).attr('data-bs-settype');
+  const obj_id = $(this).attr('data-bs-obj');
+  $('#id_nome_fator').val($(`#id_nome_${obj_id}`).val());
+  $("#id_probabilidade_fator").val($(`#id_probabilidade_${obj_id}`).val()).change();
+  $("#id_gravidade_fator").val($(`#id_gravidade_${obj_id}`).val()).change();
+  $('#id_fator_pk').val(obj_id);
+
+  $('#id_probabilidade_residual').val(0).change();
+  $('#id_gravidade_residual').val("").change();
+  $('#id_mitigadora').val("");
+  
+  $('#id_tipo_fator').val(type);
+  document.getElementById("form_def").submit();
+});
 const FormAddFator = document.getElementById('FormAddFator')
 FormAddFator.addEventListener('show.bs.modal', event => {
   // Button that triggered the modal
   const button = event.relatedTarget
   // Extract info from data-bs-* attributes
-  const type = button.getAttribute('data-bs-settype')
+  const type = button.getAttribute('data-bs-settype');
+  const obj_id = button.getAttribute('data-bs-obj');
+  if (obj_id){
+    $('#id_nome_fator').val($(`#id_nome_${obj_id}`).text());
+    $("#id_probabilidade_fator").val($(`#id_probabilidade_${obj_id}`).text()).change();
+    $("#id_gravidade_fator").val($(`#id_gravidade_${obj_id}`).text()).change();
+    $('#id_fator_pk').val(obj_id);
+    // console.log();
+  }else{
+    $('#id_nome_fator').val("");
+    $('#id_fator_pk').val("");
+  };
+  if (button.getAttribute('data-bs-corrigir')){
+    $('#CollapseCorrigir').show();
+  }else{
+    $('#CollapseCorrigir').hide();
+  }
   // If necessary, you could initiate an AJAX request here
   // and then do the updating in a callback.
   //
