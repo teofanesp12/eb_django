@@ -315,7 +315,198 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        ...
+        <div class="row">
+          <ul class="nav nav-tabs" id="myTabPlanSeg" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="execucao-tab" data-bs-toggle="tab" data-bs-target="#execucao-tab-pane" type="button" role="tab" aria-controls="execucao-tab-pane" aria-selected="true">Execução</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="normas-tab" data-bs-toggle="tab" data-bs-target="#normas-tab-pane" type="button" role="tab" aria-controls="normas-tab-pane" aria-selected="false">Normas</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="medidasseg-tab" data-bs-toggle="tab" data-bs-target="#medidasseg-tab-pane" type="button" role="tab" aria-controls="medidasseg-tab-pane" aria-selected="false">Medidas de segurança</button>
+            </li>
+          </ul>
+          <div class="tab-content" id="myTabContentSeg">
+            <div class="tab-pane fade show active" id="execucao-tab-pane" role="tabpanel" aria-labelledby="execucao-tab" tabindex="0">
+              <div class="row">
+                <div class="col-md-4">
+                  <label for="id_grau_risco" class="form-label">GRAU DE RISCO DA ATIVIDADE:</label>
+                  <input type="text" class="form-control" id="id_grau_risco" name="grau_risco" value="Baixo"/>
+                </div>
+                <div class="col-md-12">
+                  <label for="id_condicoes_execucao" class="form-label">CONDIÇÕES DE EXECUÇÃO: </label>
+                  <textarea class="form-control" id="id_condicoes_execucao" name="condicoes_execucao">
+
+<h5>Quadro Horario</h5>
+<table border="1" cellpadding="1" cellspacing="0" style="width:100%;">
+  <thead>
+    <tr>
+      <th scope="col">Atividade</th>
+      <th scope="col">Tempo</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Instrução Teórica</td>
+      <td>25mim</td>
+    </tr>
+    <tr>
+      <td>Instrução Prática - </td>
+      <td>1h</td>
+    </tr>
+    <tr>
+      <td>Tiragem de duvidas</td>
+      <td>15mim</td>
+    </tr>
+  </tbody>
+</table>
+                  </textarea>
+                </div>
+                <div class="col-md-12">
+                  <hr>
+                  <label for="id_rec_ensaio_briefing" class="form-label">RECONHECIMENTOS, ENSAIOS E BRIEFING: </label>
+                  <textarea class="form-control" id="id_rec_ensaio_briefing" name="rec_ensaio_briefing">
+<ul>
+  <li>Foi reconhecido a área e local ...</li>
+  <li>...</li>
+</ul>
+                  </textarea>
+                </div>
+                <div class="col-md-12">
+                  <hr>
+                  <label for="id_comunicacao" class="form-label">LIGAÇÕES E COMUNICAÇÕES: </label>
+                  <textarea class="form-control" id="id_comunicacao" name="comunicacao">
+<table border="1" cellpadding="1" cellspacing="0" style="width:100%;">
+  <thead>
+    <tr>
+      <th scope="col">P/G</th>
+      <th scope="col">Nome</th>
+      <th scope="col">Função</th>
+      <th scope="col">Rádio</th>
+      <th scope="col">Canal Pcp/Altn</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>--</td><td>--</td><td>Instrutor</td><td>--</td><td>--</td></tr>
+    <tr><td>--</td><td>--</td><td>Monitores</td><td>--</td><td>--</td></tr>
+    <tr><td>--</td><td>--</td><td>Auxiliar (sfc)</td><td>--</td><td>--</td></tr>
+    <tr><td>--</td><td>--</td><td>Médico</td><td>--</td><td>--</td></tr>
+    <tr><td>--</td><td>--</td><td>Enfermeiro (sfc)</td><td>--</td><td>--</td></tr>
+    <tr><td>--</td><td>--</td><td>Atendente (sfc)</td><td>--</td><td>--</td></tr>
+    <tr><td>--</td><td>--</td><td>Guiá</td><td>--</td><td>--</td></tr>
+  </tbody>
+</table>
+                  </textarea>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="normas-tab-pane" role="tabpanel" aria-labelledby="normas-tab" tabindex="0">
+              <div class="row">
+                <div class="col-md-12">
+                  <label for="id_referencias" class="form-label">REFERÊNCIAS: </label>
+                  <textarea class="form-control" id="id_referencias" name="referencias">
+<ol style="list-style-type:lower-alpha">
+  <li>EB70-CI11.463 - Prevenção de Acidentes na Instrução e no Serviço</li>
+  <li>Programa de Prevenção de Acidentes do Batalhão</li>
+  <li>...</li>
+</ol>
+                  </textarea>
+                </div>
+                <div class="col-md-12">
+                  <hr>
+                  <label for="id_normas_gerais" class="form-label">NORMAS GERAIS DE SEGURANÇA: </label>
+                  <textarea class="form-control" id="id_normas_gerais" name="normas_gerais">
+<ul>
+  <li></li>
+  <li>...</li>
+</ul>
+                  </textarea>
+                  <p>- O <strong>instrutor</strong> deve consultar o capítulo IV do Caderno de instrução EB70-CI11.463, onde consta as <strong>normas gerais de segurança</strong> para cada tipo de instrução de risco.</p>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="medidasseg-tab-pane" role="tabpanel" aria-labelledby="medidasseg-tab" tabindex="0">
+              <div class="row">
+                <div class="col-md-12">
+                  <hr>
+                  <label for="id_medidas_preventivas" class="form-label">MEDIDAS PREVENTIVAS PRELIMINARES: </label>
+                  <textarea class="form-control" id="id_medidas_preventivas" name="medidas_preventivas">
+<ul>
+  <li></li>
+  <li>...</li>
+</ul>
+                  </textarea>
+                </div>
+                <div class="col-md-12">
+                  <hr>
+                  <label for="id_medidas_particulares" class="form-label">MEDIDAS PARTICULARES DE SEGURANÇA: </label>
+                  <textarea class="form-control" id="id_medidas_particulares" name="medidas_particulares">
+<ul>
+  <li>cerca, pedras, itinerário com locais de risco, foram retirados do local principal da pista ou isolados com fita zebrada sfc. </li>
+  <li>...</li>
+</ul>
+                  </textarea>
+                </div>
+                <div class="col-md-12">
+                  <hr>
+                  <label for="id_medidas_outras" class="form-label">OUTRAS MEDIDAS JULGADAS NECESSÁRIAS: </label>
+                  <textarea class="form-control" id="id_medidas_outras" name="medidas_outras">
+<ul>
+  <li>Nenhuma</li>
+</ul>
+                  </textarea>
+                </div>
+                <div class="col-md-12">
+                  <hr>
+                  <label for="id_medidas_caso_acidente" class="form-label">PROCEDIMENTOS A SEREM ADOTADOS EM CASO DE ACIDENTE: </label>
+                  <textarea class="form-control" id="id_medidas_caso_acidente" name="medidas_caso_acidente">
+<ol style="list-style-type:lower-alpha">
+  <li>O 1º Socorro será prestado ao acidentado por um militar da equipe de instrução que deverá tomar as devidas providências de acordo com o acidente:
+    <ol>
+      <li>Acidente leve: prestar os primeiros socorros e encaminhar a equipe de saúde para triagem.</li>
+      <li>Acidentes graves:
+        <ol style="list-style-type:lower-alpha">
+          <li>Instrutor/monitor informar de imediato ao médico;</li>
+          <li>Prestar os primeiros socorros e evacuar o acidentado o mais rápido possível.</li>
+          <li>Após avaliação do médico, a equipe de saúde deverá estar ECD evacuar o militar para o hospital mais próximo.</li>
+        </ol>
+      </li>
+    </ol>
+  </li>
+  <li>O atendimento médico será realizado em três níveis:
+    <ol>
+      <li>1º Nível (local do acidente):
+        <ol style="list-style-type:lower-alpha">
+          <li>O médico do Btl deverá ter condições de realizar os socorros de urgência.</li>
+          <li>Em caso de acidente leve, o militar permanece na atividade.</li>
+          <li>Em caso de acidente mais grave, segue para o 2º nível.</li>
+        </ol>
+      </li>
+      <li>2º Nível<br>
+- O acidentado será conduzido à ambulância ou enfermaria para um atendimento mais criterioso.</li>
+      <li>3º Nível<br>
+- O acidentado será conduzido para o hospital onde será atendido pela equipe médica deste estabelecimento, de acordo com a seguinte sequência de evacuação:
+        <ol style="list-style-type:lower-alpha">
+          <li>Prestar os primeiros socorros.</li>
+          <li>Informar a coordenação do Exercício pela rede de emergência (Plano de Segurança).</li>
+          <li>Preparar o ferido para o transporte.</li>
+          <li>Transportar o ferido até o posto de socorro.</li>
+          <li>Atendimento pela equipe médica.</li>
+          <li>Evacuação para o hospital mais próximo.</li>
+        </ol>
+      </li>
+    </ol>
+  </li>
+</ol>
+
+
+                  </textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
@@ -333,5 +524,16 @@
 <script>
 CKEDITOR.replace( 'sumario' );
 CKEDITOR.replace( 'desenvolvimento' );
+
+// Plano de Segurança
+CKEDITOR.replace( 'referencias' );
+CKEDITOR.replace( 'condicoes_execucao' );
+CKEDITOR.replace( 'normas_gerais' );
+CKEDITOR.replace( 'rec_ensaio_briefing' );
+CKEDITOR.replace( 'comunicacao' );
+CKEDITOR.replace( 'medidas_preventivas' );
+CKEDITOR.replace( 'medidas_particulares' );
+CKEDITOR.replace( 'medidas_outras' );
+CKEDITOR.replace( 'medidas_caso_acidente' );
 </script>
 {% endblock script %}
