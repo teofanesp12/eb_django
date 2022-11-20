@@ -308,7 +308,7 @@
 
 <!--Plano de Segurança-->
 <div class="modal modal-xl fade" id="FormPlanSeg" tabindex="-1" aria-labelledby="FormPlanSegModalLabel" aria-hidden="true">
-  <div class="modal-dialog"><form action="{% url 'pp:gerar_plano_session' objetivo.pk %}" method="POST">{% csrf_token %}
+  <div class="modal-dialog"><form action="{% url 'pp:gerar_plano_seguranca' objetivo.pk %}" method="POST">{% csrf_token %}
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="FormPlanSegModalLabel">Gerar Plano de Segurança</h5>
@@ -316,6 +316,59 @@
       </div>
       <div class="modal-body">
         <div class="row">
+          <div class="col-md-12">
+            <label for="id_finalidade" class="form-label">FINALIDADE</label>
+            <textarea class="form-control" id="id_finalidade" name="finalidade">Regular as medidas de segurança relativas ao ...</textarea>
+          </div>
+          <div class="col-md-4">
+            <label for="id_OM" class="form-label">OM</label>
+            <select id="id_OM" class="form-select" name="OM">
+              <option selected>Selecione...</option>
+              {% for u in batalhoes %}
+              <option value="{{ u.pk }}">{{ u.abr }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="col-md-4">
+            <label for="id_local" class="form-label">LOCAL:</label>
+            <input type="text" class="form-control" id="id_local" name="local" value="Área interna do ..."/>
+          </div>
+          <div class="col-md-4">
+            <label for="id_periodo" class="form-label">PERÍODO DO EXERCÍCIO:</label>
+            <input type="text" class="form-control" id="id_periodo" name="periodo" value="Conforme QTQ"/>
+          </div>
+          <div class="col-md-12 text-success"><hr></div>
+          <div class="col-md-6">
+            <label for="id_equipe_instrucao" class="form-label">Equipe de Instrução</label>
+            <textarea class="form-control" id="id_equipe_instrucao" name="equipe_instrucao" rows="3">
+a. Instrutor: 3° Sgt ---
+b. Monitores: -
+c. Auxiliares: -</textarea>
+          </div>
+          <div class="col-md-6">
+            <label for="id_instruendos" class="form-label">INSTRUENDOS</label>
+            <textarea class="form-control" id="id_instruendos" name="instruendos">- Estagiários do ...</textarea>
+          </div>
+          <div class="col-md-12">
+            <label for="id_materia" class="form-label">Materia</label>
+            <input type="text" class="form-control" id="id_materia" name="materia" value="{{ objetivo.materia.nome }}" disabled>
+          </div>
+          {% for assunto in assuntos %}
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="{{ assunto.pk }}" id="flexCheck{{ assunto.pk }}" name="assunto[]">
+            <label class="form-check-label" for="flexCheck{{ assunto.pk }}">{{ assunto.nome }}</label>
+          </div>
+          {% endfor %}
+          <div class="col-md-12 text-success"><hr></div>
+          <div class="col-md-6">
+            <label for="id_instrutor" class="form-label">INSTRUTOR</label>
+            <input type="text" class="form-control" id="id_instrutor" name="instrutor" placeholder="Ex: TEOFANES ENRIQUE PAZ MORON – 3° SGT">
+          </div>
+          <div class="col-md-6">
+            <label for="id_opai" class="form-label">OPAI</label>
+            <input type="text" class="form-control" id="id_opai" name="opai" placeholder="Ex: Nome completo - Cap">
+          </div>
+          <div class="col-md-12 text-success"><hr></div>
           <ul class="nav nav-tabs" id="myTabPlanSeg" role="tablist">
             <li class="nav-item" role="presentation">
               <button class="nav-link active" id="execucao-tab" data-bs-toggle="tab" data-bs-target="#execucao-tab-pane" type="button" role="tab" aria-controls="execucao-tab-pane" aria-selected="true">Execução</button>

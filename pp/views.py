@@ -79,6 +79,9 @@ def gerar_plano_session(request, objetivo_id):
     context['tempo_conclusao'] = request.POST.get('tempo_conclusao', '')
     return render(request, 'plano_session.html', context)
 
+def gerar_plano_seguranca(request, objetivo_id):
+    context = {}
+    return render(request, 'plano_session.html', context)
 
 from .models import FatorRisco
 def action_get_class_risco(probabilidade=0, gravidade='A', result_type=0):
