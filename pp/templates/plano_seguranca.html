@@ -1,0 +1,106 @@
+{% load static %}
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>Plano de Segurança</title>
+
+<style type="text/css">
+@page {
+  size: A4;
+}
+body {
+  size: A4;
+  width: 21cm;
+  min-height: 29.7cm;
+  padding: 2cm;
+  margin: 1cm auto;
+  border: 1px #D3D3D3 solid;
+  border-radius: 5px;
+  background: white;
+  box-shadow: 0 0 35px rgba(0, 0, 0, 0.46);
+  font: 12pt "Calibri Light";
+  font-family:Calibri Light;
+}
+@media print {
+  body {
+    margin: 0;
+    border: initial;
+    border-radius: initial;
+    width: 25cm;
+    min-height: initial;
+    box-shadow: initial;
+    background: initial;
+    page-break-after: always;
+  }
+}
+p {
+  margin-top: 0px;
+}
+h5 {
+  margin: 0px;
+  font: 12pt "Calibri Bold" ;
+  font-weight: bold;
+}
+ol > li::marker {
+  font-weight: bold;
+}
+ul {
+  padding-left: 20px;
+  list-style-type: "- ";
+}
+th, td {
+  border: 2px solid !important;
+}
+table{
+  border: 2px solid !important;
+  border-collapse: collapse;
+}
+</style>
+  </head>
+
+<body>
+<div style="text-align:center;"><img src="{% static 'img/eb_brasao.png' %}" alt="" height="50px" style="margin-left: 20px;"/><br/><strong>MINISTÉRIO DA DEFESA<br/>EXÉRCITO BRASILEIRO<br/>{{ OM.nome }}<br/>({{ OM.ref }})<br/>{{ OM.nome_historico }}</strong></div>
+<div style="width: 15%;display: inline-block;border: 2px solid black;border-collapse: collapse;padding: 15px;" align="center">
+  VISTO
+  <br><br><br><hr style="height: 1px;background-color: black;">
+  CMT CIA
+</div>
+<div style="display: inline-block;width: 58%;" align="center"><!--width: 64%;-->
+  <h2>PLANO DE SEGURANÇA</h2>
+</div>
+<div style="width: 15%;display: inline-block; border: 2px solid black;border-collapse: collapse;padding: 15px;" align="center">
+  VISTO
+  <br><br><br><hr style="height: 1px;background-color: black;">
+  OPAI
+</div>
+<div>
+  <ol>
+    <li><strong>FINALIDADE</strong><br>{{ finalidade|linebreaks }}</li>
+    <li tab-size: 2;><strong>REFERÊNCIAS</strong><br>{{ referencias|safe }}</li>
+    <li><strong>INSTRUÇÃO</strong><p>a) MATERIA: {{ materia }}<br>b) ASSUNTO: {% for assunto in assuntos %}<br>&nbsp;&nbsp;&nbsp;&nbsp;{{ assunto.nome }}{% endfor %}</p></li>
+    <li><strong>LOCAL</strong>{{ local|linebreaks }}</li>
+    <li><strong>PERÍODO DO EXERCÍCIO</strong>{{ periodo|linebreaks }}</li>
+    <li><strong>INSTRUENDOS</strong>{{ instruendos|linebreaks }}</li>
+    <li><strong>EQUIPE DE INSTRUÇÃO</strong>{{ equipe_instrucao|linebreaks }}</li>
+    <li><strong>CONDIÇÕES DE EXECUÇÃO</strong>{{ condicoes_execucao|safe }}</li>
+    <li><strong>GRAU DE RISCO DA ATIVIDADE</strong>{{ grau_risco|linebreaks }}</li>
+    <li><strong>MEDIDAS PREVENTIVAS PRELIMINARES</strong>{{ medidas_preventivas|safe }}</li>
+    <li><strong>NORMAS GERAIS DE SEGURANÇA</strong>{{ normas_gerais|safe }}</li>
+    <li><strong>MEDIDAS PARTICULARES DE SEGURANÇA</strong>{{ medidas_particulares|safe }}</li>
+    <li><strong>PROCEDIMENTOS A SEREM ADOTADOS EM CASO DE ACIDENTE</strong>{{ medidas_caso_acidente|safe }}</li>
+    <li><strong>LIGAÇÕES E COMUNICAÇÕES</strong>{{ comunicacao|safe }}</li>
+    <li><strong>RECONHECIMENTOS, ENSAIOS E BRIEFING</strong>{{ rec_ensaio_briefing|safe }}</li>
+    <li><strong>OUTRAS MEDIDAS JULGADAS NECESSÁRIAS</strong>{{ medidas_outras|safe }}</li>
+  </ol>
+</div>
+<div align="center">
+  <p><br><br></p>
+  <p>{{ instrutor }}<br>INSTRUTOR</p>
+  <p><br><br></p>
+  <p style="margin:0px;">{{ opai }}<br>OPAI</p>
+</div>
+</body>
+</html>

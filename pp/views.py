@@ -81,7 +81,30 @@ def gerar_plano_session(request, objetivo_id):
 
 def gerar_plano_seguranca(request, objetivo_id):
     context = {}
-    return render(request, 'plano_session.html', context)
+    objetivo = get_object_or_404(models.Objetivo, pk=objetivo_id)
+    context["materia"] = objetivo.materia
+    context["assuntos"] = [get_object_or_404(models.Assunto, pk=x) for x in request.POST.getlist('assunto[]') ]
+    context['OM']  =  get_object_or_404(Unidade, pk=request.POST.get('OM', 1))
+    context['finalidade'] = request.POST.get('finalidade')
+    context['referencias'] = request.POST.get('referencias').replace('lower-alpha','lower-alpha;padding-left: 20px;')
+
+    context['periodo'] = request.POST.get('periodo')
+    context['local'] = request.POST.get('local')
+    context['instruendos'] = request.POST.get('instruendos')
+    context['equipe_instrucao'] = request.POST.get('equipe_instrucao')
+    context['condicoes_execucao'] = request.POST.get('condicoes_execucao')
+    context['grau_risco'] = request.POST.get('grau_risco')
+    context['medidas_preventivas'] = request.POST.get('medidas_preventivas')
+    context['normas_gerais'] = request.POST.get('normas_gerais')
+    context['medidas_particulares'] = request.POST.get('medidas_particulares')
+    context['medidas_caso_acidente'] = request.POST.get('medidas_caso_acidente').replace('lower-alpha','lower-alpha;padding-left: 20px;')
+    context['comunicacao'] = request.POST.get('comunicacao')
+    context['rec_ensaio_briefing'] = request.POST.get('rec_ensaio_briefing')
+    context['medidas_outras'] = request.POST.get('medidas_outras')
+
+    context['instrutor'] = request.POST.get('instrutor')
+    context['opai'] = request.POST.get('opai')
+    return render(request, 'plano_seguranca.html', context)
 
 from .models import FatorRisco
 def action_get_class_risco(probabilidade=0, gravidade='A', result_type=0):
