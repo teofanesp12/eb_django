@@ -26,10 +26,3 @@ PP         | Objetivo       | 22/10/2022 | FALTA
 PP         | Assunto        | 22/10/2022 | FALTA  
 PP         | SubAssunto     | 22/10/2022 | FALTA  
 PP         | Obj Parcial    | 22/10/2022 | FALTA  
-
-
-HTML | CSS
------------- | -------------
-Tags de **lista**: ul, ol, li | Propriedades de **layout**: box-sizing, display (inline, block, inline-block)
-Tag de **layout**: span | Propriedades de **animação**: transition
- | Propriedades de **alinhamento**: vertical-align
