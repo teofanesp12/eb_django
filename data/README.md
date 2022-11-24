@@ -9,6 +9,7 @@ Sugerimos que inicie na sequencia numerica dos arquivos.
 
 DADOS
 -----
+
 +------------+----------------+------------+--------+
 | Aplicativo |    Tabela      | Atualizado | Estado |
 +============+================+============+========+
