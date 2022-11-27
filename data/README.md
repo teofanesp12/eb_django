@@ -20,9 +20,9 @@ Base       | Escolaridade   | 22/10/2022 |   OK
 Base       | Religião       | 22/10/2022 | FALTA  
 NDACA      | Categoria      | 22/10/2022 |   OK   
 NDACA      | Conteúdo Atitu | 24/11/2022 | FALTA  
-PP         | Turma          | 22/10/2022 | FALTA  
+PP         | Turma          | 25/10/2022 | FALTA  
 PP         | Materia        | 22/10/2022 | FALTA  
-PP         | Objetivo       | 22/10/2022 | FALTA  
+PP         | Objetivo       | 27/11/2022 | FALTA  
 PP         | Assunto        | 27/11/2022 | FALTA  
 PP         | SubAssunto     | 27/11/2022 | FALTA  
 PP         | Obj Parcial    | 22/10/2022 | FALTA  

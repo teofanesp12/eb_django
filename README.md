@@ -3,7 +3,7 @@
 
 INSTALAÇÃO
 ----------
-DEP:
+DEPENDENCIAS:
 
     tablib, django, diff_match_patch, PyPDF2, Pillow
 
@@ -26,6 +26,12 @@ CARREGAR OS ARQUIVOS
 Sempre que alteramos alguma arquivo media:
 
     python manage.py collectstatic
+
+COMPILAR TRADUÇÃO
+-----------------
+Sempre que alteramos algum arquivo de tradução:
+
+    python manage.py compilemessages
 
 INICIAR
 -------
