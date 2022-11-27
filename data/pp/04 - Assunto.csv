@@ -13,9 +13,9 @@ id,nome,objetivo
 8,2. Boas maneiras durante as refeições,16
 9,3. Tratamento com o público,17
 11,5. Situações diversas fora do quartel,18
-10,4. Procedimento individual em relação às principais rotinas internas da OM:,18
+10,4. Procedimento individual em relação às principais rotinas internas da OM,18
 20,5. Importância da camuflagem com relação às cores e à fumaça,19
-19,4. Importâncias da camuflagem como meio para escapar à observação aérea e terrestre do inimigo.,19
+19,4. Importâncias da camuflagem como meio para escapar à observação aérea e terrestre do inimigo.,19
 18,3. Regras gerais de camuflagem,19
 13,2. Material empregado,19
 12,1. Camuflagem,19
@@ -29,3 +29,80 @@ id,nome,objetivo
 21,6. Processos de camuflagem,20
 29,14. Camuflagem de Viaturas,21
 30,15. Camuflagem de instalações,22
+33,3. Técnicas de amortecimento de quedas e rolamentos,23
+32,2. Base de combate e deslocamento,23
+31,1. Ponto vulneráveis do corpo humano e armas naturais,23
+36,3. Demonstração do emprego.,24
+35,2. Exposição do material.,24
+34,1. Apresentação do material de comunicações da OM,24
+38,5. Mensageiro,25
+37,4. Mensagens,25
+40,7. Conduta do mensageiro.,27
+39,6. Mensageiro,27
+46,6. Legislação brasileira sobre DICA.,28
+45,"5. Listagem de Atos Internacionais por assunto, encaminhada pela Divisão de Atos Internacionais do Ministério das Relações Exteriores (MRE).",28
+44,"4. Principais normas Internacionais: Convenção de Genebra (1949) e seus protocolos adicionais (1977), de Haia e de Nova Iorque; Convenção de Ottawa (1997); Estatuto de Roma (1998); capítulos VI e VII da Carta da ONU e outras normas previstas no DICA.",28
+43,3. Conhecer as bases e a evolução da legislação internacional sobre os Direitos Humanos.,28
+42,2. Finalidade e princípios do DICA.,28
+41,1. Origem e histórico do DICA.,28
+51,5. Inafastabilidade do Poder Judiciário.,29
+50,4. Símbolos distintivos e protetores.,29
+49,3. Regras de Engajamento da ONU.,29
+48,2. Regras de Engajamento.,29
+47,"1.Princípios:legalidade, proporcionalidade, progressividade, racionalidade e legítima defesa (própria/outrem).",29
+52,1. Procedimento com a Força Oponente:,30
+56,4. Pessoal das atividades religiosas.,31
+55,3. Pessoal das atividades de saúde.,31
+54,2. Estatuto do PG.,31
+53,1. Estatuto do Combatente.,31
+58,"2. Procedimentos com detidos, internados, transferidos, refugiados e deslocados.",32
+57,"1. Bases da legislação internacional relativa a detidos, internados, transferidos, refugiados e deslocados.",32
+59,1. Procedimento com a população civil:,33
+63,"4. Proporcionalidade, limitação, necessidade, comportamento na ação e evacuação, direito de ocupação e zonas de retaguarda.",34
+62,3. Protocolo II.,34
+61,2. Protocolo I.,34
+60,1. Convenções de Genebra.,34
+69,6. Os mortos.,35
+68,5. O mercenário.,35
+67,4. O espião.,35
+66,3. Os náufragos.,35
+65,2. Os crimes contra a humanidade.,35
+64,1. Tribunal Penal Internacional.,35
+73,4. Aplicação do DICA nas Operações de Paz.,36
+72,3. Alvos militares.,36
+71,2. Direitos dos refugiados e dos deslocados.,36
+70,1. Direitos da tripulação embarcada em aeronave militar.,36
+76,3. Direitos do Soldado,37
+75,2. Principais deveres do Soldado,37
+74,1. Deveres e direitos do Soldado.,37
+79,3. Conhecimento e identificação de oficiais e graduados.,38
+78,2. Organização detalhada da OM.,38
+77,1. Organização Geral do Comando enquadrante da OM.,38
+81,2. Missões dos Pel e das SU da OM.,39
+80,1. Organização e denominação histórica da OM e das SU.,39
+83,2. Operações de Paz.,40
+82,"1. Atividades realizadas pelas Forças, em particular pelo Exército Brasileiro, no Brasil e no exterior.",40
+84,1. Constituição da República Federativa do Brasil.,41
+85,1. Lei nº 12.527/2011,42
+86,1. Lei nº 6.880/1980,43
+87,"1. Lei Complementar nº 136/2010 – Altera a LC 97/1999. Normas gerais para a organização, o preparo e o emprego das Forças Armadas.",44
+89,2. Crime de desaparecimento forçado.,45
+88,"1. Crime de tortura e de outros tratamentos ou penas cruéis, desumanos ou degradantes.",45
+97,8. Regras de engajamento em operações de GLO.,46
+96,7. Lei nº 7.716/1989: Crimes resultantes de preconceito de raça ou de cor.,46
+95,6. Lei nº 2.889/1956: Crime de genocídio.,46
+94,5. Lei nº 9.455/1997: Crimes de tortura.,46
+93,"4. Lei nº 7.853/1989: Apoio às pessoas portadoras de deficiência, sua integração social.",46
+92,3. Lei nº 11.340/2006: Mecanismos para coibir a violência doméstica e familiar contra a mulher.,46
+91,2. Lei nº 8.069/1990: Estatuto da Criança e do Adolescente.,46
+90,1. Decreto nº 7.037/2009: Programa Nacional de Direitos Humanos (PNDH–3).,46
+102,5. Corte Interamericana de Direitos Humanos.,47
+101,4. Direitos da Criança.,47
+100,3. Discriminação de Gênero.,47
+99,2. Discriminação Racial.,47
+98,1. Direitos Civis e Políticos.,47
+104,2. Emprego do Fuzil na defesa contra ataques aéreos,48
+103,1. Defesa Antiaérea,48
+105,3. Defesa Anticarro,49
+107,2. Situações extraordinárias,50
+106,1. PDA,50

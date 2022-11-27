@@ -1,4 +1,83 @@
 id,nome,assunto
+137,conduta do soldado para armar-se ou equipar-se,107
+136,sinais de reunião ou alarme,107
+135,plano de chamada,107
+134,identificação das situações extraordinárias da tropa e dos procedimentos respectivos,107
+133,normas de procedimentos,106
+132,pontos sensíveis da OM,106
+131,missões e atribuições do soldado da guarda do quartel e da SU,106
+130,missão e atribuições da SU e fração,106
+129,vigilância anticarro,105
+128,medidas ativas com o emprego do fuzil,105
+127,medidas passivas de defesa anticarro,105
+126,vulnerabilidade dos carros,105
+125,noções sumárias sobre o modo de atuação dos carros,105
+124,abertura do fogo,104
+123,normas para a escolha do alvo,104
+122,posições do atirador,104
+121,como atirar,104
+120,vigilância antiaérea,103
+119,procedimentos em caso de ataque aéreo,103
+118,medidas de defesa antiaérea (ativas e passivas),103
+117,noções sumárias sobre o modo de atuação das aeronaves,103
+116,Das disposições transitórias e finais,87
+115,Das disposições complementares,87
+114,Do emprego,87
+113,Do preparo,87
+112,Do orçamento,87
+111,Da organização,87
+110,Disposições preliminares,87
+109,"Disposições Gerais, Transitórias e Finais",86
+108,Das Disposições Diversas,86
+107,Dos Direitos e das Prerrogativas dos Militares,86
+106,Das Obrigações e dos Deveres Militares,86
+105,Generalidades,86
+104,Disposições Finais e Transitórias,85
+103,Das responsabilidades,85
+102,Das restrições de acesso à informação,85
+101,Do procedimento de acesso à informação,85
+100,Do acesso a informações e da sua divulgação,85
+99,Disposições Gerais,85
+98,Dos partidos políticos,84
+97,Dos direitos políticos,84
+96,Da nacionalidade,84
+95,Dos direitos sociais,84
+94,Dos direitos e deveres individuais e coletivos,84
+93,"julgamento em foro especial, nos casos previstos em lei",76
+92,honras e sinais de respeito assegurados em leis e regulamentos,76
+91,"uso de uniformes, insígnias, emblemas e condecorações",76
+90,afastamentos temporários do serviço,76
+89,"promoção, pensão militar e reforma",76
+88,uso da designação hierárquica,76
+87,engajamento e reengajamento,76
+86,"remuneração, alimentação, vestuário, assistência médica e dentária",76
+85,obrigações para com os superiores e pares,75
+84,"disciplina, cumprimento de obrigações e ordens",75
+83,probidade e lealdade em todas as circunstâncias,75
+82,culto aos Símbolos Nacionais,75
+81,dedicação e fidelidade à Pátria e ao dever militar,75
+80,bens assinalados com sinais de proteção,59
+79,trato com a população,59
+78,Pessoal doente,52
+77,Pessoal ferido,52
+76,Pessoal que se rende,52
+75,Pessoal capturado,52
+74,"mensageiros duplos, de escala e especiais",39
+73,princípios a serem observados na transmissão de mensagens,39
+72,qualidades e seleção,39
+71,emprego,39
+70,classificação,39
+69,missão,39
+68,papel,39
+67,tipos,38
+66,modo de atuação,38
+65,deveres,38
+64,mensagens escritas e verbais,37
+63,classificação quanto à segurança e à precedência,37
+62,noções básicas,37
+61,emprego,34
+60,característica,34
+59,designação,34
 58,emprego de redes,25
 57,com meios artificiais,25
 56,com meios naturais,25
@@ -53,7 +132,7 @@ id,nome,assunto
 7,manejo,4
 6,desmontagem e montagem  de 1º escalão;,4
 5,nomenclatura,4
-4,apresentação e características;,4
+4,apresentação e características;,4
 3,principais características  e efeitos.,1
 2,calibre,1
 1,designação;,1
