@@ -20,12 +20,20 @@
 
 
 {% block style %} {% endblock style %}
+  <style type="text/css">
+    @media(max-width:960px){
+      .clearfix-xs{
+        visibility: hidden;
+        display: none;
+      }
+    }
+  </style>
   </head>
 
 <body>
 
 <header>
-<nav class="navbar navbar-expand-sm navbar-dark bg-dark" aria-label="Third navbar example">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" aria-label="Third navbar example">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Exercito Brasileiro</a>
     <a type="button" class="navbar-toggler btn btn-outline-light" href="{% url 'access:access-login-view' %}" style="margin-left: 15px;"><i class="fa-solid fa-address-card"></i></a>
@@ -52,7 +60,7 @@
           </button>
         </div>
       </form>
-    <a type="button" class="btn btn-outline-light" href="{% url 'access:access-login-view' %}" style="margin-left: 15px;"><i class="fa-solid fa-address-card"></i></a>
+    <a type="button" class="btn btn-outline-light clearfix-xs" href="{% url 'access:access-login-view' %}" style="margin-left: 15px;"><i class="fa-solid fa-address-card"></i></a>
     </div>
   </div>
 </nav>
@@ -83,8 +91,8 @@
     <div class="col-md">
       <strong>Informações</strong>
       <div>
-        <a href="https://instagram.com/teofanesp12"><i class="fa-brands fa-linux" style="color: white; min-height:25px;"></i></a>
-        <a href="https://instagram.com/teofanesp12"><i class="fa-brands fa-python" style="color: white; min-height:25px;"></i></a>
+        <a href="https://www.linuxfoundation.org/"><i class="fa-brands fa-linux" style="color: white; min-height:25px;"></i></a>
+        <a href="https://www.python.org/"><i class="fa-brands fa-python" style="color: white; min-height:25px;"></i></a>
       </div>
     </div>
     <div class="col-md">
