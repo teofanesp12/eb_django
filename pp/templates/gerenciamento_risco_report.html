@@ -14,7 +14,7 @@
 body {
   size: A4 landscape;
   width: 29.7cm;
-  min-height: 29.7cm;
+  min-height: 17cm;
   padding: 2cm;
   margin: 1cm auto;
   border: 1px #D3D3D3 solid;
@@ -27,6 +27,7 @@ body {
 @media print {
   body {
     margin: 0;
+    padding-top: 1cm;
     border: initial;
     border-radius: initial;
     width: 25cm;
@@ -62,10 +63,10 @@ table{
   </head>
 
 <body>
-<div style="text-align:center;"><img src="{% static 'img/eb_brasao.png' %}" alt="" height="50px" style="margin-left: 20px;"/><br/><strong>MINISTÉRIO DA DEFESA<br/>EXÉRCITO BRASILEIRO<br/>{{ OM.nome }}<br/>({{ OM.ref }})<br/>{{ OM.nome_historico }}</strong></div>
+<!--div style="text-align:center;"><img src="{% static 'img/eb_brasao.png' %}" alt="" height="50px" style="margin-left: 20px;"/><br/><strong>MINISTÉRIO DA DEFESA<br/>EXÉRCITO BRASILEIRO<br/>{{ OM.nome }}<br/>({{ OM.ref }})<br/>{{ OM.nome_historico }}</strong></div-->
 
-<div style="display: inline-block;width: 68%;" align="center"><!--width: 64%;-->
-  <h2>GERENCIAMENTO DE RISCO</h2>
+<div style="width: 100%;" align="center"><!--width: 64%;-->
+  <h3> MATRIZ GERENCIAMENTO DE RISCO</h3>
 </div>
 
 <div>
@@ -102,14 +103,14 @@ table{
       {% for fator in operacional %}
       <tr>
         <td>{{ fator.nome }}</td>
-        <td>{{ fator.probabilidade }}</td>
-        <td>{{ fator.gravidade }}</td>
-        <td>{{ fator.class_risco }}</td>
+        <td style="text-align: center;">{{ fator.probabilidade }}</td>
+        <td style="text-align: center;">{{ fator.gravidade }}</td>
+        <td style="text-align: center;">{{ fator.class_risco }}</td>
         {% if fator.mitigadora %}
         <td>{{ fator.mitigadora }}</td>
-        <td>{{ fator.probabilidade_residual }}</td>
-        <td>{{ fator.gravidade_residual }}</td>
-        <td>{{ fator.class_risco_residual }}</td>
+        <td style="text-align: center;">{{ fator.probabilidade_residual }}</td>
+        <td style="text-align: center;">{{ fator.gravidade_residual }}</td>
+        <td style="text-align: center;">{{ fator.class_risco_residual }}</td>
         {% else %}
         <td colspan="5">não é o caso</td>
         {% endif %}
@@ -121,14 +122,14 @@ table{
       {% for fator in humano %}
       <tr>
         <td>{{ fator.nome }}</td>
-        <td>{{ fator.probabilidade }}</td>
-        <td>{{ fator.gravidade }}</td>
-        <td>{{ fator.class_risco }}</td>
+        <td style="text-align: center;">{{ fator.probabilidade }}</td>
+        <td style="text-align: center;">{{ fator.gravidade }}</td>
+        <td style="text-align: center;">{{ fator.class_risco }}</td>
         {% if fator.mitigadora %}
         <td>{{ fator.mitigadora }}</td>
-        <td>{{ fator.probabilidade_residual }}</td>
-        <td>{{ fator.gravidade_residual }}</td>
-        <td>{{ fator.class_risco_residual }}</td>
+        <td style="text-align: center;">{{ fator.probabilidade_residual }}</td>
+        <td style="text-align: center;">{{ fator.gravidade_residual }}</td>
+        <td style="text-align: center;">{{ fator.class_risco_residual }}</td>
         {% else %}
         <td colspan="5">não é o caso</td>
         {% endif %}
@@ -140,14 +141,14 @@ table{
       {% for fator in material %}
       <tr>
         <td>{{ fator.nome }}</td>
-        <td>{{ fator.probabilidade }}</td>
-        <td>{{ fator.gravidade }}</td>
-        <td>{{ fator.class_risco }}</td>
+        <td style="text-align: center;">{{ fator.probabilidade }}</td>
+        <td style="text-align: center;">{{ fator.gravidade }}</td>
+        <td style="text-align: center;">{{ fator.class_risco }}</td>
         {% if fator.mitigadora %}
         <td>{{ fator.mitigadora }}</td>
-        <td>{{ fator.probabilidade_residual }}</td>
-        <td>{{ fator.gravidade_residual }}</td>
-        <td>{{ fator.class_risco_residual }}</td>
+        <td style="text-align: center;">{{ fator.probabilidade_residual }}</td>
+        <td style="text-align: center;">{{ fator.gravidade_residual }}</td>
+        <td style="text-align: center;">{{ fator.class_risco_residual }}</td>
         {% else %}
         <td colspan="5">não é o caso</td>
         {% endif %}
@@ -161,13 +162,13 @@ table{
       </tr>
       <tr>
         <td></td>
-        <td>4</td>
-        <td>C</td>
-        <td>Teste</td>
+        <td style="text-align: center;">{{ probabilidade_antes }}</td>
+        <td style="text-align: center;">{{ gravidade_antes }}</td>
+        <td style="text-align: center;">{{ classe_risco_antes }}</td>
         <td></td>
-        <td>4</td>
-        <td>C</td>
-        <td>Teste</td>
+        <td style="text-align: center;">{{ probabilidade_depois }}</td>
+        <td style="text-align: center;">{{ gravidade_depois }}</td>
+        <td style="text-align: center;">{{ classe_risco_depois }}</td>
       </tr>
     </tfoot>
   </table> 

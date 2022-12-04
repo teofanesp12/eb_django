@@ -162,9 +162,36 @@ def gerenciamento_risco_report(request, objetivo_id):
     context['data'] = request.POST.get('data')
     context['periodo'] = request.POST.get('periodo')
 
-    context['operacional'] = FatorRisco.objects.filter(objetivo=objetivo_id).filter(tipo="operacional")
-    context['humano'] = FatorRisco.objects.filter(objetivo=objetivo_id).filter(tipo="humano")
-    context['material'] = FatorRisco.objects.filter(objetivo=objetivo_id).filter(tipo="material")
+    fatores = FatorRisco.objects.filter(objetivo=objetivo_id)
+    context['operacional'] = fatores.filter(tipo="operacional")
+    context['humano'] = fatores.filter(tipo="humano")
+    context['material'] = fatores.filter(tipo="material")
+
+    probabilidade_antes  = []
+    probabilidade_depois = []
+    gravidade_antes      = []
+    gravidade_depois     = []
+    for fator in fatores:
+        probabilidade_antes.append(fator.probabilidade)
+        gravidade_antes.append(fator.gravidade)
+        if fator.mitigadora:
+            probabilidade_depois.append(fator.probabilidade_residual)
+            gravidade_depois.append(fator.gravidade_residual)
+        else:
+            probabilidade_depois.append(fator.probabilidade)
+            gravidade_depois.append(fator.gravidade)
+    probabilidade_antes.sort()
+    probabilidade_antes.reverse()
+    probabilidade_depois.sort()
+    probabilidade_depois.reverse()
+    gravidade_antes.sort()
+    gravidade_depois.sort()
+    context['probabilidade_antes']  = len(probabilidade_antes)>=1 and probabilidade_antes[0] or '-'
+    context['probabilidade_depois'] = len(probabilidade_depois)>=1 and probabilidade_depois[0] or '-'
+    context['gravidade_antes']      = len(gravidade_antes)>=1 and gravidade_antes[0] or '-'
+    context['gravidade_depois']     = len(gravidade_depois)>=1 and gravidade_depois[0] or '-'
+    context['classe_risco_antes']   = action_get_class_risco(context['probabilidade_antes'], context['gravidade_antes'])
+    context['classe_risco_depois']  = action_get_class_risco(context['probabilidade_depois'], context['gravidade_depois'])
     return render(request, 'gerenciamento_risco_report.html', context)
 
 def gerenciamento_risco(request, objetivo_id):
