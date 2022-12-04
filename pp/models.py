@@ -102,6 +102,55 @@ class FatorRisco(models.Model):
     def __str__(self):
         return self.nome or ""
 
+    def _class_risco_all(self, residual=False):
+        result=['Inaceitavel', 'Muito Alto', 'Alto', 'Medio', 'Baixo']
+        if residual:
+            probabilidade = self.probabilidade_residual
+            gravidade = self.gravidade_residual
+        else:
+            probabilidade = self.probabilidade
+            gravidade = self.gravidade
+        if probabilidade == 5:
+            if gravidade=='A':
+                return result[0]# 'inaceitavel'
+            elif gravidade in ['B','C']:
+                return result[1]# 'muito_alto'
+            elif gravidade=='D':
+                return result[2]# 'alto'
+            elif gravidade=='E':
+                return result[3]# 'Medio'
+        elif probabilidade == 4:
+            if gravidade in ['A','B']:
+                return result[1]
+            elif gravidade in ['C']:
+                return result[2]
+            elif gravidade in ['D','E']:
+                return result[3]
+        elif probabilidade == 3:
+            if gravidade in ['A']:
+                return result[1]
+            elif gravidade in ['B']:
+                return result[2]
+            elif gravidade in ['C']:
+                return result[3]
+            elif gravidade in ['D','E']:
+                return result[4]
+        elif probabilidade == 2:
+            if gravidade in ['A']:
+                return result[2]
+            elif gravidade in ['B','C']:
+                return result[3]
+            elif gravidade in ['D','E']:
+                return result[4]
+        elif probabilidade == 1:
+            return result[4]
+        return '-'
+
+    def class_risco(self):
+        return self._class_risco_all()
+    def class_risco_residual(self):
+        return self._class_risco_all(residual=True)
+
 
 def file_directory_path(instance, filename):
     # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>

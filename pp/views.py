@@ -10,11 +10,15 @@ def home(request):
 def turma(request, turma_id):
     turma = get_object_or_404(models.TipoTurma, pk=turma_id)
     materias = models.Materia.objects.filter(tipo_turma=turma)
+    if request.GET and request.GET.get('q', None):
+        materias = materias.filter(nome__contains=request.GET.get('q'))
     return render(request, 'TipoTurma.html', {'turma':turma, 'materias':materias})
 
 def materia(request, materia_id):
     materia = get_object_or_404(models.Materia, pk=materia_id)
     objetivos = models.Objetivo.objects.filter(materia=materia)
+    if request.GET and request.GET.get('q', None):
+        objetivos = objetivos.filter(nome__contains=request.GET.get('q'))
     return render(request, 'Materia.html', {'materia':materia, 'objetivos':objetivos})
 
 tecnicas = [
@@ -80,6 +84,8 @@ def gerar_plano_session(request, objetivo_id):
     return render(request, 'plano_session.html', context)
 
 def gerar_plano_seguranca(request, objetivo_id):
+    if not result.POST:
+        return objetivo(request, objetivo_id)
     context = {}
     objetivo = get_object_or_404(models.Objetivo, pk=objetivo_id)
     context["materia"] = objetivo.materia
@@ -147,8 +153,23 @@ def action_get_class_risco(probabilidade=0, gravidade='A', result_type=0):
     elif probabilidade == 1:
         return result[4]
     return '-'
+
+def gerenciamento_risco_report(request, objetivo_id):
+    context = {}
+    context['opai'] = request.POST.get('opai')
+    context['instrutor'] = request.POST.get('instrutor')
+    context['atividade'] = request.POST.get('atividade')
+    context['data'] = request.POST.get('data')
+    context['periodo'] = request.POST.get('periodo')
+
+    context['operacional'] = FatorRisco.objects.filter(objetivo=objetivo_id).filter(tipo="operacional")
+    context['humano'] = FatorRisco.objects.filter(objetivo=objetivo_id).filter(tipo="humano")
+    context['material'] = FatorRisco.objects.filter(objetivo=objetivo_id).filter(tipo="material")
+    return render(request, 'gerenciamento_risco_report.html', context)
+
 def gerenciamento_risco(request, objetivo_id):
     if request.POST:
+        # raise Exception(request.POST)
         if request.POST.get('_popup'):
             if request.POST.get('fator_pk'):
                 fator = FatorRisco.objects.get(pk=request.POST.get('fator_pk'))
@@ -164,8 +185,7 @@ def gerenciamento_risco(request, objetivo_id):
             fator.objetivo = get_object_or_404(models.Objetivo, pk=objetivo_id)
             fator.save()
         else:
-            # Imprimimos...
-            pass
+            return gerenciamento_risco_report(request, objetivo_id)
     context = {
         'operacional':[],
         'operacional_residual':[],
@@ -218,5 +238,3 @@ def gerenciamento_risco(request, objetivo_id):
     context['classe_risco_antes']   = action_get_class_risco(context['probabilidade_antes'], context['gravidade_antes'])
     context['classe_risco_depois']  = action_get_class_risco(context['probabilidade_depois'], context['gravidade_depois'])
     return render(request, 'gerenciamento_risco.html', context)
-def gerenciamento_risco_report(request, objetivo_id):
-    return render(request, 'gerenciamento_risco_report.html', {})

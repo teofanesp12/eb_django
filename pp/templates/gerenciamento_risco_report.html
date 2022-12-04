@@ -1,0 +1,187 @@
+{% load static %}
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>Gerenciamento de Risco</title>
+
+<style type="text/css">
+@page {
+  size: A4 landscape;
+}
+body {
+  size: A4 landscape;
+  width: 29.7cm;
+  min-height: 29.7cm;
+  padding: 2cm;
+  margin: 1cm auto;
+  border: 1px #D3D3D3 solid;
+  border-radius: 5px;
+  background: white;
+  box-shadow: 0 0 35px rgba(0, 0, 0, 0.46);
+  font: 12pt "Calibri Light";
+  font-family:Calibri Light;
+}
+@media print {
+  body {
+    margin: 0;
+    border: initial;
+    border-radius: initial;
+    width: 25cm;
+    min-height: initial;
+    box-shadow: initial;
+    background: initial;
+    page-break-after: always;
+  }
+}
+p {
+  margin-top: 0px;
+}
+h5 {
+  margin: 0px;
+  font: 12pt "Calibri Bold" ;
+  font-weight: bold;
+}
+ol > li::marker {
+  font-weight: bold;
+}
+ul {
+  padding-left: 20px;
+  list-style-type: "- ";
+}
+th, td {
+  border: 2px solid !important;
+}
+table{
+  border: 2px solid !important;
+  border-collapse: collapse;
+}
+</style>
+  </head>
+
+<body>
+<div style="text-align:center;"><img src="{% static 'img/eb_brasao.png' %}" alt="" height="50px" style="margin-left: 20px;"/><br/><strong>MINISTÉRIO DA DEFESA<br/>EXÉRCITO BRASILEIRO<br/>{{ OM.nome }}<br/>({{ OM.ref }})<br/>{{ OM.nome_historico }}</strong></div>
+
+<div style="display: inline-block;width: 68%;" align="center"><!--width: 64%;-->
+  <h2>GERENCIAMENTO DE RISCO</h2>
+</div>
+
+<div>
+  <div align="left" style="display: inline-block;width: 45%;">
+    <p><strong>ATIVIDADE MILITAR:</strong> {{ atividade }}</p>
+  </div>
+  <div align="right" style="display: inline-block;width: 45%;">
+    <p><strong>DATA:</strong> {{ data }} <strong>PERIODO:</strong> {{ periodo }}</p>
+  </div>
+</div>
+
+<div>
+  <table>
+    <thead>
+      <tr>
+        <th colspan="4"></th>
+        <th colspan="4">Resultante</th>
+      </tr>
+      <tr>
+        <th>Fatores de Risco</th>
+        <th>Probabilidade</th>
+        <th>Gravidade</th>
+        <th>Class Risco</th>
+        <th>Medidas Preventivas/Mitigadoras Quem? O que? Quando? Como?</th>
+        <th>Probabilidade</th>
+        <th>Gravidade</th>
+        <th>Class Risco</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th colspan="8">Fator Operacional</th>
+      </tr>
+      {% for fator in operacional %}
+      <tr>
+        <td>{{ fator.nome }}</td>
+        <td>{{ fator.probabilidade }}</td>
+        <td>{{ fator.gravidade }}</td>
+        <td>{{ fator.class_risco }}</td>
+        {% if fator.mitigadora %}
+        <td>{{ fator.mitigadora }}</td>
+        <td>{{ fator.probabilidade_residual }}</td>
+        <td>{{ fator.gravidade_residual }}</td>
+        <td>{{ fator.class_risco_residual }}</td>
+        {% else %}
+        <td colspan="5">não é o caso</td>
+        {% endif %}
+      </tr>
+      {% endfor %}
+      <tr>
+        <th colspan="8">Fator Humano</th>
+      </tr>
+      {% for fator in humano %}
+      <tr>
+        <td>{{ fator.nome }}</td>
+        <td>{{ fator.probabilidade }}</td>
+        <td>{{ fator.gravidade }}</td>
+        <td>{{ fator.class_risco }}</td>
+        {% if fator.mitigadora %}
+        <td>{{ fator.mitigadora }}</td>
+        <td>{{ fator.probabilidade_residual }}</td>
+        <td>{{ fator.gravidade_residual }}</td>
+        <td>{{ fator.class_risco_residual }}</td>
+        {% else %}
+        <td colspan="5">não é o caso</td>
+        {% endif %}
+      </tr>
+      {% endfor %}
+      <tr>
+        <th colspan="8">Fator Material</th>
+      </tr>
+      {% for fator in material %}
+      <tr>
+        <td>{{ fator.nome }}</td>
+        <td>{{ fator.probabilidade }}</td>
+        <td>{{ fator.gravidade }}</td>
+        <td>{{ fator.class_risco }}</td>
+        {% if fator.mitigadora %}
+        <td>{{ fator.mitigadora }}</td>
+        <td>{{ fator.probabilidade_residual }}</td>
+        <td>{{ fator.gravidade_residual }}</td>
+        <td>{{ fator.class_risco_residual }}</td>
+        {% else %}
+        <td colspan="5">não é o caso</td>
+        {% endif %}
+      </tr>
+      {% endfor %}
+    </tbody>
+    <tfoot>
+      <tr>
+        <th colspan="4">Analise de Risco Inicial</th>
+        <th colspan="4">Analise de Risco Final</th>
+      </tr>
+      <tr>
+        <td></td>
+        <td>4</td>
+        <td>C</td>
+        <td>Teste</td>
+        <td></td>
+        <td>4</td>
+        <td>C</td>
+        <td>Teste</td>
+      </tr>
+    </tfoot>
+  </table> 
+</div>
+
+<div>
+  <div align="center" style="display: inline-block;width: 45%;">
+    <p><br><br></p>
+    <p>{{ instrutor }}<br>INSTRUTOR</p>
+  </div>
+  <div align="center" style="display: inline-block;width: 45%;">
+    <p><br><br></p>
+    <p style="margin:0px;">{{ opai }}<br>OPAI</p>
+  </div>
+</div>
+</body>
+</html>
