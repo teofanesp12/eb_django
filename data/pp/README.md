@@ -6,7 +6,7 @@ REFERÊNCIA DADOS
 
 TURMA      |    MANUAL      | PUBLICADO  | ESTADO 
 ---------- | -------------- | ---------- | ------ 
-IIB        | PP-11.011      | 2019       | 50%
+IIB        | PP-11.011      | 2019       | 100%
 IIQ GLO    | PP-11.012      | 2013       | FALTA
 IIQ COMUM  | PP-11.012      | 2013       | FALTA
 IIQ INFA   | PPQ-07.002     | 2001       | FALTA

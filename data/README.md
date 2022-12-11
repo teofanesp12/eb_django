@@ -23,6 +23,6 @@ NDACA      | Conteúdo Atitu | 24/11/2022 | FALTA
 PP         | Turma          | 25/10/2022 | FALTA  
 PP         | Materia        | 22/10/2022 | FALTA  
 PP         | Objetivo       | 27/11/2022 | FALTA  
-PP         | Assunto        | 27/11/2022 | FALTA  
-PP         | SubAssunto     | 27/11/2022 | FALTA  
-PP         | Obj Parcial    | 22/10/2022 | FALTA  
+PP         | Assunto        | 11/12/2022 | FALTA  
+PP         | SubAssunto     | 11/12/2022 | FALTA  
+PP         | Obj Parcial    | 11/12/2022 | FALTA  

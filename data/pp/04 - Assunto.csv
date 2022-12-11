@@ -1,155 +1,234 @@
 id,nome,objetivo
-3,3. Tiro,1
-2,2. Dotação por fração da OM,1
 1,1. Apresentação do armamento  individual e coletivo da OM,1
+2,2. Dotação por fração da OM,1
+3,3. Tiro,1
 4,4. Fuzil,2
 5,5. Fuzil,3
 6,6. Fuzil,4
+7,1. Tratamento entre militares,15
+8,2. Boas maneiras durante as refeições,16
+9,3. Tratamento com o público,17
+10,4. Procedimento individual em relação às principais rotinas internas da OM,18
+11,5. Situações diversas fora do quartel,18
+12,1. Camuflagem,19
+13,2. Material empregado,19
 14,7. Fuzil,5
 15,8. Faca de trincheira e baioneta,6
 16,9. Espingarda calibre 12,7
 17,10. Espingarda calibre 12,8
-7,1. Tratamento entre militares,15
-8,2. Boas maneiras durante as refeições,16
-9,3. Tratamento com o público,17
-11,5. Situações diversas fora do quartel,18
-10,4. Procedimento individual em relação às principais rotinas internas da OM,18
-20,5. Importância da camuflagem com relação às cores e à fumaça,19
-19,4. Importâncias da camuflagem como meio para escapar à observação aérea e terrestre do inimigo.,19
 18,3. Regras gerais de camuflagem,19
-13,2. Material empregado,19
-12,1. Camuflagem,19
-28,"13. Aproveitamento de cobertas e abrigos naturais para disfarçar as instalações, o material e as viaturas.",20
-27,12. Cuidados a observar para evitar a modificação do aspecto natural do terreno.,20
-26,11. Camuflagem de viaturas e do material.,20
-25,10. Dissimulação e mascaramento dos órgãos de uma Subunidade (SU),20
-24,9. Processos de execução da camuflagem nos estacionamentos.,20
-23,8. Dissimulação e mascaramento de,20
-22,"7. Dissimulação e mascaramento das posições do armamento orgânico da OM (obuseiro, morteiro,  arma AC e /ou metralhadora)",20
+19,4. Importâncias da camuflagem como meio para escapar à observação aérea e terrestre do inimigo.,19
+20,5. Importância da camuflagem com relação às cores e à fumaça,19
 21,6. Processos de camuflagem,20
+22,"7. Dissimulação e mascaramento das posições do armamento orgânico da OM (obuseiro, morteiro,  arma AC e /ou metralhadora)",20
+23,8. Dissimulação e mascaramento de,20
+24,9. Processos de execução da camuflagem nos estacionamentos.,20
+25,10. Dissimulação e mascaramento dos órgãos de uma Subunidade (SU),20
+26,11. Camuflagem de viaturas e do material.,20
+27,12. Cuidados a observar para evitar a modificação do aspecto natural do terreno.,20
+28,"13. Aproveitamento de cobertas e abrigos naturais para disfarçar as instalações, o material e as viaturas.",20
 29,14. Camuflagem de Viaturas,21
 30,15. Camuflagem de instalações,22
-33,3. Técnicas de amortecimento de quedas e rolamentos,23
-32,2. Base de combate e deslocamento,23
 31,1. Ponto vulneráveis do corpo humano e armas naturais,23
-36,3. Demonstração do emprego.,24
-35,2. Exposição do material.,24
+32,2. Base de combate e deslocamento,23
+33,3. Técnicas de amortecimento de quedas e rolamentos,23
 34,1. Apresentação do material de comunicações da OM,24
-38,5. Mensageiro,25
+35,2. Exposição do material.,24
+36,3. Demonstração do emprego.,24
 37,4. Mensagens,25
-40,7. Conduta do mensageiro.,27
+38,5. Mensageiro,25
 39,6. Mensageiro,27
-46,6. Legislação brasileira sobre DICA.,28
-45,"5. Listagem de Atos Internacionais por assunto, encaminhada pela Divisão de Atos Internacionais do Ministério das Relações Exteriores (MRE).",28
-44,"4. Principais normas Internacionais: Convenção de Genebra (1949) e seus protocolos adicionais (1977), de Haia e de Nova Iorque; Convenção de Ottawa (1997); Estatuto de Roma (1998); capítulos VI e VII da Carta da ONU e outras normas previstas no DICA.",28
-43,3. Conhecer as bases e a evolução da legislação internacional sobre os Direitos Humanos.,28
-42,2. Finalidade e princípios do DICA.,28
+40,7. Conduta do mensageiro.,27
 41,1. Origem e histórico do DICA.,28
-51,5. Inafastabilidade do Poder Judiciário.,29
-50,4. Símbolos distintivos e protetores.,29
-49,3. Regras de Engajamento da ONU.,29
-48,2. Regras de Engajamento.,29
+42,2. Finalidade e princípios do DICA.,28
+43,3. Conhecer as bases e a evolução da legislação internacional sobre os Direitos Humanos.,28
+44,"4. Principais normas Internacionais: Convenção de Genebra (1949) e seus protocolos adicionais (1977), de Haia e de Nova Iorque; Convenção de Ottawa (1997); Estatuto de Roma (1998); capítulos VI e VII da Carta da ONU e outras normas previstas no DICA.",28
+45,"5. Listagem de Atos Internacionais por assunto, encaminhada pela Divisão de Atos Internacionais do Ministério das Relações Exteriores (MRE).",28
+46,6. Legislação brasileira sobre DICA.,28
 47,"1.Princípios:legalidade, proporcionalidade, progressividade, racionalidade e legítima defesa (própria/outrem).",29
+48,2. Regras de Engajamento.,29
+49,3. Regras de Engajamento da ONU.,29
+50,4. Símbolos distintivos e protetores.,29
+51,5. Inafastabilidade do Poder Judiciário.,29
 52,1. Procedimento com a Força Oponente:,30
-56,4. Pessoal das atividades religiosas.,31
-55,3. Pessoal das atividades de saúde.,31
-54,2. Estatuto do PG.,31
 53,1. Estatuto do Combatente.,31
-58,"2. Procedimentos com detidos, internados, transferidos, refugiados e deslocados.",32
+54,2. Estatuto do PG.,31
+55,3. Pessoal das atividades de saúde.,31
+56,4. Pessoal das atividades religiosas.,31
 57,"1. Bases da legislação internacional relativa a detidos, internados, transferidos, refugiados e deslocados.",32
+58,"2. Procedimentos com detidos, internados, transferidos, refugiados e deslocados.",32
 59,1. Procedimento com a população civil:,33
-63,"4. Proporcionalidade, limitação, necessidade, comportamento na ação e evacuação, direito de ocupação e zonas de retaguarda.",34
-62,3. Protocolo II.,34
-61,2. Protocolo I.,34
 60,1. Convenções de Genebra.,34
-69,6. Os mortos.,35
-68,5. O mercenário.,35
-67,4. O espião.,35
-66,3. Os náufragos.,35
-65,2. Os crimes contra a humanidade.,35
+61,2. Protocolo I.,34
+62,3. Protocolo II.,34
+63,"4. Proporcionalidade, limitação, necessidade, comportamento na ação e evacuação, direito de ocupação e zonas de retaguarda.",34
 64,1. Tribunal Penal Internacional.,35
-73,4. Aplicação do DICA nas Operações de Paz.,36
-72,3. Alvos militares.,36
-71,2. Direitos dos refugiados e dos deslocados.,36
+65,2. Os crimes contra a humanidade.,35
+66,3. Os náufragos.,35
+67,4. O espião.,35
+68,5. O mercenário.,35
+69,6. Os mortos.,35
 70,1. Direitos da tripulação embarcada em aeronave militar.,36
-76,3. Direitos do Soldado,37
-75,2. Principais deveres do Soldado,37
+71,2. Direitos dos refugiados e dos deslocados.,36
+72,3. Alvos militares.,36
+73,4. Aplicação do DICA nas Operações de Paz.,36
 74,1. Deveres e direitos do Soldado.,37
-79,3. Conhecimento e identificação de oficiais e graduados.,38
-78,2. Organização detalhada da OM.,38
+75,2. Principais deveres do Soldado,37
+76,3. Direitos do Soldado,37
 77,1. Organização Geral do Comando enquadrante da OM.,38
-81,2. Missões dos Pel e das SU da OM.,39
+78,2. Organização detalhada da OM.,38
+79,3. Conhecimento e identificação de oficiais e graduados.,38
 80,1. Organização e denominação histórica da OM e das SU.,39
-83,2. Operações de Paz.,40
+81,2. Missões dos Pel e das SU da OM.,39
 82,"1. Atividades realizadas pelas Forças, em particular pelo Exército Brasileiro, no Brasil e no exterior.",40
+83,2. Operações de Paz.,40
 84,1. Constituição da República Federativa do Brasil.,41
 85,1. Lei nº 12.527/2011,42
 86,1. Lei nº 6.880/1980,43
 87,"1. Lei Complementar nº 136/2010 – Altera a LC 97/1999. Normas gerais para a organização, o preparo e o emprego das Forças Armadas.",44
-89,2. Crime de desaparecimento forçado.,45
 88,"1. Crime de tortura e de outros tratamentos ou penas cruéis, desumanos ou degradantes.",45
-97,8. Regras de engajamento em operações de GLO.,46
-96,7. Lei nº 7.716/1989: Crimes resultantes de preconceito de raça ou de cor.,46
-95,6. Lei nº 2.889/1956: Crime de genocídio.,46
-94,5. Lei nº 9.455/1997: Crimes de tortura.,46
-93,"4. Lei nº 7.853/1989: Apoio às pessoas portadoras de deficiência, sua integração social.",46
-92,3. Lei nº 11.340/2006: Mecanismos para coibir a violência doméstica e familiar contra a mulher.,46
-91,2. Lei nº 8.069/1990: Estatuto da Criança e do Adolescente.,46
+89,2. Crime de desaparecimento forçado.,45
 90,1. Decreto nº 7.037/2009: Programa Nacional de Direitos Humanos (PNDH–3).,46
-102,5. Corte Interamericana de Direitos Humanos.,47
-101,4. Direitos da Criança.,47
-100,3. Discriminação de Gênero.,47
-99,2. Discriminação Racial.,47
+91,2. Lei nº 8.069/1990: Estatuto da Criança e do Adolescente.,46
+92,3. Lei nº 11.340/2006: Mecanismos para coibir a violência doméstica e familiar contra a mulher.,46
+93,"4. Lei nº 7.853/1989: Apoio às pessoas portadoras de deficiência, sua integração social.",46
+94,5. Lei nº 9.455/1997: Crimes de tortura.,46
+95,6. Lei nº 2.889/1956: Crime de genocídio.,46
+96,7. Lei nº 7.716/1989: Crimes resultantes de preconceito de raça ou de cor.,46
+97,8. Regras de engajamento em operações de GLO.,46
 98,1. Direitos Civis e Políticos.,47
-104,2. Emprego do Fuzil na defesa contra ataques aéreos,48
+99,2. Discriminação Racial.,47
+100,3. Discriminação de Gênero.,47
+101,4. Direitos da Criança.,47
+102,5. Corte Interamericana de Direitos Humanos.,47
 103,1. Defesa Antiaérea,48
+104,2. Emprego do Fuzil na defesa contra ataques aéreos,48
 105,3. Defesa Anticarro,49
-107,2. Situações extraordinárias,50
 106,1. PDA,50
-109,2. Símbolos Nacionais,51
+107,2. Situações extraordinárias,50
 108,"1. Pátria, Instituições e tradições nacionais",51
+109,2. Símbolos Nacionais,51
 110,3. Patrono do Exército e da Arma/Quadro/Serviço,52
 111,4. O Exército e a Nação Brasileira.,53
-115,"8. Evolução econômica do País, com ênfase para a respectiva região.",54
-114,7. Ocupação do território brasileiro.,54
-113,6. Os tipos de instituições nacionais,54
 112,5. Formação da nacionalidade brasileira.,54
+113,6. Os tipos de instituições nacionais,54
+114,7. Ocupação do território brasileiro.,54
+115,"8. Evolução econômica do País, com ênfase para a respectiva região.",54
 116,9. Título I e Cap II do Título V da Constituição Federal.,55
 117,10. Canto de Canção.,56
-127,10. Revista de Mostra,57
-126,9. Importância da arrumação do armário na boa apresentação do fardamento.,57
-125,8. Importância da boa apresentação para o militar e para o Exército.,57
-124,"7. Adaptação aos calçados, em especial ao coturno.",57
-123,6. Uso correto dos uniformes.,57
-122,5. Limpeza.,57
-121,4. Cuidados para melhor conservação.,57
-120,3. Tempo de duração previsto para cada peça.,57
-119,2. Dotação.,57
 118,1. Peças componentes dos diversos uniformes do Soldado.,57
-131,4. Abrigo individual e para dois homens.,58
-130,3. Crateras e acidentes naturais: aproveitamento para abrigos sumários.,58
-129,2. Fortificações de campanha,58
+119,2. Dotação.,57
+120,3. Tempo de duração previsto para cada peça.,57
+121,4. Cuidados para melhor conservação.,57
+122,5. Limpeza.,57
+123,6. Uso correto dos uniformes.,57
+124,"7. Adaptação aos calçados, em especial ao coturno.",57
+125,8. Importância da boa apresentação para o militar e para o Exército.,57
+126,9. Importância da arrumação do armário na boa apresentação do fardamento.,57
+127,10. Revista de Mostra,57
 128,1. Ferramenta portátil para o combate básico,58
-137,4. Cumprimento de ordens.,59
-136,3. Apresentação individual.,59
-135,2.e. Procedimento em situações diversas,59
-134,2.d. procedimento normal,59
-133,2. Continência individual,59
+129,2. Fortificações de campanha,58
+130,3. Crateras e acidentes naturais: aproveitamento para abrigos sumários.,58
+131,4. Abrigo individual e para dois homens.,58
 132,1. Sinais de respeito,59
+133,2. Continência individual,59
+134,2.d. procedimento normal,59
+135,2.e. Procedimento em situações diversas,59
+136,3. Apresentação individual.,59
+137,4. Cumprimento de ordens.,59
 138,5. Postos e graduações das Forças Armadas.,60
-144,6. Utilização correta das instalações coletivas,61
-143,5. Limpeza e higiene das áreas e das instalações coletivas.,61
-142,4. Doenças transmissíveis mais comuns,61
-141,3. As drogas e sua influência para a saúde.,61
-140,2. Higiene sexual,61
 139,1. Asseio corporal e higiene oral,61
-150,12. Transporte de doentes e feridos.,62
-149,11. Ferimentos e hemorragias.,62
-148,10. Acidentes produzidos pela exposição continuada ao calor e ao frio intensos (a ser ministrado em função das condições climáticas vividas pela OM).,62
-147,9. Fraturas,62
-146,8. Curativo individual,62
+140,2. Higiene sexual,61
+141,3. As drogas e sua influência para a saúde.,61
+142,4. Doenças transmissíveis mais comuns,61
+143,5. Limpeza e higiene das áreas e das instalações coletivas.,61
+144,6. Utilização correta das instalações coletivas,61
 145,7. As três medidas salva-vidas,62
+146,8. Curativo individual,62
+147,9. Fraturas,62
+148,10. Acidentes produzidos pela exposição continuada ao calor e ao frio intensos (a ser ministrado em função das condições climáticas vividas pela OM).,62
+149,11. Ferimentos e hemorragias.,62
+150,12. Transporte de doentes e feridos.,62
 151,13. Acidentes mais comuns causados por animais peçonhentos,63
-153,"15. Cuidados no manuseio e consumo de alimentos, particularmente enlatados e empacotados.",64
 152,14. Envenenamento causado por ingestão acidental de substância tóxica ou alimento deteriorado - casos mais comuns.,64
+153,"15. Cuidados no manuseio e consumo de alimentos, particularmente enlatados e empacotados.",64
 154,16. Afogamento,65
+155,17. Materiais de primeiros socorros,66
+156,18. Queimaduras.,67
+157,19.a Efeitos do frio.,68
+158,19.b Efeitos do calor.,69
+159,20. Fraturas,70
+160,21. Imobilizações,70
+161,22. Hemorragias,71
+162,23. Efeitos da altitude,72
+163,24. Higiene militar,73
+164,24.a higiene individual,73
+165,24.b Higiene nas marchas e estacionamentos,73
+166,24.c Instalações sanitárias,73
+167,25. Transporte de Feridos,74
+168,1. Importância da Inteligência e Contrainteligência em campanha e em tempo de paz.,75
+169,2. Noções sobre a busca do conhecimento.,75
+170,3. Informações,75
+171,1. Situações Extraordinárias da Tropa,76
+172,2. SAO.,76
+173,3. SOM.,76
+174,4. Aprestamento Individual,77
+175,5. Normas e procedimentos da GU e/ou U.,77
+176,6. Aprestamento da SU,77
+177,1. Recompensas.,78
+178,2. Conceituação.,78
+179,3. Tipos,78
+180,4. Transgressões disciplinares,79
+181,5. Penas disciplinares,79
+182,6. Comportamento,79
+183,7. Crimes militares,80
+184,8. PE,81
+185,1. Equipamento de campanha individual,82
+186,2. Cuidados com o meio ambiente.,82
+187,3. Generalidades das marchas a pé,82
+188,"4. Cuidados com os pés antes, durante e após a marcha.",82
+189,5. particularidades das marchas no seu ambiente operacional.,82
+190,4. Estacionamento,85
+191,5. Acampamento,86
+192,1. Ordem Unida sem arma,87
+193,2. Ordem Unida com arma,88
+194,1. Utilização do terreno,89
+195,2. Avaliação de distâncias.,90
+196,3. Descoberta e designação de alvos e objetivos.,91
+197,1. Orientação em campanha,92
+198,1.d Orientação noturna.,93
+199,1.e Orientação diurna: comparação carta-terreno.,94
+200,1.f Orientação noturna: comparação carta-terreno.,95
+201,2. Observação,96
+202,3. Observação à noite,97
+203,4. Azimutes e Lançamento,98
+204,1. Identificar as principais causas de acidentes,99
+205,2. Preservar local de acidente ou ilícito,100
+206,1. Incêndio,101
+207,2. Extinção de incêndios,101
+208,3. Turma de Combate a Incêndio (TCI).,101
+209,4. Exemplos de casos reais de incêndios em diferentes ambientes e com diferentes materiais.,101
+210,5. Medidas a serem tomadas para prevenir incêndios.,101
+211,6. Plano de Prevenção e Combate a Incêndio (PPCI).,101
+212,1. Serviço de guarda da subunidade,102
+213,2. Serviço de guarda do quartel,103
+214,1. Cordas e Nós,104
+215,2. Transposição de obstáculos horizontais e verticais com e sem auxílio de cordas,104
+216,3. Transposição de curso d’água,105
+217,5. Identificar as técnica de trato com animais peçonhentos,106
+218,5. Princípios de sobrevivência: (ESAON),107
+219,6. Obter alimentos,108
+220,7. construir armadilhas,109
+221,8. Construção de abrigos.,110
+222,9. Obtenção de água e fogo,111
+223,10.Técnicas de sobrevivência.,112
+224,11.Técnicas de silenciamento,113
+225,12. Tiro de Ação Reflexa Diurno.,114
+226,13. Tiro de Ação Reflexa Noturno.,115
+227,14. Tiro Embarcado.,116
+228,1. A Sessão de TFM,117
+229,2. O Teste de Avaliação Física.,117
+230,3. Exame médico - odontológico.,117
+231,4. Regras das modalidades.,117
+232,1.Utilização de cobertas e abrigos,118
+233,2. Progressão à noite,119
