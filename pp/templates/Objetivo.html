@@ -116,7 +116,7 @@
             <div class="row">
               <div class="col-md-6">
                 <label for="inputFase" class="form-label">Fase</label>
-                <input type="text" class="form-control" id="inputFase" name="fase" placeholder="Instrução Individual">
+                <input type="text" class="form-control" id="inputFase" name="fase" placeholder="Instrução Individual" value="{{ objetivo.materia.tipo_turma.nome }}">
               </div>
               <div class="col-md-6">
                 <label for="inputTurma" class="form-label">Turma</label>
@@ -238,7 +238,12 @@
               </div>
               <div class="col-md-6">
                 <label for="inputobjetivos" class="form-label">a. OBJETIVOS: </label>
-                <textarea class="form-control" id="inputobjetivos" name="objetivos"></textarea>
+                <textarea class="form-control" id="inputobjetivos" name="objetivos">
+1. Principal:
+- {{ objetivo.nome }}
+2. Intermediarios:
+{{ objetivo.intermediario }}
+                </textarea>
               </div>
               <div class="col-md-6">
                 <label for="inputincentivos" class="form-label">d. INCENTIVOS: </label>
@@ -274,7 +279,7 @@
               </div>
               <div class="col-md-12">
                 <label for="inputdesenvolvimento" class="form-label">DESENVOLVIMENTO: <span class="text-muted">adicione {nova_pagina}</span> </label>
-                <textarea class="form-control" id="inputdesenvolvimento" name="desenvolvimento"></textarea>
+                <textarea class="form-control" id="inputdesenvolvimento" name="desenvolvimento">{{ objetivo.condicao|linebreaks }}</textarea>
               </div>
             </div>
           </div>

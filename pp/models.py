@@ -10,7 +10,7 @@ class TipoTurma(models.Model):
     capa = models.ImageField(upload_to = 'turma/', null=True, blank=True)
 
     def __str__(self):
-        return self.nome or ""
+        return "%s - %s"%(self.nome or "", self.codigo or "")
 
     def get_absolute_url(self):
         """Returns the URL to access a particular instance of MyModelName."""

@@ -12,6 +12,7 @@ class ObjetivoAdminInline(admin.StackedInline):
     extra = 0
 class MateriaAdmin(ImportExportModelAdmin):
     inlines = (ObjetivoAdminInline, )
+    list_filter = ('tipo_turma', )
     # autocomplete_fields = ['tipo_turma']
 
 class AssuntoAdminInline(admin.StackedInline):

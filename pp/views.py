@@ -12,7 +12,13 @@ def turma(request, turma_id):
     materias = models.Materia.objects.filter(tipo_turma=turma)
     if request.GET and request.GET.get('q', None):
         materias = materias.filter(nome__contains=request.GET.get('q'))
-    return render(request, 'TipoTurma.html', {'turma':turma, 'materias':materias})
+    tempo_noturno = 0
+    tempo_diurno  = 0
+    for materia in materias:
+        tempo_diurno += materia.tempo_diurno or 0
+        tempo_noturno += materia.tempo_noturno or 0
+    context = {'turma':turma, 'materias':materias, 'tempo_diurno':tempo_diurno,'tempo_noturno':tempo_noturno }
+    return render(request, 'TipoTurma.html', context)
 
 def materia(request, materia_id):
     materia = get_object_or_404(models.Materia, pk=materia_id)
