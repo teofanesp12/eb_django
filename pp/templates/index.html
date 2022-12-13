@@ -8,13 +8,13 @@
   <div class="col-sm-4">
 
 <div class="card" style="margin: 10px;">
-  <div class="card-header">
+  <div class="card-header" style="min-height: 70px;">
     <h5 class="card-title">{{ turma.nome }} - {{ turma.codigo }}</h5>
   </div>
   {% if turma.capa %}
   <img src="{{ turma.capa.url }}" class="card-img-top" alt="...">
   {% else %}
-  <img src="..." class="card-img-top" alt="...">
+  <!--img src="..." class="card-img-top" alt="..."-->
   {% endif %}
   <div class="card-body">
     <p class="card-text">{{ turma.descricao }}</p>

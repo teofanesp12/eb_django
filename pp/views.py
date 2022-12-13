@@ -90,7 +90,7 @@ def gerar_plano_session(request, objetivo_id):
     return render(request, 'plano_session.html', context)
 
 def gerar_plano_seguranca(request, objetivo_id):
-    if not result.POST:
+    if not request.POST:
         return objetivo(request, objetivo_id)
     context = {}
     objetivo = get_object_or_404(models.Objetivo, pk=objetivo_id)
